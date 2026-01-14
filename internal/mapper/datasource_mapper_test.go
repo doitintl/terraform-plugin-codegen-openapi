@@ -10,10 +10,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/config"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/explorer"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/util"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/pb33f/libopenapi/datamodel/high/base"

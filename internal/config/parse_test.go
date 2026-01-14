@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/config"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
 )
 
 func TestParseConfig_Valid(t *testing.T) {

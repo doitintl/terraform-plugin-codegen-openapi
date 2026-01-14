@@ -13,10 +13,10 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/config"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/explorer"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/util"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 )
 
 func TestProviderMapper_basic(t *testing.T) {
