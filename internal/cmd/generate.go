@@ -6,7 +6,6 @@ package cmd
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -20,7 +19,6 @@ import (
 
 	"github.com/hashicorp/cli"
 	"github.com/pb33f/libopenapi"
-	"github.com/pb33f/libopenapi/index"
 )
 
 type GenerateCommand struct {
@@ -130,20 +128,14 @@ func (cmd *GenerateCommand) runInternal(logger *slog.Logger) error {
 	// 3. Build out the OpenAPI model, this will recursively load all local + remote references into one cohesive model
 	model, errs := doc.BuildV3Model()
 
-	// 4. Log circular references as warnings and fail on any other model building errors
-	var errResult error
-	for _, err := range errs {
-		if rslvErr, ok := err.(*index.ResolvingError); ok {
-			logger.Warn(
-				"circular reference found in OpenAPI spec",
-				"circular_ref", rslvErr.CircularReference.GenerateJourneyPath())
-			continue
-		}
-
-		errResult = errors.Join(errResult, err)
+	// 4. Log circular references as warnings; fail only on fatal errors.
+	// libopenapi guarantees: nil model = fatal error, non-nil model with non-nil err = circular refs only.
+	// Circular references are non-fatal and the generated model is still usable.
+	if model == nil && errs != nil {
+		return fmt.Errorf("error building OpenAPI 3.x model: %w", errs)
 	}
-	if errResult != nil {
-		return fmt.Errorf("error building OpenAPI 3.x model: %w", errResult)
+	if errs != nil {
+		logger.Warn("circular reference(s) found in OpenAPI spec, proceeding", "err", errs)
 	}
 
 	// 5. Generate provider code spec w/ config

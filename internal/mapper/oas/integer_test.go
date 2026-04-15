@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
-	"gopkg.in/yaml.v3"
+	yaml "go.yaml.in/yaml/v4"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"

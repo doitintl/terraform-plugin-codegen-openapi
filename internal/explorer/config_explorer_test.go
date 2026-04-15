@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	"gopkg.in/yaml.v3"
+	yaml "go.yaml.in/yaml/v4"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
@@ -637,13 +637,9 @@ components:
 		return high.Document{}, fmt.Errorf("unexpected error parsing test OAS: %w", err)
 	}
 
-	testOASModel, errs := doc.BuildV3Model()
-	if len(errs) > 0 {
-		var errResult error
-		for _, err := range errs {
-			errResult = errors.Join(errResult, err)
-		}
-		return high.Document{}, fmt.Errorf("unexpected error building test OAS: %w", errResult)
+	testOASModel, err := doc.BuildV3Model()
+	if testOASModel == nil && err != nil {
+		return high.Document{}, fmt.Errorf("unexpected error building test OAS: %w", err)
 	}
 
 	return testOASModel.Model, nil
