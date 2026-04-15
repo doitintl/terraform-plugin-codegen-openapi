@@ -171,9 +171,14 @@ func buildSchemaProxy(proxy *base.SchemaProxy) (*base.Schema, *SchemaError) {
 			return nil, err
 		}
 
-		// Override the description w/ the parent if populated
+		// Override the description w/ the parent if populated.
+		// Shallow-copy the schema first to avoid mutating a shared *base.Schema
+		// instance — libopenapi v0.34+ reuses the same object for all references
+		// to the same $ref target.
 		if s.Description != "" {
-			allOfSchema.Description = s.Description
+			allOfSchemaCopy := *allOfSchema
+			allOfSchemaCopy.Description = s.Description
+			return &allOfSchemaCopy, nil
 		}
 
 		return allOfSchema, nil

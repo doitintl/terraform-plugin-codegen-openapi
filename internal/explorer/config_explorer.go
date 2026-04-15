@@ -175,7 +175,7 @@ func extractCommonParameters(paths *high.Paths, path string) ([]*high.Parameter,
 
 func extractSchemaProxy(document high.Document, componentRef string) (*highbase.SchemaProxy, error) {
 	// find the reference using the root document.Index
-	indexRef := document.Index.FindComponentInRoot(componentRef)
+	indexRef := document.Index.FindComponentInRoot(context.Background(), componentRef)
 	if indexRef == nil {
 		return nil, fmt.Errorf("unable to find reference: %s", componentRef)
 	}
