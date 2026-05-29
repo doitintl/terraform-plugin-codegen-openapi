@@ -165,7 +165,7 @@ func convertPathToResourceName(urlPath string) (string, bool) {
 	nameParts := []string{}
 	pathParts := strings.FieldsFunc(restOfPath, func(r rune) bool { return r == '/' })
 
-	for i := 0; i < len(pathParts); i++ {
+	for i := range pathParts {
 		part := pathParts[i]
 		if pathParameterRegex.Match([]byte(part)) {
 			continue
