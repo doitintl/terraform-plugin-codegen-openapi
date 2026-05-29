@@ -5,6 +5,7 @@ package oas
 
 import (
 	"context"
+	"slices"
 	"strings"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
@@ -134,20 +135,16 @@ func (s *OASSchema) GetComputability(name string) schema.ComputedOptionalRequire
 		return s.GlobalSchemaOpts.OverrideComputability
 	}
 
-	for _, prop := range s.Schema.Required {
-		if name == prop {
-			return schema.Required
-		}
+	if slices.Contains(s.Schema.Required, name) {
+		return schema.Required
 	}
 
 	return schema.ComputedOptional
 }
 
 func (s *OASSchema) GetOptionalOrRequired(name string) schema.OptionalRequired {
-	for _, prop := range s.Schema.Required {
-		if name == prop {
-			return schema.Required
-		}
+	if slices.Contains(s.Schema.Required, name) {
+		return schema.Required
 	}
 
 	return schema.Optional
@@ -155,12 +152,7 @@ func (s *OASSchema) GetOptionalOrRequired(name string) schema.OptionalRequired {
 
 // IsPropertyIgnored checks if a property should be ignored
 func (s *OASSchema) IsPropertyIgnored(name string) bool {
-	for _, ignore := range s.SchemaOpts.Ignores {
-		if name == ignore {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(s.SchemaOpts.Ignores, name)
 }
 
 // GetIgnoresForNested is a helper function that will return all nested ignores for a property. If no ignores
