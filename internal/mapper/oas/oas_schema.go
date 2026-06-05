@@ -57,12 +57,28 @@ func (s *OASSchema) IsMap() bool {
 	return s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsA()
 }
 
-// IsFreeformObject returns true when the schema is type: object with
-// additionalProperties set to the boolean true (not a schema).
-// This represents a free-form JSON object with unknown value types,
-// which maps to a jsontypes.Normalized string attribute in Terraform.
+// IsFreeformObject returns true when the schema represents a free-form JSON
+// object that should be mapped to jsontypes.Normalized. Two patterns are detected:
+//
+//  1. additionalProperties set to the boolean true (not a schema reference)
+//  2. type: object with zero defined properties (and additionalProperties not
+//     explicitly set to false)
 func (s *OASSchema) IsFreeformObject() bool {
-	return s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsB()
+	// Pattern 1: additionalProperties: true (boolean, must be true not false)
+	if s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsB() && s.Schema.AdditionalProperties.B {
+		return true
+	}
+
+	// Pattern 2: type: object with no properties defined
+	// (only when additionalProperties is not explicitly set to false)
+	if (s.Schema.Properties == nil || s.Schema.Properties.Len() == 0) && s.Type == "object" {
+		if s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsB() && !s.Schema.AdditionalProperties.B {
+			return false
+		}
+		return true
+	}
+
+	return false
 }
 
 // SchemaErrorFromProperty is a helper function for creating an SchemaError struct for a property.

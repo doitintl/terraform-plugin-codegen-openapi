@@ -30,7 +30,12 @@ func freeformDescription(original *string) *string {
 	if original == nil || *original == "" {
 		return &suffix
 	}
-	desc := *original + " " + suffix
+	sep := " "
+	last := (*original)[len(*original)-1]
+	if last != '.' && last != '!' && last != '?' {
+		sep = ". "
+	}
+	desc := *original + sep + suffix
 	return &desc
 }
 

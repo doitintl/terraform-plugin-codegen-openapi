@@ -113,9 +113,16 @@
 												},
 												{
 													"name": "fields_v1",
-													"single_nested": {
+													"string": {
 														"computed_optional_required": "computed_optional",
-														"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type."
+														"custom_type": {
+															"import": {
+																"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+															},
+															"type": "jsontypes.NormalizedType{}",
+															"value_type": "jsontypes.Normalized"
+														},
+														"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type. Value is JSON-encoded."
 													}
 												},
 												{
@@ -491,9 +498,16 @@
 																		},
 																		{
 																			"name": "fields_v1",
-																			"single_nested": {
+																			"string": {
 																				"computed_optional_required": "computed_optional",
-																				"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type."
+																				"custom_type": {
+																					"import": {
+																						"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+																					},
+																					"type": "jsontypes.NormalizedType{}",
+																					"value_type": "jsontypes.Normalized"
+																				},
+																				"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type. Value is JSON-encoded."
 																			}
 																		},
 																		{
@@ -7555,9 +7569,16 @@
 																															},
 																															{
 																																"name": "fields_v1",
-																																"single_nested": {
+																																"string": {
 																																	"computed_optional_required": "computed_optional",
-																																	"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type."
+																																	"custom_type": {
+																																		"import": {
+																																			"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+																																		},
+																																		"type": "jsontypes.NormalizedType{}",
+																																		"value_type": "jsontypes.Normalized"
+																																	},
+																																	"description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type. Value is JSON-encoded."
 																																}
 																															},
 																															{
