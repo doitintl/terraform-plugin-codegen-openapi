@@ -26,6 +26,9 @@ func (s *OASSchema) BuildElementType() (schema.ElementType, *SchemaError) {
 		if s.IsMap() {
 			return s.BuildMapElementType()
 		}
+		if s.IsFreeformObject() {
+			return s.BuildFreeformElementType()
+		}
 		return s.BuildObjectElementType()
 
 	default:

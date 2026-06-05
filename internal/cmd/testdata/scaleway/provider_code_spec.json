@@ -307,127 +307,16 @@
 											},
 											{
 												"name": "extra_volumes",
-												"single_nested": {
+												"string": {
 													"computed_optional_required": "computed",
-													"attributes": [
-														{
-															"name": "extra_volume_key",
-															"single_nested": {
-																"computed_optional_required": "computed",
-																"attributes": [
-																	{
-																		"name": "creation_date",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume creation date. (RFC 3339 format)"
-																		}
-																	},
-																	{
-																		"name": "export_uri",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"deprecation_message": "This attribute is deprecated.",
-																			"description": "Show the volume NBD export URI."
-																		}
-																	},
-																	{
-																		"name": "id",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume unique ID."
-																		}
-																	},
-																	{
-																		"name": "modification_date",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume modification date. (RFC 3339 format)"
-																		}
-																	},
-																	{
-																		"name": "name",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume name."
-																		}
-																	},
-																	{
-																		"name": "organization",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume organization ID."
-																		}
-																	},
-																	{
-																		"name": "project",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume project ID."
-																		}
-																	},
-																	{
-																		"name": "server",
-																		"single_nested": {
-																			"computed_optional_required": "computed",
-																			"attributes": [
-																				{
-																					"name": "id",
-																					"string": {
-																						"computed_optional_required": "computed"
-																					}
-																				},
-																				{
-																					"name": "name",
-																					"string": {
-																						"computed_optional_required": "computed"
-																					}
-																				}
-																			],
-																			"description": "The server attached to the volume."
-																		}
-																	},
-																	{
-																		"name": "size",
-																		"int64": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume disk size. (in bytes)"
-																		}
-																	},
-																	{
-																		"name": "state",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume state."
-																		}
-																	},
-																	{
-																		"name": "tags",
-																		"list": {
-																			"computed_optional_required": "computed",
-																			"element_type": {
-																				"string": {}
-																			},
-																			"description": "The volume tags."
-																		}
-																	},
-																	{
-																		"name": "volume_type",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The volume type."
-																		}
-																	},
-																	{
-																		"name": "zone",
-																		"string": {
-																			"computed_optional_required": "computed",
-																			"description": "The zone in which is the volume."
-																		}
-																	}
-																]
-															}
-														}
-													]
+													"custom_type": {
+														"import": {
+															"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+														},
+														"type": "jsontypes.NormalizedType{}",
+														"value_type": "jsontypes.Normalized"
+													},
+													"description": "Value is JSON-encoded."
 												}
 											},
 											{
@@ -867,114 +756,16 @@
 								},
 								{
 									"name": "volumes",
-									"single_nested": {
+									"string": {
 										"computed_optional_required": "computed",
-										"attributes": [
-											{
-												"name": "volume_key",
-												"single_nested": {
-													"computed_optional_required": "computed",
-													"attributes": [
-														{
-															"name": "boot",
-															"bool": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "creation_date",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "(RFC 3339 format)"
-															}
-														},
-														{
-															"name": "export_uri",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "id",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "modification_date",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "(RFC 3339 format)"
-															}
-														},
-														{
-															"name": "name",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "organization",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "project",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "server",
-															"single_nested": {
-																"computed_optional_required": "computed",
-																"attributes": [
-																	{
-																		"name": "id",
-																		"string": {
-																			"computed_optional_required": "computed"
-																		}
-																	},
-																	{
-																		"name": "name",
-																		"string": {
-																			"computed_optional_required": "computed"
-																		}
-																	}
-																]
-															}
-														},
-														{
-															"name": "size",
-															"int64": {
-																"computed_optional_required": "computed",
-																"description": "(in bytes)"
-															}
-														},
-														{
-															"name": "state",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "volume_type",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														},
-														{
-															"name": "zone",
-															"string": {
-																"computed_optional_required": "computed"
-															}
-														}
-													]
-												}
-											}
-										],
-										"description": "The server volumes."
+										"custom_type": {
+											"import": {
+												"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+											},
+											"type": "jsontypes.NormalizedType{}",
+											"value_type": "jsontypes.Normalized"
+										},
+										"description": "The server volumes. Value is JSON-encoded."
 									}
 								},
 								{
@@ -1399,127 +1190,16 @@
 												},
 												{
 													"name": "extra_volumes",
-													"single_nested": {
+													"string": {
 														"computed_optional_required": "computed",
-														"attributes": [
-															{
-																"name": "extra_volume_key",
-																"single_nested": {
-																	"computed_optional_required": "computed",
-																	"attributes": [
-																		{
-																			"name": "creation_date",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume creation date. (RFC 3339 format)"
-																			}
-																		},
-																		{
-																			"name": "export_uri",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"deprecation_message": "This attribute is deprecated.",
-																				"description": "Show the volume NBD export URI."
-																			}
-																		},
-																		{
-																			"name": "id",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume unique ID."
-																			}
-																		},
-																		{
-																			"name": "modification_date",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume modification date. (RFC 3339 format)"
-																			}
-																		},
-																		{
-																			"name": "name",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume name."
-																			}
-																		},
-																		{
-																			"name": "organization",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume organization ID."
-																			}
-																		},
-																		{
-																			"name": "project",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume project ID."
-																			}
-																		},
-																		{
-																			"name": "server",
-																			"single_nested": {
-																				"computed_optional_required": "computed",
-																				"attributes": [
-																					{
-																						"name": "id",
-																						"string": {
-																							"computed_optional_required": "computed"
-																						}
-																					},
-																					{
-																						"name": "name",
-																						"string": {
-																							"computed_optional_required": "computed"
-																						}
-																					}
-																				],
-																				"description": "The server attached to the volume."
-																			}
-																		},
-																		{
-																			"name": "size",
-																			"int64": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume disk size. (in bytes)"
-																			}
-																		},
-																		{
-																			"name": "state",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume state."
-																			}
-																		},
-																		{
-																			"name": "tags",
-																			"list": {
-																				"computed_optional_required": "computed",
-																				"element_type": {
-																					"string": {}
-																				},
-																				"description": "The volume tags."
-																			}
-																		},
-																		{
-																			"name": "volume_type",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The volume type."
-																			}
-																		},
-																		{
-																			"name": "zone",
-																			"string": {
-																				"computed_optional_required": "computed",
-																				"description": "The zone in which is the volume."
-																			}
-																		}
-																	]
-																}
-															}
-														]
+														"custom_type": {
+															"import": {
+																"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+															},
+															"type": "jsontypes.NormalizedType{}",
+															"value_type": "jsontypes.Normalized"
+														},
+														"description": "Value is JSON-encoded."
 													}
 												},
 												{
@@ -1959,114 +1639,16 @@
 									},
 									{
 										"name": "volumes",
-										"single_nested": {
+										"string": {
 											"computed_optional_required": "computed",
-											"attributes": [
-												{
-													"name": "volume_key",
-													"single_nested": {
-														"computed_optional_required": "computed",
-														"attributes": [
-															{
-																"name": "boot",
-																"bool": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "creation_date",
-																"string": {
-																	"computed_optional_required": "computed",
-																	"description": "(RFC 3339 format)"
-																}
-															},
-															{
-																"name": "export_uri",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "id",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "modification_date",
-																"string": {
-																	"computed_optional_required": "computed",
-																	"description": "(RFC 3339 format)"
-																}
-															},
-															{
-																"name": "name",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "organization",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "project",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "server",
-																"single_nested": {
-																	"computed_optional_required": "computed",
-																	"attributes": [
-																		{
-																			"name": "id",
-																			"string": {
-																				"computed_optional_required": "computed"
-																			}
-																		},
-																		{
-																			"name": "name",
-																			"string": {
-																				"computed_optional_required": "computed"
-																			}
-																		}
-																	]
-																}
-															},
-															{
-																"name": "size",
-																"int64": {
-																	"computed_optional_required": "computed",
-																	"description": "(in bytes)"
-																}
-															},
-															{
-																"name": "state",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "volume_type",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															},
-															{
-																"name": "zone",
-																"string": {
-																	"computed_optional_required": "computed"
-																}
-															}
-														]
-													}
-												}
-											],
-											"description": "The server volumes."
+											"custom_type": {
+												"import": {
+													"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+												},
+												"type": "jsontypes.NormalizedType{}",
+												"value_type": "jsontypes.Normalized"
+											},
+											"description": "The server volumes. Value is JSON-encoded."
 										}
 									},
 									{
@@ -2125,77 +1707,16 @@
 					},
 					{
 						"name": "extra_volumes",
-						"single_nested": {
+						"string": {
 							"computed_optional_required": "computed_optional",
-							"attributes": [
-								{
-									"name": "extra_volume_key",
-									"single_nested": {
-										"computed_optional_required": "computed_optional",
-										"attributes": [
-											{
-												"name": "id",
-												"string": {
-													"computed_optional_required": "computed_optional",
-													"description": "UUID of the volume."
-												}
-											},
-											{
-												"name": "name",
-												"string": {
-													"computed_optional_required": "computed_optional",
-													"description": "Name of the volume."
-												}
-											},
-											{
-												"name": "organization",
-												"string": {
-													"computed_optional_required": "computed_optional",
-													"deprecation_message": "This attribute is deprecated.",
-													"description": "Organization ID of the volume."
-												}
-											},
-											{
-												"name": "project",
-												"string": {
-													"computed_optional_required": "computed_optional",
-													"description": "Project ID of the volume."
-												}
-											},
-											{
-												"name": "size",
-												"int64": {
-													"computed_optional_required": "computed_optional",
-													"description": "Disk size of the volume, must be a multiple of 512. (in bytes)"
-												}
-											},
-											{
-												"name": "volume_type",
-												"string": {
-													"computed_optional_required": "computed_optional",
-													"default": {
-														"static": "l_ssd"
-													},
-													"description": "Type of the volume.",
-													"validators": [
-														{
-															"custom": {
-																"imports": [
-																	{
-																		"path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-																	}
-																],
-																"schema_definition": "stringvalidator.OneOf(\n\"l_ssd\",\n\"b_ssd\",\n\"unified\",\n)"
-															}
-														}
-													]
-												}
-											}
-										]
-									}
-								}
-							],
-							"description": "Additional volumes of the image."
+							"custom_type": {
+								"import": {
+									"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+								},
+								"type": "jsontypes.NormalizedType{}",
+								"value_type": "jsontypes.Normalized"
+							},
+							"description": "Additional volumes of the image. Value is JSON-encoded."
 						}
 					},
 					{
@@ -2362,133 +1883,16 @@
 								},
 								{
 									"name": "extra_volumes",
-									"single_nested": {
+									"string": {
 										"computed_optional_required": "computed",
-										"attributes": [
-											{
-												"name": "extra_volume_key",
-												"single_nested": {
-													"computed_optional_required": "computed",
-													"attributes": [
-														{
-															"name": "creation_date",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume creation date. (RFC 3339 format)"
-															}
-														},
-														{
-															"name": "export_uri",
-															"string": {
-																"computed_optional_required": "computed",
-																"deprecation_message": "This attribute is deprecated.",
-																"description": "Show the volume NBD export URI."
-															}
-														},
-														{
-															"name": "id",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume unique ID."
-															}
-														},
-														{
-															"name": "modification_date",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume modification date. (RFC 3339 format)"
-															}
-														},
-														{
-															"name": "name",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume name."
-															}
-														},
-														{
-															"name": "organization",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume organization ID."
-															}
-														},
-														{
-															"name": "project",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The volume project ID."
-															}
-														},
-														{
-															"name": "server",
-															"single_nested": {
-																"computed_optional_required": "computed",
-																"attributes": [
-																	{
-																		"name": "id",
-																		"string": {
-																			"computed_optional_required": "computed"
-																		}
-																	},
-																	{
-																		"name": "name",
-																		"string": {
-																			"computed_optional_required": "computed"
-																		}
-																	}
-																],
-																"description": "The server attached to the volume."
-															}
-														},
-														{
-															"name": "size",
-															"int64": {
-																"computed_optional_required": "computed",
-																"description": "The volume disk size. (in bytes)"
-															}
-														},
-														{
-															"name": "state",
-															"string": {
-																"computed_optional_required": "computed",
-																"default": {
-																	"static": "available"
-																},
-																"description": "The volume state."
-															}
-														},
-														{
-															"name": "tags",
-															"list": {
-																"computed_optional_required": "computed",
-																"element_type": {
-																	"string": {}
-																},
-																"description": "The volume tags."
-															}
-														},
-														{
-															"name": "volume_type",
-															"string": {
-																"computed_optional_required": "computed",
-																"default": {
-																	"static": "l_ssd"
-																},
-																"description": "The volume type."
-															}
-														},
-														{
-															"name": "zone",
-															"string": {
-																"computed_optional_required": "computed",
-																"description": "The zone in which is the volume."
-															}
-														}
-													]
-												}
-											}
-										]
+										"custom_type": {
+											"import": {
+												"path": "github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+											},
+											"type": "jsontypes.NormalizedType{}",
+											"value_type": "jsontypes.Normalized"
+										},
+										"description": "Value is JSON-encoded."
 									}
 								},
 								{

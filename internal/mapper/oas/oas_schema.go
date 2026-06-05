@@ -57,6 +57,14 @@ func (s *OASSchema) IsMap() bool {
 	return s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsA()
 }
 
+// IsFreeformObject returns true when the schema is type: object with
+// additionalProperties set to the boolean true (not a schema).
+// This represents a free-form JSON object with unknown value types,
+// which maps to a jsontypes.Normalized string attribute in Terraform.
+func (s *OASSchema) IsFreeformObject() bool {
+	return s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsB()
+}
+
 // SchemaErrorFromProperty is a helper function for creating an SchemaError struct for a property.
 func (s *OASSchema) SchemaErrorFromProperty(err error, propName string) *SchemaError {
 	return NewSchemaError(err, s.getPropertyLineNumber(propName), propName)
