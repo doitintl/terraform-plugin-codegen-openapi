@@ -65,6 +65,9 @@ func (s *OASSchema) BuildResourceAttribute(name string, computability schema.Com
 		if s.IsMap() {
 			return s.BuildMapResource(name, computability)
 		}
+		if s.IsFreeformObject() {
+			return s.BuildFreeformResource(name, computability)
+		}
 		return s.BuildSingleNestedResource(name, computability)
 	default:
 		return nil, s.SchemaErrorFromProperty(fmt.Errorf("invalid schema type '%s'", s.Type), name)
@@ -123,6 +126,9 @@ func (s *OASSchema) BuildDataSourceAttribute(name string, computability schema.C
 		if s.IsMap() {
 			return s.BuildMapDataSource(name, computability)
 		}
+		if s.IsFreeformObject() {
+			return s.BuildFreeformDataSource(name, computability)
+		}
 		return s.BuildSingleNestedDataSource(name, computability)
 	default:
 		return nil, s.SchemaErrorFromProperty(fmt.Errorf("invalid schema type '%s'", s.Type), name)
@@ -180,6 +186,9 @@ func (s *OASSchema) BuildProviderAttribute(name string, optionalOrRequired schem
 	case util.OAS_type_object:
 		if s.IsMap() {
 			return s.BuildMapProvider(name, optionalOrRequired)
+		}
+		if s.IsFreeformObject() {
+			return s.BuildFreeformProvider(name, optionalOrRequired)
 		}
 		return s.BuildSingleNestedProvider(name, optionalOrRequired)
 	default:

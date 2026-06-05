@@ -58,6 +58,49 @@ func (s *OASSchema) IsMap() bool {
 	return s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsA()
 }
 
+// IsFreeformObject returns true when the schema represents a free-form JSON
+// object that should be mapped to jsontypes.Normalized. Two patterns are detected:
+//
+//  1. additionalProperties set to the boolean true (not a schema reference),
+//     with no defined properties
+//  2. type: object with zero defined properties (and additionalProperties not
+//     explicitly set to false)
+//
+// Schemas that define properties are never considered freeform, even if
+// additionalProperties: true is set — the properties should be generated as
+// nested attributes.
+func (s *OASSchema) IsFreeformObject() bool {
+	hasProperties := s.Schema.Properties != nil && s.Schema.Properties.Len() > 0
+
+	// Never freeform if properties are defined
+	if hasProperties {
+		return false
+	}
+
+	// Pattern 1: additionalProperties: true (boolean, must be true not false)
+	if s.Schema.AdditionalProperties != nil && s.Schema.AdditionalProperties.IsB() && s.Schema.AdditionalProperties.B {
+		return true
+	}
+
+	// Pattern 2: type: object with no properties defined
+	// (only when additionalProperties is not set, or is not false/schema-ref)
+	if s.Type == "object" {
+		if s.Schema.AdditionalProperties != nil {
+			// additionalProperties is a schema ref → this is a map, not freeform
+			if s.Schema.AdditionalProperties.IsA() {
+				return false
+			}
+			// additionalProperties: false → not freeform
+			if !s.Schema.AdditionalProperties.B {
+				return false
+			}
+		}
+		return true
+	}
+
+	return false
+}
+
 // SchemaErrorFromProperty is a helper function for creating an SchemaError struct for a property.
 func (s *OASSchema) SchemaErrorFromProperty(err error, propName string) *SchemaError {
 	return NewSchemaError(err, s.getPropertyLineNumber(propName), propName)

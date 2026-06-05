@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
 )
@@ -242,6 +243,116 @@ func TestGetIgnoresForNested(t *testing.T) {
 			got := testCase.schema.GetIgnoresForNested(testCase.propertyName)
 			if diff := cmp.Diff(got, testCase.want); diff != "" {
 				t.Errorf("unexpected difference: %s", diff)
+			}
+		})
+	}
+}
+
+func TestIsFreeformObject(t *testing.T) {
+	t.Parallel()
+
+	// Helper to create a DynamicValue with boolean (N=1 means IsB())
+	boolAdditionalProps := func(val bool) *base.DynamicValue[*base.SchemaProxy, bool] {
+		return &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: val}
+	}
+
+	// Helper to create a DynamicValue with a schema ref (N=0 means IsA())
+	schemaAdditionalProps := func() *base.DynamicValue[*base.SchemaProxy, bool] {
+		return &base.DynamicValue[*base.SchemaProxy, bool]{N: 0, A: &base.SchemaProxy{}}
+	}
+
+	// Helper to create a Properties map with one entry
+	withProperties := func() *orderedmap.Map[string, *base.SchemaProxy] {
+		m := orderedmap.New[string, *base.SchemaProxy]()
+		m.Set("some_property", &base.SchemaProxy{})
+		return m
+	}
+
+	testCases := map[string]struct {
+		schema oas.OASSchema
+		want   bool
+	}{
+		// --- additionalProperties: true ---
+		"additionalProperties-true-no-properties": {
+			schema: oas.OASSchema{
+				Type:   "object",
+				Schema: &base.Schema{AdditionalProperties: boolAdditionalProps(true)},
+			},
+			want: true,
+		},
+		"additionalProperties-true-with-properties": {
+			schema: oas.OASSchema{
+				Type: "object",
+				Schema: &base.Schema{
+					AdditionalProperties: boolAdditionalProps(true),
+					Properties:           withProperties(),
+				},
+			},
+			want: false, // has properties, should NOT be freeform
+		},
+
+		// --- additionalProperties: false ---
+		"additionalProperties-false-no-properties": {
+			schema: oas.OASSchema{
+				Type:   "object",
+				Schema: &base.Schema{AdditionalProperties: boolAdditionalProps(false)},
+			},
+			want: false,
+		},
+		"additionalProperties-false-with-properties": {
+			schema: oas.OASSchema{
+				Type: "object",
+				Schema: &base.Schema{
+					AdditionalProperties: boolAdditionalProps(false),
+					Properties:           withProperties(),
+				},
+			},
+			want: false,
+		},
+
+		// --- additionalProperties: <schema> (map) ---
+		"additionalProperties-schema-no-properties": {
+			schema: oas.OASSchema{
+				Type:   "object",
+				Schema: &base.Schema{AdditionalProperties: schemaAdditionalProps()},
+			},
+			want: false, // this is a map, not freeform
+		},
+
+		// --- additionalProperties not set ---
+		"no-additionalProperties-no-properties-object": {
+			schema: oas.OASSchema{
+				Type:   "object",
+				Schema: &base.Schema{},
+			},
+			want: true, // type: object with nothing defined
+		},
+		"no-additionalProperties-with-properties": {
+			schema: oas.OASSchema{
+				Type: "object",
+				Schema: &base.Schema{
+					Properties: withProperties(),
+				},
+			},
+			want: false, // has properties
+		},
+		"no-additionalProperties-no-properties-string": {
+			schema: oas.OASSchema{
+				Type:   "string",
+				Schema: &base.Schema{},
+			},
+			want: false, // not type: object
+		},
+	}
+
+	for name, testCase := range testCases {
+
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			got := testCase.schema.IsFreeformObject()
+			if got != testCase.want {
+				t.Errorf("IsFreeformObject() = %t, want %t", got, testCase.want)
 			}
 		})
 	}
