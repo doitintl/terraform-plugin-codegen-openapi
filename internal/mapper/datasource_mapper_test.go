@@ -34,7 +34,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -45,7 +45,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -80,29 +80,29 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "string_prop",
 					String: &datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is a string, required and overidden!"),
-						Sensitive:                pointer(true),
+						Description:              new("hey this is a string, required and overidden!"),
+						Sensitive:                new(true),
 					},
 				},
 				{
 					Name: "bool_prop",
 					Bool: &datasource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is a bool, required!"),
+						Description:              new("hey this is a bool, required!"),
 					},
 				},
 				{
 					Name: "float64_prop",
 					Float64: &datasource.Float64Attribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a float64!"),
+						Description:              new("hey this is a float64!"),
 					},
 				},
 				{
 					Name: "number_prop",
 					Number: &datasource.NumberAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is a number!"),
+						Description:              new("hey this is a number!"),
 					},
 				},
 			},
@@ -112,7 +112,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				{
 					Name:        "nested_object_one",
 					In:          "query",
-					Required:    pointer(true),
+					Required:    new(true),
 					Description: "hey this is an object, required + overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"object"},
@@ -180,39 +180,39 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 											Name: "bool_prop",
 											Bool: &datasource.BoolAttribute{
 												ComputedOptionalRequired: schema.ComputedOptional,
-												Description:              pointer("hey this is a bool!"),
+												Description:              new("hey this is a bool!"),
 											},
 										},
 										{
 											Name: "int64_prop",
 											Int64: &datasource.Int64Attribute{
 												ComputedOptionalRequired: schema.Required,
-												Description:              pointer("hey this is a integer!"),
+												Description:              new("hey this is a integer!"),
 											},
 										},
 										{
 											Name: "number_prop",
 											Number: &datasource.NumberAttribute{
 												ComputedOptionalRequired: schema.Computed,
-												Description:              pointer("hey this is a number!"),
+												Description:              new("hey this is a number!"),
 											},
 										},
 									},
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey this is an object!"),
+									Description:              new("hey this is an object!"),
 								},
 							},
 							{
 								Name: "string_prop",
 								String: &datasource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("hey this is a string!"),
-									Sensitive:                pointer(true),
+									Description:              new("hey this is a string!"),
+									Sensitive:                new(true),
 								},
 							},
 						},
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is an object, required + overidden!"),
+						Description:              new("hey this is an object, required + overidden!"),
 					},
 				},
 			},
@@ -222,7 +222,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				{
 					Name:     "array_prop",
 					In:       "query",
-					Required: pointer(true),
+					Required: new(true),
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"array"},
 						Description: "hey this is an array, required!",
@@ -307,42 +307,42 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "array_prop",
 					ListNested: &datasource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is an array, required!"),
+						Description:              new("hey this is an array, required!"),
 						NestedObject: datasource.NestedAttributeObject{
 							Attributes: []datasource.Attribute{
 								{
 									Name: "nested_array_prop",
 									ListNested: &datasource.ListNestedAttribute{
 										ComputedOptionalRequired: schema.Required,
-										Description:              pointer("hey this is a nested array, required!"),
+										Description:              new("hey this is a nested array, required!"),
 										NestedObject: datasource.NestedAttributeObject{
 											Attributes: []datasource.Attribute{
 												{
 													Name: "super_nested_bool_one",
 													Bool: &datasource.BoolAttribute{
 														ComputedOptionalRequired: schema.ComputedOptional,
-														Description:              pointer("hey this is a boolean!"),
+														Description:              new("hey this is a boolean!"),
 													},
 												},
 												{
 													Name: "super_nested_bool_two",
 													Bool: &datasource.BoolAttribute{
 														ComputedOptionalRequired: schema.Required,
-														Description:              pointer("hey this is a boolean, required!"),
+														Description:              new("hey this is a boolean, required!"),
 													},
 												},
 												{
 													Name: "super_nested_int64",
 													Int64: &datasource.Int64Attribute{
 														ComputedOptionalRequired: schema.ComputedOptional,
-														Description:              pointer("hey this is a integer!"),
+														Description:              new("hey this is a integer!"),
 													},
 												},
 												{
 													Name: "super_nested_string",
 													String: &datasource.StringAttribute{
 														ComputedOptionalRequired: schema.Computed,
-														Description:              pointer("hey this is a string!"),
+														Description:              new("hey this is a string!"),
 													},
 												},
 											},
@@ -353,14 +353,14 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 									Name: "number_prop",
 									Number: &datasource.NumberAttribute{
 										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              pointer("hey this is a number!"),
+										Description:              new("hey this is a number!"),
 									},
 								},
 								{
 									Name: "float64_prop",
 									Float64: &datasource.Float64Attribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a float64!"),
+										Description:              new("hey this is a float64!"),
 									},
 								},
 							},
@@ -460,7 +460,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "array_prop",
 					List: &datasource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is an array!"),
+						Description:              new("hey this is an array!"),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -513,7 +513,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "read_parameter_optional_read_parameter_only",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -521,7 +521,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_parameter_optional_read_response",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -529,7 +529,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_parameter_required_read_parameter_only",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -537,7 +537,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_parameter_required_read_response",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -597,7 +597,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "read_path_parameter",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -605,7 +605,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_query_parameter",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"boolean"},
@@ -658,7 +658,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -746,14 +746,14 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "float64_prop",
 					Float64: &datasource.Float64Attribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a float64!"),
+						Description:              new("hey this is a float64!"),
 					},
 				},
 				{
 					Name: "nested_array",
 					List: &datasource.ListAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is an array!"),
+						Description:              new("hey this is an array!"),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -774,14 +774,14 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "nested_map",
 					MapNested: &datasource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is a map!"),
+						Description:              new("hey this is a map!"),
 						NestedObject: datasource.NestedAttributeObject{
 							Attributes: []datasource.Attribute{
 								{
 									Name: "deep_nested_int64",
 									Int64: &datasource.Int64Attribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is an int64!"),
+										Description:              new("hey this is an int64!"),
 									},
 								},
 							},
@@ -797,7 +797,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 								Name: "string_prop",
 								String: &datasource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("hey this is a string!"),
+									Description:              new("hey this is a string!"),
 								},
 							},
 						},
@@ -807,7 +807,7 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 					Name: "number_prop",
 					Number: &datasource.NumberAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is a number!"),
+						Description:              new("hey this is a number!"),
 					},
 				},
 			},
@@ -877,14 +877,14 @@ func TestDataSourceMapper_collections(t *testing.T) {
 									Name: "bool_prop",
 									Bool: &datasource.BoolAttribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a bool!"),
+										Description:              new("hey this is a bool!"),
 									},
 								},
 								{
 									Name: "number_prop",
 									Number: &datasource.NumberAttribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a number!"),
+										Description:              new("hey this is a number!"),
 									},
 								},
 							},
@@ -924,14 +924,14 @@ func TestDataSourceMapper_collections(t *testing.T) {
 									Name: "bool_prop",
 									Bool: &datasource.BoolAttribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a bool!"),
+										Description:              new("hey this is a bool!"),
 									},
 								},
 								{
 									Name: "number_prop",
 									Number: &datasource.NumberAttribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a number!"),
+										Description:              new("hey this is a number!"),
 									},
 								},
 							},

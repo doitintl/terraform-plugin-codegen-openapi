@@ -70,29 +70,29 @@ func TestProviderMapper_basic(t *testing.T) {
 							Name: "bool_prop",
 							Bool: &provider.BoolAttribute{
 								OptionalRequired: schema.Required,
-								Description:      pointer("hey this is a bool, required!"),
+								Description:      new("hey this is a bool, required!"),
 							},
 						},
 						{
 							Name: "float64_prop",
 							Float64: &provider.Float64Attribute{
 								OptionalRequired: schema.Optional,
-								Description:      pointer("hey this is a float64!"),
+								Description:      new("hey this is a float64!"),
 							},
 						},
 						{
 							Name: "number_prop",
 							Number: &provider.NumberAttribute{
 								OptionalRequired: schema.Optional,
-								Description:      pointer("hey this is a number!"),
+								Description:      new("hey this is a number!"),
 							},
 						},
 						{
 							Name: "string_prop",
 							String: &provider.StringAttribute{
 								OptionalRequired: schema.Required,
-								Description:      pointer("hey this is a string, required!"),
-								Sensitive:        pointer(true),
+								Description:      new("hey this is a string, required!"),
+								Sensitive:        new(true),
 							},
 						},
 					},
@@ -183,7 +183,7 @@ func TestProviderMapper_basic(t *testing.T) {
 							Name: "nested_array",
 							List: &provider.ListAttribute{
 								OptionalRequired: schema.Optional,
-								Description:      pointer("hey this is an array!"),
+								Description:      new("hey this is an array!"),
 								ElementType: schema.ElementType{
 									List: &schema.ListType{
 										ElementType: schema.ElementType{
@@ -204,14 +204,14 @@ func TestProviderMapper_basic(t *testing.T) {
 							Name: "nested_map",
 							MapNested: &provider.MapNestedAttribute{
 								OptionalRequired: schema.Optional,
-								Description:      pointer("hey this is a map!"),
+								Description:      new("hey this is a map!"),
 								NestedObject: provider.NestedAttributeObject{
 									Attributes: []provider.Attribute{
 										{
 											Name: "deep_nested_int64",
 											Int64: &provider.Int64Attribute{
 												OptionalRequired: schema.Optional,
-												Description:      pointer("hey this is an int64!"),
+												Description:      new("hey this is an int64!"),
 											},
 										},
 									},
@@ -227,7 +227,7 @@ func TestProviderMapper_basic(t *testing.T) {
 										Name: "string_prop",
 										String: &provider.StringAttribute{
 											OptionalRequired: schema.Optional,
-											Description:      pointer("hey this is a string!"),
+											Description:      new("hey this is a string!"),
 										},
 									},
 								},
@@ -237,7 +237,7 @@ func TestProviderMapper_basic(t *testing.T) {
 							Name: "number_prop",
 							Number: &provider.NumberAttribute{
 								OptionalRequired: schema.Optional,
-								Description:      pointer("hey this is a number!"),
+								Description:      new("hey this is a number!"),
 							},
 						},
 					},

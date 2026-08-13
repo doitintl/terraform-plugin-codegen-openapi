@@ -82,29 +82,29 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "bool_prop",
 					Bool: &resource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is a bool, required!"),
+						Description:              new("hey this is a bool, required!"),
 					},
 				},
 				{
 					Name: "int64_prop",
 					Int64: &resource.Int64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is an int64, required!"),
+						Description:              new("hey this is an int64, required!"),
 					},
 				},
 				{
 					Name: "number_prop",
 					Number: &resource.NumberAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is a number!"),
+						Description:              new("hey this is a number!"),
 					},
 				},
 				{
 					Name: "string_prop",
 					String: &resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a string, overridden!"),
-						Sensitive:                pointer(true),
+						Description:              new("hey this is a string, overridden!"),
+						Sensitive:                new(true),
 					},
 				},
 			},
@@ -193,7 +193,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 								Name: "bool_prop",
 								Bool: &resource.BoolAttribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("hey this is a bool, required!"),
+									Description:              new("hey this is a bool, required!"),
 								},
 							},
 							{
@@ -204,39 +204,39 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 											Name: "bool_prop",
 											Bool: &resource.BoolAttribute{
 												ComputedOptionalRequired: schema.Computed,
-												Description:              pointer("hey this is a bool!"),
+												Description:              new("hey this is a bool!"),
 											},
 										},
 										{
 											Name: "number_prop",
 											Number: &resource.NumberAttribute{
 												ComputedOptionalRequired: schema.Computed,
-												Description:              pointer("hey this is a number!"),
+												Description:              new("hey this is a number!"),
 											},
 										},
 										{
 											Name: "int64_prop",
 											Int64: &resource.Int64Attribute{
 												ComputedOptionalRequired: schema.ComputedOptional,
-												Description:              pointer("hey this is a integer, switched to computed optional!"),
+												Description:              new("hey this is a integer, switched to computed optional!"),
 											},
 										},
 									},
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("hey this is an object!"),
+									Description:              new("hey this is an object!"),
 								},
 							},
 							{
 								Name: "string_prop",
 								String: &resource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("hey this is a string!"),
-									Sensitive:                pointer(true),
+									Description:              new("hey this is a string!"),
+									Sensitive:                new(true),
 								},
 							},
 						},
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is an object, required!"),
+						Description:              new("hey this is an object, required!"),
 					},
 				},
 			},
@@ -331,49 +331,49 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "array_prop",
 					ListNested: &resource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey this is an array, required!"),
+						Description:              new("hey this is an array, required!"),
 						NestedObject: resource.NestedAttributeObject{
 							Attributes: []resource.Attribute{
 								{
 									Name: "float64_prop",
 									Float64: &resource.Float64Attribute{
 										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              pointer("hey this is a float64!"),
+										Description:              new("hey this is a float64!"),
 									},
 								},
 								{
 									Name: "nested_array_prop",
 									ListNested: &resource.ListNestedAttribute{
 										ComputedOptionalRequired: schema.Required,
-										Description:              pointer("hey this is a nested array, required!"),
+										Description:              new("hey this is a nested array, required!"),
 										NestedObject: resource.NestedAttributeObject{
 											Attributes: []resource.Attribute{
 												{
 													Name: "super_nested_string",
 													String: &resource.StringAttribute{
 														ComputedOptionalRequired: schema.ComputedOptional,
-														Description:              pointer("hey this is a string!"),
+														Description:              new("hey this is a string!"),
 													},
 												},
 												{
 													Name: "super_nested_bool_one",
 													Bool: &resource.BoolAttribute{
 														ComputedOptionalRequired: schema.Computed,
-														Description:              pointer("hey this is a boolean!"),
+														Description:              new("hey this is a boolean!"),
 													},
 												},
 												{
 													Name: "super_nested_bool_two",
 													Bool: &resource.BoolAttribute{
 														ComputedOptionalRequired: schema.Computed,
-														Description:              pointer("hey this is a boolean, switched to computed optional!"),
+														Description:              new("hey this is a boolean, switched to computed optional!"),
 													},
 												},
 												{
 													Name: "super_nested_int64",
 													Int64: &resource.Int64Attribute{
 														ComputedOptionalRequired: schema.Computed,
-														Description:              pointer("hey this is a integer!"),
+														Description:              new("hey this is a integer!"),
 													},
 												},
 											},
@@ -384,7 +384,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 									Name: "number_prop",
 									Number: &resource.NumberAttribute{
 										ComputedOptionalRequired: schema.Computed,
-										Description:              pointer("hey this is a number!"),
+										Description:              new("hey this is a number!"),
 									},
 								},
 							},
@@ -511,7 +511,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "array_prop",
 					List: &resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is an array!"),
+						Description:              new("hey this is an array!"),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -630,7 +630,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "create_request_optional_read_parameter_optional",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -638,7 +638,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "create_request_optional_read_parameter_required",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -646,7 +646,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "create_request_required_read_parameter_optional",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -654,7 +654,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "create_request_required_read_parameter_required",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -667,7 +667,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				// details to practitioners, which are conventionally hidden.
 				{
 					Name:     "read_parameter_optional",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -675,7 +675,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_parameter_required",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -798,7 +798,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "read_path_parameter",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "path",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
@@ -806,7 +806,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 				{
 					Name:     "read_query_parameter",
-					Required: pointer(false),
+					Required: new(false),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"boolean"},
@@ -948,7 +948,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 			readParams: []*high.Parameter{
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -970,14 +970,14 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "nested_map",
 					MapNested: &resource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a map!"),
+						Description:              new("hey this is a map!"),
 						NestedObject: resource.NestedAttributeObject{
 							Attributes: []resource.Attribute{
 								{
 									Name: "deep_nested_int64",
 									Int64: &resource.Int64Attribute{
 										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              pointer("hey this is an int64!"),
+										Description:              new("hey this is an int64!"),
 									},
 								},
 							},
@@ -988,14 +988,14 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "number_prop",
 					Number: &resource.NumberAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a number!"),
+						Description:              new("hey this is a number!"),
 					},
 				},
 				{
 					Name: "nested_array",
 					List: &resource.ListAttribute{
 						ComputedOptionalRequired: schema.Computed,
-						Description:              pointer("hey this is an array!"),
+						Description:              new("hey this is an array!"),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -1021,7 +1021,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 								Name: "string_prop",
 								String: &resource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("hey this is a string!"),
+									Description:              new("hey this is a string!"),
 								},
 							},
 						},
@@ -1031,7 +1031,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 					Name: "float64_prop",
 					Float64: &resource.Float64Attribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey this is a float64!"),
+						Description:              new("hey this is a float64!"),
 					},
 				},
 			},
@@ -1103,8 +1103,4 @@ func createTestReadOp(response *base.SchemaProxy, params []*high.Parameter) *hig
 		},
 		Parameters: params,
 	}
-}
-
-func pointer[T any](value T) *T {
-	return &value
 }

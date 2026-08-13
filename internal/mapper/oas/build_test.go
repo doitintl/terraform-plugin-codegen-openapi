@@ -494,14 +494,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a nullable string type."),
+						Description:              new("hey there! I'm a nullable string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a nullable string type, required."),
+						Description:              new("hey there! I'm a nullable string type, required."),
 					},
 				},
 			},
@@ -530,21 +530,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -583,14 +583,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type."),
+						Description:              new("hey there! I'm a string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},
@@ -640,21 +640,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -693,14 +693,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type."),
+						Description:              new("hey there! I'm a string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},
@@ -750,21 +750,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -799,7 +799,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -809,7 +809,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -861,7 +861,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -871,7 +871,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -923,7 +923,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -933,7 +933,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -1005,20 +1005,20 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 							Name: "bool",
 							BoolAttribute: resource.BoolAttribute{
 								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              pointer("hey there! I'm a bool type."),
+								Description:              new("hey there! I'm a bool type."),
 							},
 						},
 						&attrmapper.ResourceStringAttribute{
 							Name: "string",
 							StringAttribute: resource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a string type, required."),
+								Description:              new("hey there! I'm a string type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm an object type."),
+						Description:              new("hey there! I'm an object type."),
 					},
 				},
 			},
@@ -1053,14 +1053,14 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "bool_allof_override",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("Override the bool's description"),
+						Description:              new("Override the bool's description"),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string_allof_override",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("Override the string's description"),
+						Description:              new("Override the string's description"),
 					},
 				},
 			},
@@ -1240,20 +1240,20 @@ func TestBuildSchema_EdgeCases(t *testing.T) {
 							Name: "bool",
 							BoolAttribute: resource.BoolAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a bool type, required."),
+								Description:              new("hey there! I'm a bool type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm an object type, required."),
+						Description:              new("hey there! I'm an object type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},

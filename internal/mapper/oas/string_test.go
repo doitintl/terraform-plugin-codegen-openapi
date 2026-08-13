@@ -49,15 +49,15 @@ func TestBuildStringResource(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, not sensitive, required."),
+						Description:              new("hey there! I'm a string type, not sensitive, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string_sensitive_prop",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type, sensitive"),
-						Sensitive:                pointer(true),
+						Description:              new("hey there! I'm a string type, sensitive"),
+						Sensitive:                new(true),
 					},
 				},
 			},
@@ -87,7 +87,7 @@ func TestBuildStringResource(t *testing.T) {
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.StringDefault{
-							Static: pointer(""),
+							Static: new(""),
 						},
 					},
 				},
@@ -96,7 +96,7 @@ func TestBuildStringResource(t *testing.T) {
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.StringDefault{
-							Static: pointer("test value"),
+							Static: new("test value"),
 						},
 					},
 				},
@@ -106,7 +106,7 @@ func TestBuildStringResource(t *testing.T) {
 						// Intentionally not required due to default
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.StringDefault{
-							Static: pointer("test value"),
+							Static: new("test value"),
 						},
 					},
 				},
@@ -118,7 +118,7 @@ func TestBuildStringResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"string_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"string"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -127,7 +127,7 @@ func TestBuildStringResource(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -162,7 +162,7 @@ func TestBuildStringResource(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of strings."),
+						Description:              new("hey there! I'm a list of strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -172,7 +172,7 @@ func TestBuildStringResource(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of strings, required."),
+						Description:              new("hey there! I'm a list of strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -263,15 +263,15 @@ func TestBuildStringDataSource(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, not sensitive, required."),
+						Description:              new("hey there! I'm a string type, not sensitive, required."),
 					},
 				},
 				&attrmapper.DataSourceStringAttribute{
 					Name: "string_sensitive_prop",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type, sensitive"),
-						Sensitive:                pointer(true),
+						Description:              new("hey there! I'm a string type, sensitive"),
+						Sensitive:                new(true),
 					},
 				},
 			},
@@ -282,7 +282,7 @@ func TestBuildStringDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"string_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"string"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -291,7 +291,7 @@ func TestBuildStringDataSource(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -326,7 +326,7 @@ func TestBuildStringDataSource(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of strings."),
+						Description:              new("hey there! I'm a list of strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -336,7 +336,7 @@ func TestBuildStringDataSource(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of strings, required."),
+						Description:              new("hey there! I'm a list of strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -427,15 +427,15 @@ func TestBuildStringProvider(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: provider.StringAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a string type, not sensitive, required."),
+						Description:      new("hey there! I'm a string type, not sensitive, required."),
 					},
 				},
 				&attrmapper.ProviderStringAttribute{
 					Name: "string_sensitive_prop",
 					StringAttribute: provider.StringAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a string type, sensitive"),
-						Sensitive:        pointer(true),
+						Description:      new("hey there! I'm a string type, sensitive"),
+						Sensitive:        new(true),
 					},
 				},
 			},
@@ -446,7 +446,7 @@ func TestBuildStringProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"string_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"string"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -455,7 +455,7 @@ func TestBuildStringProvider(t *testing.T) {
 					Name: "string_prop",
 					StringAttribute: provider.StringAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -490,7 +490,7 @@ func TestBuildStringProvider(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a list of strings."),
+						Description:      new("hey there! I'm a list of strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -500,7 +500,7 @@ func TestBuildStringProvider(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a list of strings, required."),
+						Description:      new("hey there! I'm a list of strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -605,7 +605,7 @@ func TestGetStringValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:      []string{"string"},
-					MaxLength: pointer(int64(123)),
+					MaxLength: new(int64(123)),
 				},
 			},
 			expected: []schema.StringValidator{
@@ -625,8 +625,8 @@ func TestGetStringValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:      []string{"string"},
-					MinLength: pointer(int64(123)),
-					MaxLength: pointer(int64(456)),
+					MinLength: new(int64(123)),
+					MaxLength: new(int64(456)),
 				},
 			},
 			expected: []schema.StringValidator{
@@ -646,7 +646,7 @@ func TestGetStringValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:      []string{"string"},
-					MinLength: pointer(int64(123)),
+					MinLength: new(int64(123)),
 				},
 			},
 			expected: []schema.StringValidator{

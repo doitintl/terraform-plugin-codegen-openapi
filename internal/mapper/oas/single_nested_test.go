@@ -69,26 +69,26 @@ func TestBuildSingleNestedResource(t *testing.T) {
 									Name: "nested_float64",
 									Float64Attribute: resource.Float64Attribute{
 										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              pointer("hey there! I'm a nested float64 type."),
+										Description:              new("hey there! I'm a nested float64 type."),
 									},
 								},
 								&attrmapper.ResourceInt64Attribute{
 									Name: "nested_int64_required",
 									Int64Attribute: resource.Int64Attribute{
 										ComputedOptionalRequired: schema.Required,
-										Description:              pointer("hey there! I'm a nested int64 type, required."),
+										Description:              new("hey there! I'm a nested int64 type, required."),
 									},
 								},
 							},
 							SingleNestedAttribute: resource.SingleNestedAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a single nested object type, required."),
+								Description:              new("hey there! I'm a single nested object type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a single nested object type."),
+						Description:              new("hey there! I'm a single nested object type."),
 					},
 				},
 			},
@@ -99,7 +99,7 @@ func TestBuildSingleNestedResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_obj_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Required:   []string{"nested_int64_required"},
 						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 							"nested_int64_required": base.CreateSchemaProxy(&base.Schema{
@@ -123,7 +123,7 @@ func TestBuildSingleNestedResource(t *testing.T) {
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -196,26 +196,26 @@ func TestBuildSingleNestedDataSource(t *testing.T) {
 									Name: "nested_float64",
 									Float64Attribute: datasource.Float64Attribute{
 										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              pointer("hey there! I'm a nested float64 type."),
+										Description:              new("hey there! I'm a nested float64 type."),
 									},
 								},
 								&attrmapper.DataSourceInt64Attribute{
 									Name: "nested_int64_required",
 									Int64Attribute: datasource.Int64Attribute{
 										ComputedOptionalRequired: schema.Required,
-										Description:              pointer("hey there! I'm a nested int64 type, required."),
+										Description:              new("hey there! I'm a nested int64 type, required."),
 									},
 								},
 							},
 							SingleNestedAttribute: datasource.SingleNestedAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a single nested object type, required."),
+								Description:              new("hey there! I'm a single nested object type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a single nested object type."),
+						Description:              new("hey there! I'm a single nested object type."),
 					},
 				},
 			},
@@ -226,7 +226,7 @@ func TestBuildSingleNestedDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_obj_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Required:   []string{"nested_int64_required"},
 						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 							"nested_int64_required": base.CreateSchemaProxy(&base.Schema{
@@ -250,7 +250,7 @@ func TestBuildSingleNestedDataSource(t *testing.T) {
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -323,26 +323,26 @@ func TestBuildSingleNestedProvider(t *testing.T) {
 									Name: "nested_float64",
 									Float64Attribute: provider.Float64Attribute{
 										OptionalRequired: schema.Optional,
-										Description:      pointer("hey there! I'm a nested float64 type."),
+										Description:      new("hey there! I'm a nested float64 type."),
 									},
 								},
 								&attrmapper.ProviderInt64Attribute{
 									Name: "nested_int64_required",
 									Int64Attribute: provider.Int64Attribute{
 										OptionalRequired: schema.Required,
-										Description:      pointer("hey there! I'm a nested int64 type, required."),
+										Description:      new("hey there! I'm a nested int64 type, required."),
 									},
 								},
 							},
 							SingleNestedAttribute: provider.SingleNestedAttribute{
 								OptionalRequired: schema.Required,
-								Description:      pointer("hey there! I'm a single nested object type, required."),
+								Description:      new("hey there! I'm a single nested object type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: provider.SingleNestedAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a single nested object type."),
+						Description:      new("hey there! I'm a single nested object type."),
 					},
 				},
 			},
@@ -353,7 +353,7 @@ func TestBuildSingleNestedProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_obj_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Required:   []string{"nested_int64_required"},
 						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 							"nested_int64_required": base.CreateSchemaProxy(&base.Schema{
@@ -377,7 +377,7 @@ func TestBuildSingleNestedProvider(t *testing.T) {
 					},
 					SingleNestedAttribute: provider.SingleNestedAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 				},
 			},

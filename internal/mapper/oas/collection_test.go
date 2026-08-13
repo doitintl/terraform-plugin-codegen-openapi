@@ -63,7 +63,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListNestedAttribute: resource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list nested array type, required."),
+						Description:              new("hey there! I'm a list nested array type, required."),
 					},
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
@@ -71,14 +71,14 @@ func TestBuildCollectionResource(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: resource.Float64Attribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a nested float64 type."),
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.ResourceInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: resource.Int64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("hey there! I'm a nested int64 type, required."),
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -92,7 +92,7 @@ func TestBuildCollectionResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -113,7 +113,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_list_prop",
 					ListNestedAttribute: resource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
@@ -135,7 +135,7 @@ func TestBuildCollectionResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -217,7 +217,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetNestedAttribute: resource.SetNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a set nested array type, required."),
+						Description:              new("hey there! I'm a set nested array type, required."),
 					},
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
@@ -225,14 +225,14 @@ func TestBuildCollectionResource(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: resource.Float64Attribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a nested float64 type."),
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.ResourceInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: resource.Int64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("hey there! I'm a nested int64 type, required."),
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -247,7 +247,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					"nested_set_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
 						Format:     "set",
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -268,7 +268,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_set_prop",
 					SetNestedAttribute: resource.SetNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
@@ -291,7 +291,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					"nested_set_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
 						Format:   "set",
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -396,7 +396,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of lists."),
+						Description:              new("hey there! I'm a list of lists."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -421,7 +421,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of lists, required."),
+						Description:              new("hey there! I'm a list of lists, required."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -506,7 +506,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_set_prop",
 					SetAttribute: resource.SetAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a set of sets."),
+						Description:              new("hey there! I'm a set of sets."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -531,7 +531,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetAttribute: resource.SetAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a set of sets, required."),
+						Description:              new("hey there! I'm a set of sets, required."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -616,7 +616,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "list_with_map",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list with a nested map of objects."),
+						Description:              new("hey there! I'm a list with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -641,7 +641,7 @@ func TestBuildCollectionResource(t *testing.T) {
 					Name: "set_with_map",
 					SetAttribute: resource.SetAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a set with a nested map of objects."),
+						Description:              new("hey there! I'm a set with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -725,7 +725,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListNestedAttribute: datasource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list nested array type, required."),
+						Description:              new("hey there! I'm a list nested array type, required."),
 					},
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
@@ -733,14 +733,14 @@ func TestBuildCollectionDataSource(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: datasource.Float64Attribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a nested float64 type."),
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.DataSourceInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: datasource.Int64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("hey there! I'm a nested int64 type, required."),
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -754,7 +754,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -775,7 +775,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_list_prop",
 					ListNestedAttribute: datasource.ListNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
@@ -797,7 +797,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -879,7 +879,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetNestedAttribute: datasource.SetNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a set nested array type, required."),
+						Description:              new("hey there! I'm a set nested array type, required."),
 					},
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
@@ -887,14 +887,14 @@ func TestBuildCollectionDataSource(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: datasource.Float64Attribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a nested float64 type."),
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.DataSourceInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: datasource.Int64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("hey there! I'm a nested int64 type, required."),
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -909,7 +909,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					"nested_set_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
 						Format:     "set",
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -930,7 +930,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_set_prop",
 					SetNestedAttribute: datasource.SetNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
@@ -953,7 +953,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					"nested_set_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
 						Format:   "set",
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -1058,7 +1058,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_list_prop",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of lists."),
+						Description:              new("hey there! I'm a list of lists."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -1083,7 +1083,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of lists, required."),
+						Description:              new("hey there! I'm a list of lists, required."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -1168,7 +1168,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_set_prop",
 					SetAttribute: datasource.SetAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a set of sets."),
+						Description:              new("hey there! I'm a set of sets."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -1193,7 +1193,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetAttribute: datasource.SetAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a set of sets, required."),
+						Description:              new("hey there! I'm a set of sets, required."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -1278,7 +1278,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "list_with_map",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list with a nested map of objects."),
+						Description:              new("hey there! I'm a list with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -1303,7 +1303,7 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					Name: "set_with_map",
 					SetAttribute: datasource.SetAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a set with a nested map of objects."),
+						Description:              new("hey there! I'm a set with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -1387,7 +1387,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListNestedAttribute: provider.ListNestedAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a list nested array type, required."),
+						Description:      new("hey there! I'm a list nested array type, required."),
 					},
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
@@ -1395,14 +1395,14 @@ func TestBuildCollectionProvider(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: provider.Float64Attribute{
 									OptionalRequired: schema.Optional,
-									Description:      pointer("hey there! I'm a nested float64 type."),
+									Description:      new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.ProviderInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: provider.Int64Attribute{
 									OptionalRequired: schema.Required,
-									Description:      pointer("hey there! I'm a nested int64 type, required."),
+									Description:      new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -1416,7 +1416,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -1437,7 +1437,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_list_prop",
 					ListNestedAttribute: provider.ListNestedAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
@@ -1459,7 +1459,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_list_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -1541,7 +1541,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetNestedAttribute: provider.SetNestedAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a set nested array type, required."),
+						Description:      new("hey there! I'm a set nested array type, required."),
 					},
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
@@ -1549,14 +1549,14 @@ func TestBuildCollectionProvider(t *testing.T) {
 								Name: "nested_float64",
 								Float64Attribute: provider.Float64Attribute{
 									OptionalRequired: schema.Optional,
-									Description:      pointer("hey there! I'm a nested float64 type."),
+									Description:      new("hey there! I'm a nested float64 type."),
 								},
 							},
 							&attrmapper.ProviderInt64Attribute{
 								Name: "nested_int64_required",
 								Int64Attribute: provider.Int64Attribute{
 									OptionalRequired: schema.Required,
-									Description:      pointer("hey there! I'm a nested int64 type, required."),
+									Description:      new("hey there! I'm a nested int64 type, required."),
 								},
 							},
 						},
@@ -1571,7 +1571,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					"nested_set_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"array"},
 						Format:     "set",
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -1592,7 +1592,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_set_prop",
 					SetNestedAttribute: provider.SetNestedAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
@@ -1615,7 +1615,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					"nested_set_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:     []string{"array"},
 						Format:   "set",
-						MinItems: pointer(int64(1)),
+						MinItems: new(int64(1)),
 						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -1720,7 +1720,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_list_prop",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a list of lists."),
+						Description:      new("hey there! I'm a list of lists."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -1745,7 +1745,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_list_prop_required",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a list of lists, required."),
+						Description:      new("hey there! I'm a list of lists, required."),
 						ElementType: schema.ElementType{
 							List: &schema.ListType{
 								ElementType: schema.ElementType{
@@ -1830,7 +1830,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_set_prop",
 					SetAttribute: provider.SetAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a set of sets."),
+						Description:      new("hey there! I'm a set of sets."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -1855,7 +1855,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "nested_set_prop_required",
 					SetAttribute: provider.SetAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a set of sets, required."),
+						Description:      new("hey there! I'm a set of sets, required."),
 						ElementType: schema.ElementType{
 							Set: &schema.SetType{
 								ElementType: schema.ElementType{
@@ -1940,7 +1940,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "list_with_map",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a list with a nested map of objects."),
+						Description:      new("hey there! I'm a list with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -1965,7 +1965,7 @@ func TestBuildCollectionProvider(t *testing.T) {
 					Name: "set_with_map",
 					SetAttribute: provider.SetAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a set with a nested map of objects."),
+						Description:      new("hey there! I'm a set with a nested map of objects."),
 						ElementType: schema.ElementType{
 							Map: &schema.MapType{
 								ElementType: schema.ElementType{
@@ -2027,7 +2027,7 @@ func TestGetListValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:     []string{"array"},
-					MaxItems: pointer(int64(123)),
+					MaxItems: new(int64(123)),
 				},
 			},
 			expected: []schema.ListValidator{
@@ -2047,8 +2047,8 @@ func TestGetListValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:     []string{"array"},
-					MinItems: pointer(int64(123)),
-					MaxItems: pointer(int64(456)),
+					MinItems: new(int64(123)),
+					MaxItems: new(int64(456)),
 				},
 			},
 			expected: []schema.ListValidator{
@@ -2068,7 +2068,7 @@ func TestGetListValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:     []string{"array"},
-					MinItems: pointer(int64(123)),
+					MinItems: new(int64(123)),
 				},
 			},
 			expected: []schema.ListValidator{
@@ -2088,7 +2088,7 @@ func TestGetListValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:        []string{"array"},
-					UniqueItems: pointer(true),
+					UniqueItems: new(true),
 				},
 			},
 			expected: []schema.ListValidator{
@@ -2141,7 +2141,7 @@ func TestGetSetValidators(t *testing.T) {
 				Schema: &base.Schema{
 					Type:     []string{"array"},
 					Format:   "set",
-					MaxItems: pointer(int64(123)),
+					MaxItems: new(int64(123)),
 				},
 			},
 			expected: []schema.SetValidator{
@@ -2162,8 +2162,8 @@ func TestGetSetValidators(t *testing.T) {
 				Schema: &base.Schema{
 					Type:     []string{"array"},
 					Format:   "set",
-					MinItems: pointer(int64(123)),
-					MaxItems: pointer(int64(456)),
+					MinItems: new(int64(123)),
+					MaxItems: new(int64(456)),
 				},
 			},
 			expected: []schema.SetValidator{
@@ -2184,7 +2184,7 @@ func TestGetSetValidators(t *testing.T) {
 				Schema: &base.Schema{
 					Type:     []string{"array"},
 					Format:   "set",
-					MinItems: pointer(int64(123)),
+					MinItems: new(int64(123)),
 				},
 			},
 			expected: []schema.SetValidator{

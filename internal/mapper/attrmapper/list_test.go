@@ -37,7 +37,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "set_attribute",
 				SetAttribute: resource.SetAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("set description"),
+					Description:              new("set description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -87,7 +87,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old list description"),
+					Description:              new("old list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -97,7 +97,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -107,7 +107,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old list description"),
+					Description:              new("old list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -128,7 +128,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -138,7 +138,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -150,7 +150,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -160,7 +160,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -170,7 +170,7 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -494,7 +494,7 @@ func TestResourceListAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -507,7 +507,7 @@ func TestResourceListAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				ListAttribute: resource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -551,7 +551,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "set_attribute",
 				SetAttribute: datasource.SetAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("set description"),
+					Description:              new("set description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -601,7 +601,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old list description"),
+					Description:              new("old list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -611,7 +611,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -621,7 +621,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old list description"),
+					Description:              new("old list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -642,7 +642,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -652,7 +652,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -664,7 +664,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -674,7 +674,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -684,7 +684,7 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new list description"),
+					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -1008,7 +1008,7 @@ func TestDataSourceListAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},
@@ -1021,7 +1021,7 @@ func TestDataSourceListAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},
 					},

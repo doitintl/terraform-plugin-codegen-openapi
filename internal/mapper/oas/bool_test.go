@@ -47,14 +47,14 @@ func TestBuildBoolResource(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a bool type."),
+						Description:              new("hey there! I'm a bool type."),
 					},
 				},
 				&attrmapper.ResourceBoolAttribute{
 					Name: "bool_prop_required",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a bool type, required."),
+						Description:              new("hey there! I'm a bool type, required."),
 					},
 				},
 			},
@@ -84,7 +84,7 @@ func TestBuildBoolResource(t *testing.T) {
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.BoolDefault{
-							Static: pointer(false),
+							Static: new(false),
 						},
 					},
 				},
@@ -93,7 +93,7 @@ func TestBuildBoolResource(t *testing.T) {
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.BoolDefault{
-							Static: pointer(true),
+							Static: new(true),
 						},
 					},
 				},
@@ -103,7 +103,7 @@ func TestBuildBoolResource(t *testing.T) {
 						// Intentionally not required due to default
 						ComputedOptionalRequired: schema.ComputedOptional,
 						Default: &schema.BoolDefault{
-							Static: pointer(true),
+							Static: new(true),
 						},
 					},
 				},
@@ -115,7 +115,7 @@ func TestBuildBoolResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"bool_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"boolean"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -124,7 +124,7 @@ func TestBuildBoolResource(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -159,7 +159,7 @@ func TestBuildBoolResource(t *testing.T) {
 					Name: "bool_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of bools."),
+						Description:              new("hey there! I'm a list of bools."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},
@@ -169,7 +169,7 @@ func TestBuildBoolResource(t *testing.T) {
 					Name: "bool_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of bools, required."),
+						Description:              new("hey there! I'm a list of bools, required."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},
@@ -224,14 +224,14 @@ func TestBuildBoolDataSource(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: datasource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a bool type."),
+						Description:              new("hey there! I'm a bool type."),
 					},
 				},
 				&attrmapper.DataSourceBoolAttribute{
 					Name: "bool_prop_required",
 					BoolAttribute: datasource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a bool type, required."),
+						Description:              new("hey there! I'm a bool type, required."),
 					},
 				},
 			},
@@ -242,7 +242,7 @@ func TestBuildBoolDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"bool_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"boolean"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -251,7 +251,7 @@ func TestBuildBoolDataSource(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: datasource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -286,7 +286,7 @@ func TestBuildBoolDataSource(t *testing.T) {
 					Name: "bool_list_prop",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of bools."),
+						Description:              new("hey there! I'm a list of bools."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},
@@ -296,7 +296,7 @@ func TestBuildBoolDataSource(t *testing.T) {
 					Name: "bool_list_prop_required",
 					ListAttribute: datasource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of bools, required."),
+						Description:              new("hey there! I'm a list of bools, required."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},
@@ -351,14 +351,14 @@ func TestBuildBoolProvider(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: provider.BoolAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a bool type."),
+						Description:      new("hey there! I'm a bool type."),
 					},
 				},
 				&attrmapper.ProviderBoolAttribute{
 					Name: "bool_prop_required",
 					BoolAttribute: provider.BoolAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a bool type, required."),
+						Description:      new("hey there! I'm a bool type, required."),
 					},
 				},
 			},
@@ -369,7 +369,7 @@ func TestBuildBoolProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"bool_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"boolean"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 					}),
 				}),
 			},
@@ -378,7 +378,7 @@ func TestBuildBoolProvider(t *testing.T) {
 					Name: "bool_prop",
 					BoolAttribute: provider.BoolAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 				},
 			},
@@ -413,7 +413,7 @@ func TestBuildBoolProvider(t *testing.T) {
 					Name: "bool_list_prop",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a list of bools."),
+						Description:      new("hey there! I'm a list of bools."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},
@@ -423,7 +423,7 @@ func TestBuildBoolProvider(t *testing.T) {
 					Name: "bool_list_prop_required",
 					ListAttribute: provider.ListAttribute{
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a list of bools, required."),
+						Description:      new("hey there! I'm a list of bools, required."),
 						ElementType: schema.ElementType{
 							Bool: &schema.BoolType{},
 						},

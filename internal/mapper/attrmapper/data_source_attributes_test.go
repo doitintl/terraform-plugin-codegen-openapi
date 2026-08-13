@@ -28,8 +28,8 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("string description"),
-						Sensitive:                pointer(true),
+						Description:              new("string description"),
+						Sensitive:                new(true),
 					},
 				},
 			},
@@ -39,15 +39,15 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 						Name: "string_attribute",
 						StringAttribute: datasource.StringAttribute{
 							ComputedOptionalRequired: schema.Computed,
-							Description:              pointer("this will be ignored"),
-							Sensitive:                pointer(false),
+							Description:              new("this will be ignored"),
+							Sensitive:                new(false),
 						},
 					},
 					&attrmapper.DataSourceBoolAttribute{
 						Name: "bool_attribute",
 						BoolAttribute: datasource.BoolAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("bool description"),
+							Description:              new("bool description"),
 						},
 					},
 				},
@@ -56,7 +56,7 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 						Name: "float64_attribute",
 						Float64Attribute: datasource.Float64Attribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("float64 description"),
+							Description:              new("float64 description"),
 						},
 					},
 				},
@@ -66,22 +66,22 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("string description"),
-						Sensitive:                pointer(true),
+						Description:              new("string description"),
+						Sensitive:                new(true),
 					},
 				},
 				&attrmapper.DataSourceBoolAttribute{
 					Name: "bool_attribute",
 					BoolAttribute: datasource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("bool description"),
+						Description:              new("bool description"),
 					},
 				},
 				&attrmapper.DataSourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: datasource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("float64 description"),
+						Description:              new("float64 description"),
 					},
 				},
 			},
@@ -95,14 +95,14 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 							Name: "string_attribute",
 							StringAttribute: datasource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("string description"),
-								Sensitive:                pointer(true),
+								Description:              new("string description"),
+								Sensitive:                new(true),
 							},
 						},
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("single nested description"),
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -115,21 +115,21 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 								Name: "string_attribute",
 								StringAttribute: datasource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("this will be ignored"),
-									Sensitive:                pointer(false),
+									Description:              new("this will be ignored"),
+									Sensitive:                new(false),
 								},
 							},
 							&attrmapper.DataSourceBoolAttribute{
 								Name: "bool_attribute",
 								BoolAttribute: datasource.BoolAttribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("bool description"),
+									Description:              new("bool description"),
 								},
 							},
 						},
 						SingleNestedAttribute: datasource.SingleNestedAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("single nested description"),
+							Description:              new("single nested description"),
 						},
 					},
 				},
@@ -141,13 +141,13 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 								Name: "float64_attribute",
 								Float64Attribute: datasource.Float64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("float64 description"),
+									Description:              new("float64 description"),
 								},
 							},
 						},
 						SingleNestedAttribute: datasource.SingleNestedAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("single nested description"),
+							Description:              new("single nested description"),
 						},
 					},
 				},
@@ -160,28 +160,28 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 							Name: "string_attribute",
 							StringAttribute: datasource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("string description"),
-								Sensitive:                pointer(true),
+								Description:              new("string description"),
+								Sensitive:                new(true),
 							},
 						},
 						&attrmapper.DataSourceBoolAttribute{
 							Name: "bool_attribute",
 							BoolAttribute: datasource.BoolAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("bool description"),
+								Description:              new("bool description"),
 							},
 						},
 						&attrmapper.DataSourceFloat64Attribute{
 							Name: "float64_attribute",
 							Float64Attribute: datasource.Float64Attribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("float64 description"),
+								Description:              new("float64 description"),
 							},
 						},
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("single nested description"),
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -227,7 +227,7 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -236,7 +236,7 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -255,14 +255,14 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 				&attrmapper.DataSourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: datasource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -271,14 +271,14 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: datasource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("new string description"),
+						Description:              new("new string description"),
 					},
 				},
 				&attrmapper.DataSourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: datasource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("new float64 description"),
+						Description:              new("new float64 description"),
 					},
 				},
 			},
@@ -307,20 +307,20 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 										Name: "string_attribute",
 										StringAttribute: datasource.StringAttribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("old description"),
+											Description:              new("old description"),
 										},
 									},
 								},
 							},
 							ListNestedAttribute: datasource.ListNestedAttribute{
 								ComputedOptionalRequired: schema.Optional,
-								Description:              pointer("old description"),
+								Description:              new("old description"),
 							},
 						},
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Optional,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -336,20 +336,20 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 										Name: "string_attribute",
 										StringAttribute: datasource.StringAttribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("new description"),
+											Description:              new("new description"),
 										},
 									},
 								},
 							},
 							ListNestedAttribute: datasource.ListNestedAttribute{
 								ComputedOptionalRequired: schema.Optional,
-								Description:              pointer("new description"),
+								Description:              new("new description"),
 							},
 						},
 					},
 					SingleNestedAttribute: datasource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Optional,
-						Description:              pointer("new description"),
+						Description:              new("new description"),
 					},
 				},
 			},
@@ -367,8 +367,4 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 			}
 		})
 	}
-}
-
-func pointer[T any](value T) *T {
-	return &value
 }

@@ -34,7 +34,7 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
@@ -49,21 +49,21 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              new("old float64 description"),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              new("old float64 description"),
 				},
 			},
 		},
@@ -78,14 +78,14 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -94,21 +94,21 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -140,7 +140,7 @@ func TestResourceFloat64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -150,7 +150,7 @@ func TestResourceFloat64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Float64Attribute: resource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},
@@ -188,7 +188,7 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
@@ -203,21 +203,21 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              new("old float64 description"),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              new("old float64 description"),
 				},
 			},
 		},
@@ -232,14 +232,14 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -248,21 +248,21 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -294,7 +294,7 @@ func TestDataSourceFloat64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -304,7 +304,7 @@ func TestDataSourceFloat64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},

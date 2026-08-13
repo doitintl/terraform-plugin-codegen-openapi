@@ -28,7 +28,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -39,7 +39,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -60,7 +60,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -73,7 +73,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -84,7 +84,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				},
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -95,7 +95,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -118,7 +118,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -129,7 +129,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -151,7 +151,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -162,7 +162,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -187,7 +187,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -200,7 +200,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -221,7 +221,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -232,7 +232,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -253,7 +253,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -266,7 +266,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -277,7 +277,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -300,7 +300,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -313,7 +313,7 @@ func TestReadOpParameters_Resource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -356,7 +356,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -367,7 +367,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -388,7 +388,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -401,7 +401,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -412,7 +412,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				},
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -423,7 +423,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -446,7 +446,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -457,7 +457,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -479,7 +479,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -490,7 +490,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -515,7 +515,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -528,7 +528,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "common_string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -549,7 +549,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				Parameters: []*high.Parameter{
 					{
 						Name:        "string_prop",
-						Required:    pointer(true),
+						Required:    new(true),
 						In:          "path",
 						Description: "hey this is a string, required and overidden!",
 						Schema: base.CreateSchemaProxy(&base.Schema{
@@ -560,7 +560,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 					},
 					{
 						Name:     "bool_prop",
-						Required: pointer(true),
+						Required: new(true),
 						In:       "query",
 						Schema: base.CreateSchemaProxy(&base.Schema{
 							Type:        []string{"boolean"},
@@ -581,7 +581,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -594,7 +594,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(true),
+					Required:    new(true),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -605,7 +605,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 				},
 				{
 					Name:     "bool_prop",
-					Required: pointer(true),
+					Required: new(true),
 					In:       "query",
 					Schema: base.CreateSchemaProxy(&base.Schema{
 						Type:        []string{"boolean"},
@@ -628,7 +628,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			commonParams: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -641,7 +641,7 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			want: []*high.Parameter{
 				{
 					Name:        "string_prop",
-					Required:    pointer(false),
+					Required:    new(false),
 					In:          "path",
 					Description: "hey this is a string, required and overidden!",
 					Schema: base.CreateSchemaProxy(&base.Schema{
@@ -670,8 +670,4 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 			}
 		})
 	}
-}
-
-func pointer[T any](value T) *T {
-	return &value
 }
