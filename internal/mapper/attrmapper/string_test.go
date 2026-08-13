@@ -34,7 +34,7 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("bool description"),
+					Description:              new("bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
@@ -49,21 +49,21 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old string description"),
+					Description:              new("old string description"),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old string description"),
+					Description:              new("old string description"),
 				},
 			},
 		},
@@ -78,14 +78,14 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 		},
@@ -94,21 +94,21 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 		},
@@ -140,7 +140,7 @@ func TestResourceStringAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -150,7 +150,7 @@ func TestResourceStringAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},
@@ -188,7 +188,7 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("bool description"),
+					Description:              new("bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
@@ -203,21 +203,21 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old string description"),
+					Description:              new("old string description"),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old string description"),
+					Description:              new("old string description"),
 				},
 			},
 		},
@@ -232,14 +232,14 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 		},
@@ -248,21 +248,21 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new string description"),
+					Description:              new("new string description"),
 				},
 			},
 		},
@@ -294,7 +294,7 @@ func TestDataSourceStringAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -304,7 +304,7 @@ func TestDataSourceStringAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},

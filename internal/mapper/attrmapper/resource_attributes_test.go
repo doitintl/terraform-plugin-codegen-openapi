@@ -28,8 +28,8 @@ func TestResourceAttributes_Merge(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("string description"),
-						Sensitive:                pointer(true),
+						Description:              new("string description"),
+						Sensitive:                new(true),
 					},
 				},
 			},
@@ -39,15 +39,15 @@ func TestResourceAttributes_Merge(t *testing.T) {
 						Name: "string_attribute",
 						StringAttribute: resource.StringAttribute{
 							ComputedOptionalRequired: schema.Computed,
-							Description:              pointer("this will be ignored"),
-							Sensitive:                pointer(false),
+							Description:              new("this will be ignored"),
+							Sensitive:                new(false),
 						},
 					},
 					&attrmapper.ResourceBoolAttribute{
 						Name: "bool_attribute",
 						BoolAttribute: resource.BoolAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("bool description"),
+							Description:              new("bool description"),
 						},
 					},
 				},
@@ -56,7 +56,7 @@ func TestResourceAttributes_Merge(t *testing.T) {
 						Name: "float64_attribute",
 						Float64Attribute: resource.Float64Attribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("float64 description"),
+							Description:              new("float64 description"),
 						},
 					},
 				},
@@ -66,22 +66,22 @@ func TestResourceAttributes_Merge(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("string description"),
-						Sensitive:                pointer(true),
+						Description:              new("string description"),
+						Sensitive:                new(true),
 					},
 				},
 				&attrmapper.ResourceBoolAttribute{
 					Name: "bool_attribute",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("bool description"),
+						Description:              new("bool description"),
 					},
 				},
 				&attrmapper.ResourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: resource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("float64 description"),
+						Description:              new("float64 description"),
 					},
 				},
 			},
@@ -95,14 +95,14 @@ func TestResourceAttributes_Merge(t *testing.T) {
 							Name: "string_attribute",
 							StringAttribute: resource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("string description"),
-								Sensitive:                pointer(true),
+								Description:              new("string description"),
+								Sensitive:                new(true),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("single nested description"),
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -115,21 +115,21 @@ func TestResourceAttributes_Merge(t *testing.T) {
 								Name: "string_attribute",
 								StringAttribute: resource.StringAttribute{
 									ComputedOptionalRequired: schema.Computed,
-									Description:              pointer("this will be ignored"),
-									Sensitive:                pointer(false),
+									Description:              new("this will be ignored"),
+									Sensitive:                new(false),
 								},
 							},
 							&attrmapper.ResourceBoolAttribute{
 								Name: "bool_attribute",
 								BoolAttribute: resource.BoolAttribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("bool description"),
+									Description:              new("bool description"),
 								},
 							},
 						},
 						SingleNestedAttribute: resource.SingleNestedAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("single nested description"),
+							Description:              new("single nested description"),
 						},
 					},
 				},
@@ -141,13 +141,13 @@ func TestResourceAttributes_Merge(t *testing.T) {
 								Name: "float64_attribute",
 								Float64Attribute: resource.Float64Attribute{
 									ComputedOptionalRequired: schema.Required,
-									Description:              pointer("float64 description"),
+									Description:              new("float64 description"),
 								},
 							},
 						},
 						SingleNestedAttribute: resource.SingleNestedAttribute{
 							ComputedOptionalRequired: schema.Required,
-							Description:              pointer("single nested description"),
+							Description:              new("single nested description"),
 						},
 					},
 				},
@@ -160,28 +160,28 @@ func TestResourceAttributes_Merge(t *testing.T) {
 							Name: "string_attribute",
 							StringAttribute: resource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("string description"),
-								Sensitive:                pointer(true),
+								Description:              new("string description"),
+								Sensitive:                new(true),
 							},
 						},
 						&attrmapper.ResourceBoolAttribute{
 							Name: "bool_attribute",
 							BoolAttribute: resource.BoolAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("bool description"),
+								Description:              new("bool description"),
 							},
 						},
 						&attrmapper.ResourceFloat64Attribute{
 							Name: "float64_attribute",
 							Float64Attribute: resource.Float64Attribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("float64 description"),
+								Description:              new("float64 description"),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("single nested description"),
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -227,7 +227,7 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -236,7 +236,7 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -255,14 +255,14 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 				&attrmapper.ResourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: resource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -271,14 +271,14 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 					Name: "string_attribute",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("new string description"),
+						Description:              new("new string description"),
 					},
 				},
 				&attrmapper.ResourceFloat64Attribute{
 					Name: "float64_attribute",
 					Float64Attribute: resource.Float64Attribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("new float64 description"),
+						Description:              new("new float64 description"),
 					},
 				},
 			},
@@ -307,20 +307,20 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 										Name: "string_attribute",
 										StringAttribute: resource.StringAttribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("old description"),
+											Description:              new("old description"),
 										},
 									},
 								},
 							},
 							ListNestedAttribute: resource.ListNestedAttribute{
 								ComputedOptionalRequired: schema.Optional,
-								Description:              pointer("old description"),
+								Description:              new("old description"),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Optional,
-						Description:              pointer("old description"),
+						Description:              new("old description"),
 					},
 				},
 			},
@@ -336,20 +336,20 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 										Name: "string_attribute",
 										StringAttribute: resource.StringAttribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("new description"),
+											Description:              new("new description"),
 										},
 									},
 								},
 							},
 							ListNestedAttribute: resource.ListNestedAttribute{
 								ComputedOptionalRequired: schema.Optional,
-								Description:              pointer("new description"),
+								Description:              new("new description"),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Optional,
-						Description:              pointer("new description"),
+						Description:              new("new description"),
 					},
 				},
 			},

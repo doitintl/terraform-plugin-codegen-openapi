@@ -7,8 +7,10 @@ import (
 	"regexp"
 	"testing"
 
+	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+	yaml "go.yaml.in/yaml/v4"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
@@ -494,14 +496,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a nullable string type."),
+						Description:              new("hey there! I'm a nullable string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a nullable string type, required."),
+						Description:              new("hey there! I'm a nullable string type, required."),
 					},
 				},
 			},
@@ -530,21 +532,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -583,14 +585,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type."),
+						Description:              new("hey there! I'm a string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},
@@ -640,21 +642,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -693,14 +695,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "nullable_string_one",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a string type."),
+						Description:              new("hey there! I'm a string type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "nullable_string_two",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},
@@ -750,21 +752,21 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "stringable_bool",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable bool type, required."),
+						Description:              new("hey there! I'm a stringable bool type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_integer",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a stringable integer type."),
+						Description:              new("hey there! I'm a stringable integer type."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "stringable_number",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a stringable number type, required."),
+						Description:              new("hey there! I'm a stringable number type, required."),
 					},
 				},
 			},
@@ -799,7 +801,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -809,7 +811,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -861,7 +863,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -871,7 +873,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -923,7 +925,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a list of nullable strings."),
+						Description:              new("hey there! I'm a list of nullable strings."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -933,7 +935,7 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 					Name: "string_list_prop_required",
 					ListAttribute: resource.ListAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a list of nullable strings, required."),
+						Description:              new("hey there! I'm a list of nullable strings, required."),
 						ElementType: schema.ElementType{
 							String: &schema.StringType{},
 						},
@@ -967,6 +969,26 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 
 func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 	t.Parallel()
+
+	// Hoisted so that both properties of the "shared subschema is not mutated" case compose over the exact same
+	// *base.SchemaProxy, which is what libopenapi hands out for repeated references to one $ref target.
+	sharedTarget := base.CreateSchemaProxy(&base.Schema{
+		Type:        []string{"string"},
+		Description: "hey there! I'm the shared $ref target.",
+	})
+
+	// Same idea for the structural overlays: if unionRequired or mergeProperties wrote through the resolved schema
+	// -- appending into its `required` backing array, or Set-ing into its properties map -- the composer's additions
+	// would leak into every other reference to this target.
+	sharedObjectTarget := base.CreateSchemaProxy(&base.Schema{
+		Type:     []string{"object"},
+		Required: []string{"from_target"},
+		Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+			"from_target": base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"string"},
+			}),
+		}),
+	})
 
 	testCases := map[string]struct {
 		schemaProxy        *base.SchemaProxy
@@ -1005,20 +1027,20 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 							Name: "bool",
 							BoolAttribute: resource.BoolAttribute{
 								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              pointer("hey there! I'm a bool type."),
+								Description:              new("hey there! I'm a bool type."),
 							},
 						},
 						&attrmapper.ResourceStringAttribute{
 							Name: "string",
 							StringAttribute: resource.StringAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a string type, required."),
+								Description:              new("hey there! I'm a string type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm an object type."),
+						Description:              new("hey there! I'm an object type."),
 					},
 				},
 			},
@@ -1053,14 +1075,799 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "bool_allof_override",
 					BoolAttribute: resource.BoolAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("Override the bool's description"),
+						Description:              new("Override the bool's description"),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string_allof_override",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("Override the string's description"),
+						Description:              new("Override the string's description"),
+					},
+				},
+			},
+		},
+		"allOf with one element - deprecated sibling": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"deprecated_object": base.CreateSchemaProxy(&base.Schema{
+						Deprecated:  new(true),
+						Description: "Deprecated: use 'other_object' instead.",
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"object"},
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"string": base.CreateSchemaProxy(&base.Schema{
+										Type:        []string{"string"},
+										Description: "hey there! I'm a string type.",
+									}),
+								}),
+							}),
+						},
+					}),
+					"deprecated_false_sibling": base.CreateSchemaProxy(&base.Schema{
+						Deprecated: new(false),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"boolean"},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceBoolAttribute{
+					Name: "deprecated_false_sibling",
+					BoolAttribute: resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "deprecated_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "string",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a string type."),
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("Deprecated: use 'other_object' instead."),
+						DeprecationMessage:       new("This attribute is deprecated."),
+					},
+				},
+			},
+		},
+		"allOf with one element - default and enum siblings": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type:     []string{"object"},
+				Required: []string{"string_with_default"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"string_with_default": base.CreateSchemaProxy(&base.Schema{
+						Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "one"},
+						Enum: []*yaml.Node{
+							{Kind: yaml.ScalarNode, Value: "one"},
+							{Kind: yaml.ScalarNode, Value: "two"},
+						},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "string_with_default",
+					StringAttribute: resource.StringAttribute{
+						// Intentionally not required due to default
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Default: &schema.StringDefault{
+							Static: new("one"),
+						},
+						Validators: []schema.StringValidator{
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+										},
+									},
+									SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"allOf with one element - validation keyword siblings": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"constrained_string": base.CreateSchemaProxy(&base.Schema{
+						MinLength: new(int64(2)),
+						MaxLength: new(int64(10)),
+						Pattern:   "^[a-z]+$",
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						},
+					}),
+					"constrained_integer": base.CreateSchemaProxy(&base.Schema{
+						Minimum: new(float64(1)),
+						Maximum: new(float64(100)),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"integer"},
+							}),
+						},
+					}),
+					"constrained_list": base.CreateSchemaProxy(&base.Schema{
+						MinItems: new(int64(1)),
+						MaxItems: new(int64(3)),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"array"},
+								Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+									A: base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"string"},
+									}),
+								},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceInt64Attribute{
+					Name: "constrained_integer",
+					Int64Attribute: resource.Int64Attribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Validators: []schema.Int64Validator{
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/int64validator",
+										},
+									},
+									SchemaDefinition: "int64validator.Between(1, 100)",
+								},
+							},
+						},
+					},
+				},
+				&attrmapper.ResourceListAttribute{
+					Name: "constrained_list",
+					ListAttribute: resource.ListAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						ElementType: schema.ElementType{
+							String: &schema.StringType{},
+						},
+						Validators: []schema.ListValidator{
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
+										},
+									},
+									SchemaDefinition: "listvalidator.SizeBetween(1, 3)",
+								},
+							},
+						},
+					},
+				},
+				&attrmapper.ResourceStringAttribute{
+					Name: "constrained_string",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Validators: []schema.StringValidator{
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+										},
+									},
+									SchemaDefinition: "stringvalidator.LengthBetween(2, 10)",
+								},
+							},
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "regexp",
+										},
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+										},
+									},
+									SchemaDefinition: "stringvalidator.RegexMatches(regexp.MustCompile(\"^[a-z]+$\"), \"\")",
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"allOf with one element - required is unioned, not replaced": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"nested_object": base.CreateSchemaProxy(&base.Schema{
+						Required: []string{"required_by_composer"},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type:     []string{"object"},
+								Required: []string{"required_by_subschema"},
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"required_by_composer": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"string"},
+									}),
+									"required_by_subschema": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"string"},
+									}),
+									"optional": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"string"},
+									}),
+								}),
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "nested_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "optional",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+							},
+						},
+						&attrmapper.ResourceStringAttribute{
+							Name: "required_by_composer",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+						&attrmapper.ResourceStringAttribute{
+							Name: "required_by_subschema",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - properties are merged": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"nested_object": base.CreateSchemaProxy(&base.Schema{
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"from_composer": base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"boolean"},
+							}),
+							// Collides with the subschema's property; the composer wins.
+							"collision": base.CreateSchemaProxy(&base.Schema{
+								Type:        []string{"string"},
+								Description: "hey there! I'm the composer's collision.",
+							}),
+						}),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"object"},
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"from_subschema": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"string"},
+									}),
+									"collision": base.CreateSchemaProxy(&base.Schema{
+										Type:        []string{"string"},
+										Description: "hey there! I'm the subschema's collision.",
+									}),
+								}),
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "nested_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "collision",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm the composer's collision."),
+							},
+						},
+						&attrmapper.ResourceBoolAttribute{
+							Name: "from_composer",
+							BoolAttribute: resource.BoolAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+							},
+						},
+						&attrmapper.ResourceStringAttribute{
+							Name: "from_subschema",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		// The refinement shape: the composing schema tightens something nested without restating the type the
+		// $ref already supplies. Replacing rather than composing would leave these nested schemas typeless and
+		// the whole attribute would be dropped from the output.
+		"allOf with one element - colliding property is composed, not replaced": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"refined_object": base.CreateSchemaProxy(&base.Schema{
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"name": base.CreateSchemaProxy(&base.Schema{
+								Deprecated: new(true),
+							}),
+						}),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"object"},
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"name": base.CreateSchemaProxy(&base.Schema{
+										Type:        []string{"string"},
+										Description: "hey there! I'm the target's property.",
+										MinLength:   new(int64(3)),
+									}),
+								}),
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "refined_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "name",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+								// Type, description and the length bound all survive from the target.
+								Description:        new("hey there! I'm the target's property."),
+								DeprecationMessage: new("This attribute is deprecated."),
+								Validators: []schema.StringValidator{
+									{
+										Custom: &schema.CustomValidator{
+											Imports: []code.Import{
+												{
+													Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+												},
+											},
+											SchemaDefinition: "stringvalidator.LengthAtLeast(3)",
+										},
+									},
+								},
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - items are composed, not replaced": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"refined_list": base.CreateSchemaProxy(&base.Schema{
+						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+							A: base.CreateSchemaProxy(&base.Schema{
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"from_composer": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"boolean"},
+									}),
+								}),
+							}),
+						},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"array"},
+								Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+									A: base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"object"},
+										Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+											"from_target": base.CreateSchemaProxy(&base.Schema{
+												Type: []string{"string"},
+											}),
+										}),
+									}),
+								},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceListNestedAttribute{
+					Name: "refined_list",
+					NestedObject: attrmapper.ResourceNestedAttributeObject{
+						Attributes: attrmapper.ResourceAttributes{
+							&attrmapper.ResourceBoolAttribute{
+								Name: "from_composer",
+								BoolAttribute: resource.BoolAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+							&attrmapper.ResourceStringAttribute{
+								Name: "from_target",
+								StringAttribute: resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+					ListNestedAttribute: resource.ListNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - subschema type wins, composer type only fills a gap": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					// The composer's "object" must not turn this into a nested attribute.
+					"subschema_type_wins": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"object"},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						},
+					}),
+					// The subschema has no type at all, so the composer's fills the gap.
+					"composer_type_fills_gap": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Description: "hey there! I have no type.",
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "composer_type_fills_gap",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I have no type."),
+					},
+				},
+				&attrmapper.ResourceStringAttribute{
+					Name: "subschema_type_wins",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - shared subschema is not mutated": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"with_siblings": base.CreateSchemaProxy(&base.Schema{
+						Deprecated:  new(true),
+						Description: "hey there! I override the shared description.",
+						AllOf:       []*base.SchemaProxy{sharedTarget},
+					}),
+					"without_siblings": base.CreateSchemaProxy(&base.Schema{
+						AllOf: []*base.SchemaProxy{sharedTarget},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "with_siblings",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I override the shared description."),
+						DeprecationMessage:       new("This attribute is deprecated."),
+					},
+				},
+				&attrmapper.ResourceStringAttribute{
+					Name: "without_siblings",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm the shared $ref target."),
+					},
+				},
+			},
+		},
+		"allOf with one element - shared subschema's required and properties are not mutated": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"with_siblings": base.CreateSchemaProxy(&base.Schema{
+						Required: []string{"from_composer"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"from_composer": base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						}),
+						AllOf: []*base.SchemaProxy{sharedObjectTarget},
+					}),
+					"without_siblings": base.CreateSchemaProxy(&base.Schema{
+						AllOf: []*base.SchemaProxy{sharedObjectTarget},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "with_siblings",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "from_composer",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+						&attrmapper.ResourceStringAttribute{
+							Name: "from_target",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "without_siblings",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "from_target",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - nested chain composes overlays": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"nested_object": base.CreateSchemaProxy(&base.Schema{
+						// Outermost composer supplies the description.
+						Description: "hey there! I'm the outermost description.",
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								// Middle composer supplies the deprecation and one required name.
+								Deprecated: new(true),
+								Required:   []string{"from_middle"},
+								AllOf: []*base.SchemaProxy{
+									base.CreateSchemaProxy(&base.Schema{
+										// Innermost supplies the type and properties.
+										Type:        []string{"object"},
+										Description: "hey there! I'm the innermost description.",
+										Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+											"from_middle": base.CreateSchemaProxy(&base.Schema{
+												Type: []string{"string"},
+											}),
+										}),
+									}),
+								},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "nested_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "from_middle",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm the outermost description."),
+						DeprecationMessage:       new("This attribute is deprecated."),
+					},
+				},
+			},
+		},
+	}
+
+	for name, testCase := range testCases {
+
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			schema, err := oas.BuildSchema(testCase.schemaProxy, oas.SchemaOpts{}, oas.GlobalSchemaOpts{})
+			if err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
+
+			attributes, err := schema.BuildResourceAttributes()
+			if err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
+
+			if diff := cmp.Diff(attributes, testCase.expectedAttributes); diff != "" {
+				t.Errorf("unexpected difference: %s", diff)
+			}
+		})
+	}
+}
+
+// TestBuildSchema_MultiTypeSiblingKeywords covers keywords set alongside a two-element oneOf/anyOf. The branch that
+// gets selected is the one described by the composition, so annotations and constraints on the composing schema have
+// to survive the selection -- but `type` and `format` there describe the union rather than the selected branch, and
+// must not.
+func TestBuildSchema_MultiTypeSiblingKeywords(t *testing.T) {
+	t.Parallel()
+
+	testCases := map[string]struct {
+		schemaProxy        *base.SchemaProxy
+		expectedAttributes attrmapper.ResourceAttributes
+	}{
+		"oneOf with two elements - description and deprecated siblings": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"nullable_string": base.CreateSchemaProxy(&base.Schema{
+						Description: "hey there! I'm the composing schema's description.",
+						Deprecated:  new(true),
+						OneOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"null"},
+							}),
+							base.CreateSchemaProxy(&base.Schema{
+								Type:        []string{"string"},
+								Description: "hey there! I'm the subschema's description.",
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "nullable_string",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm the composing schema's description."),
+						DeprecationMessage:       new("This attribute is deprecated."),
+					},
+				},
+			},
+		},
+		"anyOf with two elements - description and deprecated siblings": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"nullable_bool": base.CreateSchemaProxy(&base.Schema{
+						Description: "hey there! I'm the composing schema's description.",
+						Deprecated:  new(true),
+						AnyOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"boolean"},
+							}),
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"null"},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceBoolAttribute{
+					Name: "nullable_bool",
+					BoolAttribute: resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm the composing schema's description."),
+						DeprecationMessage:       new("This attribute is deprecated."),
+					},
+				},
+			},
+		},
+		"oneOf with two elements - stringable pair carries siblings": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"stringable_number": base.CreateSchemaProxy(&base.Schema{
+						Description: "hey there! I'm the composing schema's description.",
+						MinLength:   new(int64(1)),
+						OneOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"number"},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "stringable_number",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm the composing schema's description."),
+						Validators: []schema.StringValidator{
+							{
+								Custom: &schema.CustomValidator{
+									Imports: []code.Import{
+										{
+											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+										},
+									},
+									SchemaDefinition: "stringvalidator.LengthAtLeast(1)",
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"oneOf with two elements - composing type and format are ignored": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					// Modelled on kubernetes' intstr.IntOrString. Overlaying either the union type or the
+					// "int-or-string" format would undo the branch selection getMultiTypeSchema just made.
+					"int_or_string": base.CreateSchemaProxy(&base.Schema{
+						Type:        []string{"object"},
+						Format:      "int-or-string",
+						Description: "hey there! I'm an int or a string.",
+						OneOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"integer"},
+							}),
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "int_or_string",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("hey there! I'm an int or a string."),
 					},
 				},
 			},
@@ -1240,20 +2047,20 @@ func TestBuildSchema_EdgeCases(t *testing.T) {
 							Name: "bool",
 							BoolAttribute: resource.BoolAttribute{
 								ComputedOptionalRequired: schema.Required,
-								Description:              pointer("hey there! I'm a bool type, required."),
+								Description:              new("hey there! I'm a bool type, required."),
 							},
 						},
 					},
 					SingleNestedAttribute: resource.SingleNestedAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm an object type, required."),
+						Description:              new("hey there! I'm an object type, required."),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string",
 					StringAttribute: resource.StringAttribute{
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a string type, required."),
+						Description:              new("hey there! I'm a string type, required."),
 					},
 				},
 			},

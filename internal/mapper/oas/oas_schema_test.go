@@ -13,10 +13,6 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
 )
 
-func pointer[T any](value T) *T {
-	return &value
-}
-
 func TestOASSchemaGetDeprecationMessage(t *testing.T) {
 	t.Parallel()
 
@@ -35,7 +31,7 @@ func TestOASSchemaGetDeprecationMessage(t *testing.T) {
 		"deprecated-false": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
-					Deprecated: pointer(false),
+					Deprecated: new(false),
 				},
 			},
 			expected: nil,
@@ -43,32 +39,32 @@ func TestOASSchemaGetDeprecationMessage(t *testing.T) {
 		"deprecated-true": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
-					Deprecated: pointer(true),
+					Deprecated: new(true),
 				},
 			},
-			expected: pointer("This attribute is deprecated."),
+			expected: new("This attribute is deprecated."),
 		},
 		"deprecated-true-override-empty": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
-					Deprecated: pointer(true),
+					Deprecated: new(true),
 				},
 				SchemaOpts: oas.SchemaOpts{
 					OverrideDeprecationMessage: "",
 				},
 			},
-			expected: pointer("This attribute is deprecated."),
+			expected: new("This attribute is deprecated."),
 		},
 		"deprecated-true-override-non-empty": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
-					Deprecated: pointer(true),
+					Deprecated: new(true),
 				},
 				SchemaOpts: oas.SchemaOpts{
 					OverrideDeprecationMessage: "Use test attribute instead.",
 				},
 			},
-			expected: pointer("Use test attribute instead."),
+			expected: new("Use test attribute instead."),
 		},
 	}
 

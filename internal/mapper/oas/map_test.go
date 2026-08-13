@@ -80,35 +80,35 @@ func TestBuildMapResource(t *testing.T) {
 										Name: "nested_float64",
 										Float64Attribute: resource.Float64Attribute{
 											ComputedOptionalRequired: schema.ComputedOptional,
-											Description:              pointer("hey there! I'm a nested float64 type."),
+											Description:              new("hey there! I'm a nested float64 type."),
 										},
 									},
 									&attrmapper.ResourceInt64Attribute{
 										Name: "nested_int64_required",
 										Int64Attribute: resource.Int64Attribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("hey there! I'm a nested int64 type, required."),
+											Description:              new("hey there! I'm a nested int64 type, required."),
 										},
 									},
 								},
 								SingleNestedAttribute: resource.SingleNestedAttribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a single nested object type."),
+									Description:              new("hey there! I'm a single nested object type."),
 								},
 							},
 							&attrmapper.ResourceStringAttribute{
 								Name: "nested_password_required",
 								StringAttribute: resource.StringAttribute{
 									ComputedOptionalRequired: schema.Required,
-									Sensitive:                pointer(true),
-									Description:              pointer("hey there! I'm a nested string type, required."),
+									Sensitive:                new(true),
+									Description:              new("hey there! I'm a nested string type, required."),
 								},
 							},
 						},
 					},
 					MapNestedAttribute: resource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a map nested type."),
+						Description:              new("hey there! I'm a map nested type."),
 					},
 				},
 			},
@@ -119,7 +119,7 @@ func TestBuildMapResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -140,7 +140,7 @@ func TestBuildMapResource(t *testing.T) {
 					Name: "nested_map_prop",
 					MapNestedAttribute: resource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
@@ -162,7 +162,7 @@ func TestBuildMapResource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:          []string{"object"},
-						MinProperties: pointer(int64(1)),
+						MinProperties: new(int64(1)),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -243,7 +243,7 @@ func TestBuildMapResource(t *testing.T) {
 							Float64: &schema.Float64Type{},
 						},
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a map type with floats."),
+						Description:              new("hey there! I'm a map type with floats."),
 					},
 				},
 				&attrmapper.ResourceMapAttribute{
@@ -253,7 +253,7 @@ func TestBuildMapResource(t *testing.T) {
 							String: &schema.StringType{},
 						},
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a map type with strings, required."),
+						Description:              new("hey there! I'm a map type with strings, required."),
 					},
 				},
 			},
@@ -338,35 +338,35 @@ func TestBuildMapDataSource(t *testing.T) {
 										Name: "nested_float64",
 										Float64Attribute: datasource.Float64Attribute{
 											ComputedOptionalRequired: schema.ComputedOptional,
-											Description:              pointer("hey there! I'm a nested float64 type."),
+											Description:              new("hey there! I'm a nested float64 type."),
 										},
 									},
 									&attrmapper.DataSourceInt64Attribute{
 										Name: "nested_int64_required",
 										Int64Attribute: datasource.Int64Attribute{
 											ComputedOptionalRequired: schema.Required,
-											Description:              pointer("hey there! I'm a nested int64 type, required."),
+											Description:              new("hey there! I'm a nested int64 type, required."),
 										},
 									},
 								},
 								SingleNestedAttribute: datasource.SingleNestedAttribute{
 									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              pointer("hey there! I'm a single nested object type."),
+									Description:              new("hey there! I'm a single nested object type."),
 								},
 							},
 							&attrmapper.DataSourceStringAttribute{
 								Name: "nested_password_required",
 								StringAttribute: datasource.StringAttribute{
 									ComputedOptionalRequired: schema.Required,
-									Sensitive:                pointer(true),
-									Description:              pointer("hey there! I'm a nested string type, required."),
+									Sensitive:                new(true),
+									Description:              new("hey there! I'm a nested string type, required."),
 								},
 							},
 						},
 					},
 					MapNestedAttribute: datasource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a map nested type."),
+						Description:              new("hey there! I'm a map nested type."),
 					},
 				},
 			},
@@ -377,7 +377,7 @@ func TestBuildMapDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -398,7 +398,7 @@ func TestBuildMapDataSource(t *testing.T) {
 					Name: "nested_map_prop",
 					MapNestedAttribute: datasource.MapNestedAttribute{
 						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       pointer("This attribute is deprecated."),
+						DeprecationMessage:       new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
@@ -420,7 +420,7 @@ func TestBuildMapDataSource(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:          []string{"object"},
-						MinProperties: pointer(int64(1)),
+						MinProperties: new(int64(1)),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -501,7 +501,7 @@ func TestBuildMapDataSource(t *testing.T) {
 							Float64: &schema.Float64Type{},
 						},
 						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              pointer("hey there! I'm a map type with floats."),
+						Description:              new("hey there! I'm a map type with floats."),
 					},
 				},
 				&attrmapper.DataSourceMapAttribute{
@@ -511,7 +511,7 @@ func TestBuildMapDataSource(t *testing.T) {
 							String: &schema.StringType{},
 						},
 						ComputedOptionalRequired: schema.Required,
-						Description:              pointer("hey there! I'm a map type with strings, required."),
+						Description:              new("hey there! I'm a map type with strings, required."),
 					},
 				},
 			},
@@ -596,35 +596,35 @@ func TestBuildMapProvider(t *testing.T) {
 										Name: "nested_float64",
 										Float64Attribute: provider.Float64Attribute{
 											OptionalRequired: schema.Optional,
-											Description:      pointer("hey there! I'm a nested float64 type."),
+											Description:      new("hey there! I'm a nested float64 type."),
 										},
 									},
 									&attrmapper.ProviderInt64Attribute{
 										Name: "nested_int64_required",
 										Int64Attribute: provider.Int64Attribute{
 											OptionalRequired: schema.Required,
-											Description:      pointer("hey there! I'm a nested int64 type, required."),
+											Description:      new("hey there! I'm a nested int64 type, required."),
 										},
 									},
 								},
 								SingleNestedAttribute: provider.SingleNestedAttribute{
 									OptionalRequired: schema.Optional,
-									Description:      pointer("hey there! I'm a single nested object type."),
+									Description:      new("hey there! I'm a single nested object type."),
 								},
 							},
 							&attrmapper.ProviderStringAttribute{
 								Name: "nested_password_required",
 								StringAttribute: provider.StringAttribute{
 									OptionalRequired: schema.Required,
-									Sensitive:        pointer(true),
-									Description:      pointer("hey there! I'm a nested string type, required."),
+									Sensitive:        new(true),
+									Description:      new("hey there! I'm a nested string type, required."),
 								},
 							},
 						},
 					},
 					MapNestedAttribute: provider.MapNestedAttribute{
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a map nested type."),
+						Description:      new("hey there! I'm a map nested type."),
 					},
 				},
 			},
@@ -635,7 +635,7 @@ func TestBuildMapProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop": base.CreateSchemaProxy(&base.Schema{
 						Type:       []string{"object"},
-						Deprecated: pointer(true),
+						Deprecated: new(true),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -656,7 +656,7 @@ func TestBuildMapProvider(t *testing.T) {
 					Name: "nested_map_prop",
 					MapNestedAttribute: provider.MapNestedAttribute{
 						OptionalRequired:   schema.Optional,
-						DeprecationMessage: pointer("This attribute is deprecated."),
+						DeprecationMessage: new("This attribute is deprecated."),
 					},
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
@@ -678,7 +678,7 @@ func TestBuildMapProvider(t *testing.T) {
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
 					"nested_map_prop_required": base.CreateSchemaProxy(&base.Schema{
 						Type:          []string{"object"},
-						MinProperties: pointer(int64(1)),
+						MinProperties: new(int64(1)),
 						AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{
 							A: base.CreateSchemaProxy(&base.Schema{
 								Type:     []string{"object"},
@@ -759,7 +759,7 @@ func TestBuildMapProvider(t *testing.T) {
 							Float64: &schema.Float64Type{},
 						},
 						OptionalRequired: schema.Optional,
-						Description:      pointer("hey there! I'm a map type with floats."),
+						Description:      new("hey there! I'm a map type with floats."),
 					},
 				},
 				&attrmapper.ProviderMapAttribute{
@@ -769,7 +769,7 @@ func TestBuildMapProvider(t *testing.T) {
 							String: &schema.StringType{},
 						},
 						OptionalRequired: schema.Required,
-						Description:      pointer("hey there! I'm a map type with strings, required."),
+						Description:      new("hey there! I'm a map type with strings, required."),
 					},
 				},
 			},
@@ -813,7 +813,7 @@ func TestGetMapValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:          []string{"object"},
-					MaxProperties: pointer(int64(123)),
+					MaxProperties: new(int64(123)),
 				},
 			},
 			expected: []schema.MapValidator{
@@ -833,8 +833,8 @@ func TestGetMapValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:          []string{"object"},
-					MinProperties: pointer(int64(123)),
-					MaxProperties: pointer(int64(456)),
+					MinProperties: new(int64(123)),
+					MaxProperties: new(int64(456)),
 				},
 			},
 			expected: []schema.MapValidator{
@@ -854,7 +854,7 @@ func TestGetMapValidators(t *testing.T) {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{
 					Type:          []string{"object"},
-					MinProperties: pointer(int64(123)),
+					MinProperties: new(int64(123)),
 				},
 			},
 			expected: []schema.MapValidator{

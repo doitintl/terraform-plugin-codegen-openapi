@@ -34,7 +34,7 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
@@ -49,21 +49,21 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old bool description"),
+					Description:              new("old bool description"),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old bool description"),
+					Description:              new("old bool description"),
 				},
 			},
 		},
@@ -78,14 +78,14 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 		},
@@ -94,21 +94,21 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 		},
@@ -140,7 +140,7 @@ func TestResourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -150,7 +150,7 @@ func TestResourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				BoolAttribute: resource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},
@@ -188,7 +188,7 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
@@ -203,21 +203,21 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old bool description"),
+					Description:              new("old bool description"),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old bool description"),
+					Description:              new("old bool description"),
 				},
 			},
 		},
@@ -232,14 +232,14 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 		},
@@ -248,21 +248,21 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new bool description"),
+					Description:              new("new bool description"),
 				},
 			},
 		},
@@ -294,7 +294,7 @@ func TestDataSourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -304,7 +304,7 @@ func TestDataSourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},

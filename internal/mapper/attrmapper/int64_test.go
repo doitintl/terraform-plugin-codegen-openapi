@@ -34,7 +34,7 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: resource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
@@ -49,21 +49,21 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old int64 description"),
+					Description:              new("old int64 description"),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old int64 description"),
+					Description:              new("old int64 description"),
 				},
 			},
 		},
@@ -78,14 +78,14 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 		},
@@ -94,21 +94,21 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 		},
@@ -140,7 +140,7 @@ func TestResourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -150,7 +150,7 @@ func TestResourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Int64Attribute: resource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},
@@ -188,7 +188,7 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("string description"),
+					Description:              new("string description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
@@ -203,21 +203,21 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old int64 description"),
+					Description:              new("old int64 description"),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old int64 description"),
+					Description:              new("old int64 description"),
 				},
 			},
 		},
@@ -232,14 +232,14 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 		},
@@ -248,21 +248,21 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer(""),
+					Description:              new(""),
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new int64 description"),
+					Description:              new("new int64 description"),
 				},
 			},
 		},
@@ -294,7 +294,7 @@ func TestDataSourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old description"),
+					Description:              new("old description"),
 				},
 			},
 			override: explorer.Override{
@@ -304,7 +304,7 @@ func TestDataSourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Name: "test_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new description"),
+					Description:              new("new description"),
 				},
 			},
 		},

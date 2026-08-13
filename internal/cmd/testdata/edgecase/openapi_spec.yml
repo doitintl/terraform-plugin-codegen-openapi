@@ -121,8 +121,119 @@ paths:
                   format: set
                   items:
                     type: string
+  /composition_siblings:
+    get:
+      summary: Test for keywords set alongside an allOf/oneOf schema composition keyword
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deprecated_allof_prop:
+                    description: "Deprecated: use 'string_prop' instead."
+                    deprecated: true
+                    allOf:
+                    - $ref: "#/components/schemas/composition_object"
+                  required_allof_prop:
+                    description: The composing schema requires a property the target does not
+                    required:
+                    - from_composer
+                    allOf:
+                    - $ref: "#/components/schemas/composition_required_object"
+                  set_format_allof_prop:
+                    description: The composing schema refines an array into a set
+                    format: set
+                    allOf:
+                    - $ref: "#/components/schemas/composition_string_array"
+                  deprecated_oneof_prop:
+                    description: This description is on the composing schema, not the branch
+                    deprecated: true
+                    oneOf:
+                    - type: string
+                    - type: "null"
+                  refined_allof_prop:
+                    description: The composing schema refines one property of the target
+                    properties:
+                      refined:
+                        deprecated: true
+                    allOf:
+                    - $ref: "#/components/schemas/composition_refinable_object"
+    post:
+      summary: Same, as a resource, so that the required union is visible in the output
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deprecated_allof_prop:
+                  description: "Deprecated: use 'string_prop' instead."
+                  deprecated: true
+                  allOf:
+                  - $ref: "#/components/schemas/composition_object"
+                required_allof_prop:
+                  description: The composing schema requires a property the target does not
+                  required:
+                  - from_composer
+                  allOf:
+                  - $ref: "#/components/schemas/composition_required_object"
+                set_format_allof_prop:
+                  description: The composing schema refines an array into a set
+                  format: set
+                  allOf:
+                  - $ref: "#/components/schemas/composition_string_array"
+                deprecated_oneof_prop:
+                  description: This description is on the composing schema, not the branch
+                  deprecated: true
+                  oneOf:
+                  - type: string
+                  - type: "null"
+                refined_allof_prop:
+                  description: The composing schema refines one property of the target
+                  properties:
+                    refined:
+                      deprecated: true
+                  allOf:
+                  - $ref: "#/components/schemas/composition_refinable_object"
 components:
   schemas:
+    composition_object:
+      description: This description loses to the composing schema's
+      type: object
+      properties:
+        string_prop:
+          description: String inside a composed object!
+          type: string
+    composition_required_object:
+      type: object
+      required:
+      - from_target
+      properties:
+        from_target:
+          description: Required by the $ref target
+          type: string
+        from_composer:
+          description: Required by the composing schema
+          type: string
+    composition_refinable_object:
+      type: object
+      properties:
+        refined:
+          description: The composing schema deprecates this without restating its type
+          type: string
+          minLength: 3
+        untouched:
+          description: The composing schema says nothing about this one
+          type: boolean
+    composition_string_array:
+      description: This array becomes a set when the composing schema says so
+      type: array
+      items:
+        type: string
     edgecase_provider:
       description: This is the provider schema
       type: object

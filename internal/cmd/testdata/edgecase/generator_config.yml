@@ -25,6 +25,14 @@ resources:
       path: /map_test
       method: GET
 
+  composition_siblings:
+    create:
+      path: /composition_siblings
+      method: POST
+    read:
+      path: /composition_siblings
+      method: GET
+
 data_sources:
   nested_collections:
     read:
@@ -46,4 +54,8 @@ data_sources:
   obj_no_type:
     read:
       path: /obj_no_type
+      method: GET
+  composition_siblings:
+    read:
+      path: /composition_siblings
       method: GET
