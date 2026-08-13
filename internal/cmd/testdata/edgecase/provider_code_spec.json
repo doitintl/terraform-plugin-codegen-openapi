@@ -30,6 +30,30 @@
 						}
 					},
 					{
+						"name": "refined_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed",
+							"attributes": [
+								{
+									"name": "refined",
+									"string": {
+										"computed_optional_required": "computed",
+										"deprecation_message": "This attribute is deprecated.",
+										"description": "The composing schema deprecates this without restating its type"
+									}
+								},
+								{
+									"name": "untouched",
+									"bool": {
+										"computed_optional_required": "computed",
+										"description": "The composing schema says nothing about this one"
+									}
+								}
+							],
+							"description": "The composing schema refines one property of the target"
+						}
+					},
+					{
 						"name": "required_allof_prop",
 						"single_nested": {
 							"computed_optional_required": "computed",
@@ -357,6 +381,42 @@
 							"computed_optional_required": "computed_optional",
 							"deprecation_message": "This attribute is deprecated.",
 							"description": "This description is on the composing schema, not the branch"
+						}
+					},
+					{
+						"name": "refined_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed_optional",
+							"attributes": [
+								{
+									"name": "refined",
+									"string": {
+										"computed_optional_required": "computed_optional",
+										"deprecation_message": "This attribute is deprecated.",
+										"description": "The composing schema deprecates this without restating its type",
+										"validators": [
+											{
+												"custom": {
+													"imports": [
+														{
+															"path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+														}
+													],
+													"schema_definition": "stringvalidator.LengthAtLeast(3)"
+												}
+											}
+										]
+									}
+								},
+								{
+									"name": "untouched",
+									"bool": {
+										"computed_optional_required": "computed_optional",
+										"description": "The composing schema says nothing about this one"
+									}
+								}
+							],
+							"description": "The composing schema refines one property of the target"
 						}
 					},
 					{

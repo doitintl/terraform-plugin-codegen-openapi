@@ -173,7 +173,7 @@ func buildSchemaProxy(proxy *base.SchemaProxy) (*base.Schema, *SchemaError) {
 			return nil, err
 		}
 
-		return overlaySiblings(s, allOfSchema, overlayTypeInfo), nil
+		return overlaySiblings(s, allOfSchema, overlayTypeInfo)
 	}
 
 	// Combining multiple allOf schemas and their properties is possible here, but currently not supported
@@ -207,16 +207,16 @@ func getMultiTypeSchema(composer *base.Schema, proxyOne *base.SchemaProxy, proxy
 
 	// Check for null type, if found, return the other type
 	if firstType == util.OAS_type_null {
-		return overlaySiblings(composer, secondSchema, dontOverlayTypeInfo), nil
+		return overlaySiblings(composer, secondSchema, dontOverlayTypeInfo)
 	} else if secondType == util.OAS_type_null {
-		return overlaySiblings(composer, firstSchema, dontOverlayTypeInfo), nil
+		return overlaySiblings(composer, firstSchema, dontOverlayTypeInfo)
 	}
 
 	// Check for string type, if the other type can be represented as a string, return the string type
 	if firstType == util.OAS_type_string && isStringableType(secondType) {
-		return overlaySiblings(composer, firstSchema, dontOverlayTypeInfo), nil
+		return overlaySiblings(composer, firstSchema, dontOverlayTypeInfo)
 	} else if secondType == util.OAS_type_string && isStringableType(firstType) {
-		return overlaySiblings(composer, secondSchema, dontOverlayTypeInfo), nil
+		return overlaySiblings(composer, secondSchema, dontOverlayTypeInfo)
 	}
 
 	return nil, SchemaErrorFromNode(fmt.Errorf("[%s %s] - %w", firstType, secondType, ErrMultiTypeSchema), firstSchema, Type)
@@ -250,13 +250,18 @@ const (
 //   - type: only fills a gap. `type` selects which attribute kind is generated, and because allOf is an
 //     intersection a type declared on both sides has to agree -- so when they disagree the $ref target is the
 //     authoritative one and overriding it would generate the wrong kind of attribute.
+//   - properties present on both sides, and items/additionalProperties: composed recursively rather than
+//     replaced. Replacing them would discard the referenced schema's nested constraints, and would break outright
+//     for the usual refinement shape -- a composing schema that adds `maxLength` to an item, or `deprecated` to
+//     one property, without repeating the type the $ref already supplies. Replacement would leave those nested
+//     schemas typeless and the whole attribute would be dropped.
 //
 // overlaySiblings never mutates either argument. libopenapi caches one *base.Schema per $ref target and hands the
 // same pointer to every reference site, so writing through resolved would leak these keywords into unrelated
 // attributes elsewhere in the document.
-func overlaySiblings(composer *base.Schema, resolved *base.Schema, allowTypeInfo bool) *base.Schema {
+func overlaySiblings(composer *base.Schema, resolved *base.Schema, allowTypeInfo bool) (*base.Schema, *SchemaError) {
 	if composer == nil || resolved == nil || composer == resolved {
-		return resolved
+		return resolved, nil
 	}
 
 	merged := *resolved
@@ -284,16 +289,31 @@ func overlaySiblings(composer *base.Schema, resolved *base.Schema, allowTypeInfo
 
 	// Structure.
 	if orderedmap.Len(composer.Properties) > 0 {
-		merged.Properties = mergeProperties(resolved.Properties, composer.Properties)
+		mergedProperties, err := mergeProperties(resolved.Properties, composer.Properties)
+		if err != nil {
+			return nil, err
+		}
+
+		merged.Properties = mergedProperties
 	}
 	if len(composer.Required) > 0 {
 		merged.Required = unionRequired(resolved.Required, composer.Required)
 	}
 	if composer.AdditionalProperties != nil {
-		merged.AdditionalProperties = composer.AdditionalProperties
+		mergedAdditionalProperties, err := mergeDynamicValue(resolved.AdditionalProperties, composer.AdditionalProperties)
+		if err != nil {
+			return nil, err
+		}
+
+		merged.AdditionalProperties = mergedAdditionalProperties
 	}
 	if composer.Items != nil {
-		merged.Items = composer.Items
+		mergedItems, err := mergeDynamicValue(resolved.Items, composer.Items)
+		if err != nil {
+			return nil, err
+		}
+
+		merged.Items = mergedItems
 	}
 
 	// Validation.
@@ -331,13 +351,14 @@ func overlaySiblings(composer *base.Schema, resolved *base.Schema, allowTypeInfo
 		merged.MaxProperties = composer.MaxProperties
 	}
 
-	return &merged
+	return &merged, nil
 }
 
 // mergeProperties returns a new ordered map holding the resolved subschema's properties followed by the composing
-// schema's own properties. Keys defined on both sides resolve to the composing schema's proxy. Neither input is
-// mutated.
-func mergeProperties(resolved *orderedmap.Map[string, *base.SchemaProxy], composer *orderedmap.Map[string, *base.SchemaProxy]) *orderedmap.Map[string, *base.SchemaProxy] {
+// schema's own properties. A key defined on both sides is composed, not replaced: the composing schema's keywords
+// are overlaid onto the resolved schema's property, so a composing schema can refine one property -- deprecate it,
+// tighten a bound -- without restating the type and constraints the $ref already supplies. Neither input is mutated.
+func mergeProperties(resolved *orderedmap.Map[string, *base.SchemaProxy], composer *orderedmap.Map[string, *base.SchemaProxy]) (*orderedmap.Map[string, *base.SchemaProxy], *SchemaError) {
 	merged := orderedmap.New[string, *base.SchemaProxy]()
 
 	for name, proxy := range resolved.FromOldest() {
@@ -345,10 +366,59 @@ func mergeProperties(resolved *orderedmap.Map[string, *base.SchemaProxy], compos
 	}
 
 	for name, proxy := range composer.FromOldest() {
-		merged.Set(name, proxy)
+		resolvedProxy, collides := merged.Get(name)
+		if !collides {
+			merged.Set(name, proxy)
+			continue
+		}
+
+		composedProxy, err := composeProxies(proxy, resolvedProxy)
+		if err != nil {
+			return nil, err
+		}
+
+		merged.Set(name, composedProxy)
 	}
 
-	return merged
+	return merged, nil
+}
+
+// mergeDynamicValue composes the `items` or `additionalProperties` of a composing schema with the resolved
+// subschema's. Both sides have to be carrying a schema for that to mean anything; when either is the boolean form,
+// or the resolved subschema has none, the composing schema's value is taken as-is.
+func mergeDynamicValue(resolved *base.DynamicValue[*base.SchemaProxy, bool], composer *base.DynamicValue[*base.SchemaProxy, bool]) (*base.DynamicValue[*base.SchemaProxy, bool], *SchemaError) {
+	if resolved == nil || !resolved.IsA() || !composer.IsA() {
+		return composer, nil
+	}
+
+	composedProxy, err := composeProxies(composer.A, resolved.A)
+	if err != nil {
+		return nil, err
+	}
+
+	return &base.DynamicValue[*base.SchemaProxy, bool]{A: composedProxy}, nil
+}
+
+// composeProxies overlays the keywords of one schema proxy onto another, returning a proxy over the result. Used
+// for the nested schemas -- colliding properties, items, additionalProperties -- where a composing schema refines
+// the $ref target rather than replacing it wholesale.
+func composeProxies(composerProxy *base.SchemaProxy, resolvedProxy *base.SchemaProxy) (*base.SchemaProxy, *SchemaError) {
+	composerSchema, err := buildSchemaProxy(composerProxy)
+	if err != nil {
+		return nil, err
+	}
+
+	resolvedSchema, err := buildSchemaProxy(resolvedProxy)
+	if err != nil {
+		return nil, err
+	}
+
+	composedSchema, err := overlaySiblings(composerSchema, resolvedSchema, overlayTypeInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	return base.CreateSchemaProxy(composedSchema), nil
 }
 
 // unionRequired returns a new slice containing every name in either list, in resolved-then-composer order. A new

@@ -154,6 +154,13 @@ paths:
                     oneOf:
                     - type: string
                     - type: "null"
+                  refined_allof_prop:
+                    description: The composing schema refines one property of the target
+                    properties:
+                      refined:
+                        deprecated: true
+                    allOf:
+                    - $ref: "#/components/schemas/composition_refinable_object"
     post:
       summary: Same, as a resource, so that the required union is visible in the output
       requestBody:
@@ -185,6 +192,13 @@ paths:
                   oneOf:
                   - type: string
                   - type: "null"
+                refined_allof_prop:
+                  description: The composing schema refines one property of the target
+                  properties:
+                    refined:
+                      deprecated: true
+                  allOf:
+                  - $ref: "#/components/schemas/composition_refinable_object"
 components:
   schemas:
     composition_object:
@@ -205,6 +219,16 @@ components:
         from_composer:
           description: Required by the composing schema
           type: string
+    composition_refinable_object:
+      type: object
+      properties:
+        refined:
+          description: The composing schema deprecates this without restating its type
+          type: string
+          minLength: 3
+        untouched:
+          description: The composing schema says nothing about this one
+          type: boolean
     composition_string_array:
       description: This array becomes a set when the composing schema says so
       type: array

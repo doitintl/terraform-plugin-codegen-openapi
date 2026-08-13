@@ -1415,6 +1415,123 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 				},
 			},
 		},
+		// The refinement shape: the composing schema tightens something nested without restating the type the
+		// $ref already supplies. Replacing rather than composing would leave these nested schemas typeless and
+		// the whole attribute would be dropped from the output.
+		"allOf with one element - colliding property is composed, not replaced": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"refined_object": base.CreateSchemaProxy(&base.Schema{
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"name": base.CreateSchemaProxy(&base.Schema{
+								Deprecated: new(true),
+							}),
+						}),
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"object"},
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"name": base.CreateSchemaProxy(&base.Schema{
+										Type:        []string{"string"},
+										Description: "hey there! I'm the target's property.",
+										MinLength:   new(int64(3)),
+									}),
+								}),
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "refined_object",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "name",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.ComputedOptional,
+								// Type, description and the length bound all survive from the target.
+								Description:        new("hey there! I'm the target's property."),
+								DeprecationMessage: new("This attribute is deprecated."),
+								Validators: []schema.StringValidator{
+									{
+										Custom: &schema.CustomValidator{
+											Imports: []code.Import{
+												{
+													Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+												},
+											},
+											SchemaDefinition: "stringvalidator.LengthAtLeast(3)",
+										},
+									},
+								},
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"allOf with one element - items are composed, not replaced": {
+			schemaProxy: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"refined_list": base.CreateSchemaProxy(&base.Schema{
+						Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+							A: base.CreateSchemaProxy(&base.Schema{
+								Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+									"from_composer": base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"boolean"},
+									}),
+								}),
+							}),
+						},
+						AllOf: []*base.SchemaProxy{
+							base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"array"},
+								Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+									A: base.CreateSchemaProxy(&base.Schema{
+										Type: []string{"object"},
+										Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+											"from_target": base.CreateSchemaProxy(&base.Schema{
+												Type: []string{"string"},
+											}),
+										}),
+									}),
+								},
+							}),
+						},
+					}),
+				}),
+			}),
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceListNestedAttribute{
+					Name: "refined_list",
+					NestedObject: attrmapper.ResourceNestedAttributeObject{
+						Attributes: attrmapper.ResourceAttributes{
+							&attrmapper.ResourceBoolAttribute{
+								Name: "from_composer",
+								BoolAttribute: resource.BoolAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+							&attrmapper.ResourceStringAttribute{
+								Name: "from_target",
+								StringAttribute: resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+					ListNestedAttribute: resource.ListNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
 		"allOf with one element - subschema type wins, composer type only fills a gap": {
 			schemaProxy: base.CreateSchemaProxy(&base.Schema{
 				Type: []string{"object"},
