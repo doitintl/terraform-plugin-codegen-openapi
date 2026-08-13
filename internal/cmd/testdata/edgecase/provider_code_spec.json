@@ -1,6 +1,71 @@
 {
 	"datasources": [
 		{
+			"name": "composition_siblings",
+			"schema": {
+				"attributes": [
+					{
+						"name": "deprecated_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed",
+							"attributes": [
+								{
+									"name": "string_prop",
+									"string": {
+										"computed_optional_required": "computed",
+										"description": "String inside a composed object!"
+									}
+								}
+							],
+							"deprecation_message": "This attribute is deprecated.",
+							"description": "Deprecated: use 'string_prop' instead."
+						}
+					},
+					{
+						"name": "deprecated_oneof_prop",
+						"string": {
+							"computed_optional_required": "computed",
+							"deprecation_message": "This attribute is deprecated.",
+							"description": "This description is on the composing schema, not the branch"
+						}
+					},
+					{
+						"name": "required_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed",
+							"attributes": [
+								{
+									"name": "from_composer",
+									"string": {
+										"computed_optional_required": "computed",
+										"description": "Required by the composing schema"
+									}
+								},
+								{
+									"name": "from_target",
+									"string": {
+										"computed_optional_required": "computed",
+										"description": "Required by the $ref target"
+									}
+								}
+							],
+							"description": "The composing schema requires a property the target does not"
+						}
+					},
+					{
+						"name": "set_format_allof_prop",
+						"set": {
+							"computed_optional_required": "computed",
+							"element_type": {
+								"string": {}
+							},
+							"description": "The composing schema refines an array into a set"
+						}
+					}
+				]
+			}
+		},
+		{
 			"name": "map_test",
 			"schema": {
 				"attributes": [
@@ -265,6 +330,71 @@
 		}
 	},
 	"resources": [
+		{
+			"name": "composition_siblings",
+			"schema": {
+				"attributes": [
+					{
+						"name": "deprecated_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed_optional",
+							"attributes": [
+								{
+									"name": "string_prop",
+									"string": {
+										"computed_optional_required": "computed_optional",
+										"description": "String inside a composed object!"
+									}
+								}
+							],
+							"deprecation_message": "This attribute is deprecated.",
+							"description": "Deprecated: use 'string_prop' instead."
+						}
+					},
+					{
+						"name": "deprecated_oneof_prop",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"deprecation_message": "This attribute is deprecated.",
+							"description": "This description is on the composing schema, not the branch"
+						}
+					},
+					{
+						"name": "required_allof_prop",
+						"single_nested": {
+							"computed_optional_required": "computed_optional",
+							"attributes": [
+								{
+									"name": "from_composer",
+									"string": {
+										"computed_optional_required": "required",
+										"description": "Required by the composing schema"
+									}
+								},
+								{
+									"name": "from_target",
+									"string": {
+										"computed_optional_required": "required",
+										"description": "Required by the $ref target"
+									}
+								}
+							],
+							"description": "The composing schema requires a property the target does not"
+						}
+					},
+					{
+						"name": "set_format_allof_prop",
+						"set": {
+							"computed_optional_required": "computed_optional",
+							"element_type": {
+								"string": {}
+							},
+							"description": "The composing schema refines an array into a set"
+						}
+					}
+				]
+			}
+		},
 		{
 			"name": "map_test",
 			"schema": {
