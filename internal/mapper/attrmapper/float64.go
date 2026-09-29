@@ -24,9 +24,14 @@ func (a *ResourceFloat64Attribute) GetName() string {
 func (a *ResourceFloat64Attribute) Merge(mergeAttribute ResourceAttribute) (ResourceAttribute, error) {
 	float64Attribute, ok := mergeAttribute.(*ResourceFloat64Attribute)
 	// TODO: return error if types don't match?
-	if ok && (a.Description == nil || *a.Description == "") {
+	if !ok {
+		return a, nil
+	}
+
+	if a.Description == nil || *a.Description == "" {
 		a.Description = float64Attribute.Description
 	}
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, float64Attribute.ComputedOptionalRequired)
 
 	return a, nil
 }
@@ -57,9 +62,14 @@ func (a *DataSourceFloat64Attribute) GetName() string {
 func (a *DataSourceFloat64Attribute) Merge(mergeAttribute DataSourceAttribute) (DataSourceAttribute, error) {
 	float64Attribute, ok := mergeAttribute.(*DataSourceFloat64Attribute)
 	// TODO: return error if types don't match?
-	if ok && (a.Description == nil || *a.Description == "") {
+	if !ok {
+		return a, nil
+	}
+
+	if a.Description == nil || *a.Description == "" {
 		a.Description = float64Attribute.Description
 	}
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, float64Attribute.ComputedOptionalRequired)
 
 	return a, nil
 }

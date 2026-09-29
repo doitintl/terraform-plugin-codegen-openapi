@@ -67,6 +67,29 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: resource.NumberAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old number description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: resource.NumberAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new number description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: resource.NumberAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old number description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceNumberAttribute{
 				Name: "number_attribute",
@@ -210,6 +233,29 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				Name: "number_attribute",
 				NumberAttribute: datasource.NumberAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new number description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: datasource.NumberAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old number description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: datasource.NumberAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old number description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceNumberAttribute{
+				Name: "number_attribute",
+				NumberAttribute: datasource.NumberAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new number description"),
 				},
 			},

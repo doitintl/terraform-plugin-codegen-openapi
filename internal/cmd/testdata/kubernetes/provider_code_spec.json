@@ -9253,7 +9253,7 @@
 					{
 						"name": "namespace",
 						"string": {
-							"computed_optional_required": "computed_optional",
+							"computed_optional_required": "required",
 							"description": "object name and auth scope, such as for teams and projects"
 						}
 					},

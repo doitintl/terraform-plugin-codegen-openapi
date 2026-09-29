@@ -86,6 +86,79 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required in a later merge slice - promote computability": {
+			targetAttributes: attrmapper.DataSourceAttributes{
+				&attrmapper.DataSourceStringAttribute{
+					Name: "string_attribute",
+					StringAttribute: datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("string description"),
+					},
+				},
+				&attrmapper.DataSourceSingleNestedAttribute{
+					Name: "single_nested_attribute",
+					Attributes: attrmapper.DataSourceAttributes{
+						&attrmapper.DataSourceBoolAttribute{
+							Name: "nested_bool",
+							BoolAttribute: datasource.BoolAttribute{
+								ComputedOptionalRequired: schema.Computed,
+							},
+						},
+					},
+					SingleNestedAttribute: datasource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.Computed,
+					},
+				},
+			},
+			mergeAttributeSlices: []attrmapper.DataSourceAttributes{
+				{
+					&attrmapper.DataSourceStringAttribute{
+						Name: "string_attribute",
+						StringAttribute: datasource.StringAttribute{
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("this will be ignored"),
+						},
+					},
+					&attrmapper.DataSourceSingleNestedAttribute{
+						Name: "single_nested_attribute",
+						Attributes: attrmapper.DataSourceAttributes{
+							&attrmapper.DataSourceBoolAttribute{
+								Name: "nested_bool",
+								BoolAttribute: datasource.BoolAttribute{
+									ComputedOptionalRequired: schema.Required,
+								},
+							},
+						},
+						SingleNestedAttribute: datasource.SingleNestedAttribute{
+							ComputedOptionalRequired: schema.Required,
+						},
+					},
+				},
+			},
+			expectedAttributes: attrmapper.DataSourceAttributes{
+				&attrmapper.DataSourceStringAttribute{
+					Name: "string_attribute",
+					StringAttribute: datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("string description"),
+					},
+				},
+				&attrmapper.DataSourceSingleNestedAttribute{
+					Name: "single_nested_attribute",
+					Attributes: attrmapper.DataSourceAttributes{
+						&attrmapper.DataSourceBoolAttribute{
+							Name: "nested_bool",
+							BoolAttribute: datasource.BoolAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: datasource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+			},
+		},
 		"recursive - matches and appends": {
 			targetAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceSingleNestedAttribute{

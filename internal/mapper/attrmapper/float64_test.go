@@ -67,6 +67,29 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: resource.Float64Attribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old float64 description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: resource.Float64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new float64 description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: resource.Float64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old float64 description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceFloat64Attribute{
 				Name: "float64_attribute",
@@ -210,6 +233,29 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 				Name: "float64_attribute",
 				Float64Attribute: datasource.Float64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new float64 description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: datasource.Float64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old float64 description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: datasource.Float64Attribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old float64 description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
+				Name: "float64_attribute",
+				Float64Attribute: datasource.Float64Attribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new float64 description"),
 				},
 			},

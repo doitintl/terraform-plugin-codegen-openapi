@@ -161,7 +161,7 @@
 					{
 						"name": "zone",
 						"string": {
-							"computed_optional_required": "computed_optional",
+							"computed_optional_required": "required",
 							"description": "The zone you want to target",
 							"validators": [
 								{
@@ -302,7 +302,7 @@
 					{
 						"name": "zone",
 						"string": {
-							"computed_optional_required": "computed_optional",
+							"computed_optional_required": "required",
 							"description": "The zone you want to target",
 							"validators": [
 								{

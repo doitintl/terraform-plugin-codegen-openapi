@@ -87,14 +87,21 @@ func (e configExplorer) FindResources() (map[string]Resource, error) {
 			continue
 		}
 
+		createCommonParameters, err := extractCommonParameters(e.spec.Paths, resourceConfig.Create.Path)
+		if err != nil {
+			errResult = errors.Join(errResult, fmt.Errorf("failed to extract '%s' create common parameters: %w", name, err))
+			continue
+		}
+
 		resources[name] = Resource{
-			CreateOp:         createOp,
-			ReadOp:           readOp,
-			UpdateOp:         updateOp,
-			DeleteOp:         deleteOp,
-			CommonParameters: commonParameters,
-			SchemaOptions:    extractSchemaOptions(resourceConfig.SchemaOptions),
-			Description:      getOperationTagDescription(e.spec, createOp),
+			CreateOp:               createOp,
+			ReadOp:                 readOp,
+			UpdateOp:               updateOp,
+			DeleteOp:               deleteOp,
+			CommonParameters:       commonParameters,
+			CreateCommonParameters: createCommonParameters,
+			SchemaOptions:          extractSchemaOptions(resourceConfig.SchemaOptions),
+			Description:            getOperationTagDescription(e.spec, createOp),
 		}
 	}
 

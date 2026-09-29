@@ -51,6 +51,7 @@ In these OAS operations, the generator will search the `create` and `read` for s
 4. `read` operation: [parameters](https://spec.openapis.org/oas/v3.1.0#parameterObject)
     - The generator will merge all `query` and `path` parameters to the root of the schema.
     - The generator will consider as parameters the ones in the [OAS Path Item](https://spec.openapis.org/oas/v3.1.0#path-item-object) and the ones in the [OAS Operation](https://spec.openapis.org/oas/v3.1.0#operation-object), merged based on the rules in the specification
+    - The `create` operation's `path` parameters are read to decide whether a `read` operation `path` parameter is a practitioner input, as described in [Resources - Required, Computed or Optional](#resources---required-computed-or-optional). They are not themselves mapped to attributes.
 
 All schemas found will be deep merged together, with the `requestBody` schema from the `create` operation being the **main schema** that the others will be merged on top. The deep merge has the following characteristics:
 
@@ -214,6 +215,12 @@ For resources, all fields in the `create` operation `requestBody` OAS schema mar
 If not required, then the field will be mapped as `computed_optional`.
 
 If the field is only present in a schema other than the `create` operation `requestBody`, then the field will be mapped as `computed`.
+
+A `read` operation `path` parameter marked as `required` that also appears as a `path` parameter of the `create` operation will be mapped as `required`. Such a parameter is addressed by the URL the `create` operation is sent to, so the practitioner has to supply it. Any other `read` operation parameter will be mapped as `computed_optional`, including a `required` `path` parameter that only appears on the `read` path -- that one identifies something the API assigned.
+
+`required` on a parameter is mandatory for `path` parameters, so it cannot distinguish the two cases on its own. On `/parents/{parent_id}/children/{child_id}`, created with `POST /parents/{parent_id}/children`, `parent_id` is `required` and `child_id` is `computed_optional`.
+
+A `required` mapped from a parameter also takes precedence over a `computed` mapped from a response body for the same field name, even though the parameters are otherwise the lowest precedence schema. Nothing but a parameter can produce `required` at that point in the merge, so discarding it would leave an attribute the API needs as an input mapped as `computed`.
 
 #### Data Sources - Required, Computed or Optional
 For data sources, all fields in the `read` operation `parameters` OAS schema marked as [required](https://json-schema.org/understanding-json-schema/reference/object.html#required-properties) will be mapped as `required`.

@@ -20,6 +20,22 @@ type ProviderNestedAttributeObject struct {
 	Attributes ProviderAttributes
 }
 
+// mergeComputability lets a Required classification from the merge attribute override the target's.
+//
+// Merging is otherwise target-wins, which is correct for everything derived from a schema -- a
+// resource's create request body outranks its response bodies. Required is different: it can only
+// originate from a parameter the practitioner has to supply, because every response body is built
+// with GlobalSchemaOpts.OverrideComputability set to schema.Computed. Discarding it would silently
+// demote an attribute the API needs as an input, which is what happened to a read path parameter
+// that shared its name with a response property.
+func mergeComputability(target schema.ComputedOptionalRequired, merge schema.ComputedOptionalRequired) schema.ComputedOptionalRequired {
+	if merge == schema.Required {
+		return schema.Required
+	}
+
+	return target
+}
+
 func mergeElementType(target schema.ElementType, merge schema.ElementType) schema.ElementType {
 	// Handle collection type
 	// https://developer.hashicorp.com/terraform/plugin/framework/handling-data/types#collection-types

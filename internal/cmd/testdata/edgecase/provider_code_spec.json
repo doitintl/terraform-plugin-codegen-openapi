@@ -533,6 +533,34 @@
 			}
 		},
 		{
+			"name": "nested_path",
+			"schema": {
+				"attributes": [
+					{
+						"name": "name",
+						"string": {
+							"computed_optional_required": "required",
+							"description": "The child's name"
+						}
+					},
+					{
+						"name": "child_id",
+						"string": {
+							"computed_optional_required": "computed",
+							"description": "The response is merged first, so this description outlives the parameter's"
+						}
+					},
+					{
+						"name": "parent_id",
+						"string": {
+							"computed_optional_required": "required",
+							"description": "The response is merged first, so this description outlives the parameter's"
+						}
+					}
+				]
+			}
+		},
+		{
 			"name": "set_test",
 			"schema": {
 				"attributes": [

@@ -30,6 +30,10 @@ func (e *Resource) ReadOpParameters() []*high.Parameter {
 	return mergeParameters(e.CommonParameters, e.ReadOp)
 }
 
+func (e *Resource) CreateOpParameters() []*high.Parameter {
+	return mergeParameters(e.CreateCommonParameters, e.CreateOp)
+}
+
 func (e *DataSource) ReadOpParameters() []*high.Parameter {
 	return mergeParameters(e.CommonParameters, e.ReadOp)
 }

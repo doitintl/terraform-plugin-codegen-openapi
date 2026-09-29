@@ -174,6 +174,67 @@ func Test_ConfigExplorer_FindResources(t *testing.T) {
 				},
 			},
 		},
+		"path item parameters are extracted per operation path": {
+			config: config.Config{
+				Resources: map[string]config.Resource{
+					"test_resource": {
+						Create: &config.OpenApiSpecLocation{
+							Path:   "/parents/{parent_id}/resources",
+							Method: "POST",
+						},
+						Read: &config.OpenApiSpecLocation{
+							Path:   "/parents/{parent_id}/resources/{resource_id}",
+							Method: "GET",
+						},
+					},
+				},
+			},
+			pathItems: orderedmap.ToOrderedMap(map[string]*high.PathItem{
+				"/parents/{parent_id}/resources": {
+					Parameters: []*high.Parameter{
+						{Name: "parent_id", In: "path", Required: new(true)},
+					},
+					Post: &high.Operation{
+						Description: "create op here",
+						OperationId: "create_resource",
+					},
+				},
+				"/parents/{parent_id}/resources/{resource_id}": {
+					Parameters: []*high.Parameter{
+						{Name: "parent_id", In: "path", Required: new(true)},
+						{Name: "resource_id", In: "path", Required: new(true)},
+					},
+					Get: &high.Operation{
+						Description: "read op here",
+						OperationId: "read_resource",
+					},
+				},
+			}),
+			want: map[string]explorer.Resource{
+				"test_resource": {
+					CreateOp: &high.Operation{
+						Description: "create op here",
+						OperationId: "create_resource",
+					},
+					ReadOp: &high.Operation{
+						Description: "read op here",
+						OperationId: "read_resource",
+					},
+					CommonParameters: []*high.Parameter{
+						{Name: "parent_id", In: "path", Required: new(true)},
+						{Name: "resource_id", In: "path", Required: new(true)},
+					},
+					CreateCommonParameters: []*high.Parameter{
+						{Name: "parent_id", In: "path", Required: new(true)},
+					},
+					SchemaOptions: explorer.SchemaOptions{
+						AttributeOptions: explorer.AttributeOptions{
+							Overrides: map[string]explorer.Override{},
+						},
+					},
+				},
+			},
+		},
 		"non-existent create path throws error": {
 			config: config.Config{
 				Resources: map[string]config.Resource{
@@ -341,7 +402,7 @@ func Test_ConfigExplorer_FindResources(t *testing.T) {
 				return
 			}
 
-			if diff := cmp.Diff(got, testCase.want, cmpopts.IgnoreUnexported(high.Operation{})); testCase.expectedErr == nil && diff != "" {
+			if diff := cmp.Diff(got, testCase.want, cmpopts.IgnoreUnexported(high.Operation{}, high.Parameter{})); testCase.expectedErr == nil && diff != "" {
 				t.Errorf("unexpected difference: %s", diff)
 			}
 		})

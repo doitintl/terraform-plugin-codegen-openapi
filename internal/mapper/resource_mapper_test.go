@@ -29,6 +29,8 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 		createResponseSchema *base.SchemaProxy
 		readResponseSchema   *base.SchemaProxy
 		readParams           []*high.Parameter
+		createParams         []*high.Parameter
+		createCommonParams   []*high.Parameter
 		schemaOptions        explorer.SchemaOptions
 		want                 resource.Attributes
 	}{
@@ -844,6 +846,336 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 			},
 		},
+		"required read path param on the create path - required": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:     []string{"object"},
+				Required: []string{"name"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "child_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+				{
+					Name: "parent_id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+				{
+					// Required in the read path but absent from the create path, so the API
+					// assigned it.
+					Name: "child_id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"create path param declared on the path item - required": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			createCommonParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				{
+					Name: "parent_id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+			},
+		},
+		"query params are never promoted": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "region",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					// Matches a create query param, not a create path param.
+					Name:     "zone",
+					Required: new(true),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					// Matches a create path param, but is itself a query param.
+					Name:     "region",
+					Required: new(true),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "zone",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				{
+					Name: "region",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"path param not marked required - not promoted": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name: "parent_id",
+					In:   "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name: "parent_id",
+					In:   "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "parent_id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"required param overrides a response-derived classification": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					// The response reaches the merge target first and is forced to Computed, so
+					// without the promotion the parameter's classification would be discarded.
+					"id": base.CreateSchemaProxy(&base.Schema{
+						Type:        []string{"string"},
+						Description: "the response description still wins",
+					}),
+				}),
+			}),
+			readParams: []*high.Parameter{
+				{
+					Name:        "id",
+					Required:    new(true),
+					In:          "path",
+					Description: "you shouldn't see this, the response was merged first",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("the response description still wins"),
+					},
+				},
+			},
+		},
+		"create request body keeps its own computability": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					// Optional in the body, and a required path param of the same name must not
+					// promote it -- the body is the higher precedence schema.
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "name",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name:     "name",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+			},
+		},
+		"object-typed required path param keeps nested props computed_optional": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "selector",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"object"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name:     "selector",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type:     []string{"object"},
+						Required: []string{"key"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"key": base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						}),
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "selector",
+					SingleNested: &resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Attributes: resource.Attributes{
+							{
+								Name: "key",
+								String: &resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		"ignore bool prop across all ops": {
 			schemaOptions: explorer.SchemaOptions{
 				Ignores: []string{
@@ -1044,9 +1376,10 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 
 			mapper := mapper.NewResourceMapper(map[string]explorer.Resource{
 				"test_resource": {
-					CreateOp:      createTestCreateOp(testCase.createRequestSchema, testCase.createResponseSchema),
-					ReadOp:        createTestReadOp(testCase.readResponseSchema, testCase.readParams),
-					SchemaOptions: testCase.schemaOptions,
+					CreateOp:               createTestCreateOp(testCase.createRequestSchema, testCase.createResponseSchema, testCase.createParams),
+					ReadOp:                 createTestReadOp(testCase.readResponseSchema, testCase.readParams),
+					CreateCommonParameters: testCase.createCommonParams,
+					SchemaOptions:          testCase.schemaOptions,
 				},
 			}, config.Config{})
 			got, err := mapper.MapToIR(slog.Default())
@@ -1065,8 +1398,9 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 	}
 }
 
-func createTestCreateOp(request *base.SchemaProxy, response *base.SchemaProxy) *high.Operation {
+func createTestCreateOp(request *base.SchemaProxy, response *base.SchemaProxy, params []*high.Parameter) *high.Operation {
 	return &high.Operation{
+		Parameters: params,
 		RequestBody: &high.RequestBody{
 			Content: orderedmap.ToOrderedMap(map[string]*high.MediaType{
 				"application/json": {

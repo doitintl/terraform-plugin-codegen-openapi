@@ -140,6 +140,18 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 	// ****************
 	// READ Parameters (optional)
 	// ****************
+	//
+	// A read path parameter that also addresses the create operation is supplied by the
+	// practitioner, so it maps to Required. One that only appears on the read path identifies
+	// something the API assigned, so it stays ComputedOptional. `required` alone cannot tell the
+	// two apart: on /parents/{parent_id}/children/{child_id} both are `required: true`.
+	createPathParams := map[string]struct{}{}
+	for _, param := range explorerResource.CreateOpParameters() {
+		if param.In == util.OAS_param_path {
+			createPathParams[param.Name] = struct{}{}
+		}
+	}
+
 	readParameterAttributes := attrmapper.ResourceAttributes{}
 	for _, param := range explorerResource.ReadOpParameters() {
 		if param.In != util.OAS_param_path && param.In != util.OAS_param_query {
@@ -151,12 +163,21 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 			Ignores:             explorerResource.SchemaOptions.Ignores,
 			OverrideDescription: param.Description,
 		}
+		// Nested properties of an object-typed parameter are not themselves addressed by the URL,
+		// so the override stays ComputedOptional even when the parameter itself is Required.
 		globalSchemaOpts := oas.GlobalSchemaOpts{OverrideComputability: schema.ComputedOptional}
 
 		s, schemaErr := oas.BuildSchema(param.Schema, schemaOpts, globalSchemaOpts)
 		if schemaErr != nil {
 			log.WarnLogOnError(pLogger, schemaErr, "skipping mapping of read operation parameter")
 			continue
+		}
+
+		computability := schema.ComputedOptional
+		if param.In == util.OAS_param_path && param.Required != nil && *param.Required {
+			if _, ok := createPathParams[param.Name]; ok {
+				computability = schema.Required
+			}
 		}
 
 		// Check for any aliases and replace the paramater name if found
@@ -170,7 +191,7 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 			continue
 		}
 
-		parameterAttribute, schemaErr := s.BuildResourceAttribute(paramName, schema.ComputedOptional)
+		parameterAttribute, schemaErr := s.BuildResourceAttribute(paramName, computability)
 		if schemaErr != nil {
 			log.WarnLogOnError(pLogger, schemaErr, "skipping mapping of read operation parameter")
 			continue

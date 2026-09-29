@@ -343,6 +343,129 @@ func TestReadOpParameters_Resource(t *testing.T) {
 	}
 }
 
+func TestCreateOpParameters_Resource(t *testing.T) {
+	t.Parallel()
+
+	testCases := map[string]struct {
+		createOp     *high.Operation
+		commonParams []*high.Parameter
+		want         []*high.Parameter
+	}{
+		"merge common and operation": {
+			createOp: &high.Operation{
+				Parameters: []*high.Parameter{
+					{
+						Name:     "operation_prop",
+						Required: new(true),
+						In:       "path",
+						Schema: base.CreateSchemaProxy(&base.Schema{
+							Type: []string{"string"},
+						}),
+					},
+					{
+						Name:        "shared_prop",
+						Required:    new(true),
+						In:          "path",
+						Description: "the operation wins over the path item",
+						Schema: base.CreateSchemaProxy(&base.Schema{
+							Type: []string{"string"},
+						}),
+					},
+				},
+			},
+			commonParams: []*high.Parameter{
+				{
+					Name:     "common_prop",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:        "shared_prop",
+					Required:    new(true),
+					In:          "path",
+					Description: "you shouldn't see this, the operation overrides it",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: []*high.Parameter{
+				{
+					Name:     "common_prop",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:        "shared_prop",
+					Required:    new(true),
+					In:          "path",
+					Description: "the operation wins over the path item",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "operation_prop",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+		},
+		"path item only": {
+			createOp: &high.Operation{},
+			commonParams: []*high.Parameter{
+				{
+					Name:     "common_prop",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: []*high.Parameter{
+				{
+					Name:     "common_prop",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+		},
+		"no create operation": {
+			createOp: nil,
+			want:     []*high.Parameter{},
+		},
+	}
+	for name, testCase := range testCases {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			resource := Resource{
+				CreateOp:               testCase.createOp,
+				CreateCommonParameters: testCase.commonParams,
+			}
+
+			mergedParameters := resource.CreateOpParameters()
+
+			if diff := cmp.Diff(mergedParameters, testCase.want, cmpopts.IgnoreUnexported(sync.Mutex{}), cmp.AllowUnexported(base.Schema{}, base.SchemaProxy{}, high.Parameter{})); diff != "" {
+				t.Errorf("unexpected difference for resource: %s", diff)
+			}
+		})
+	}
+}
+
 func TestReadOpParameters_DataSource(t *testing.T) {
 	t.Parallel()
 
