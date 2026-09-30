@@ -33,6 +33,7 @@ func (a *ResourceListNestedAttribute) Merge(mergeAttribute ResourceAttribute) (R
 		a.Description = listNestedAttribute.Description
 	}
 	a.NestedObject.Attributes, _ = a.NestedObject.Attributes.Merge(listNestedAttribute.NestedObject.Attributes)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, listNestedAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }
@@ -83,6 +84,7 @@ func (a *DataSourceListNestedAttribute) Merge(mergeAttribute DataSourceAttribute
 		a.Description = listNestedAttribute.Description
 	}
 	a.NestedObject.Attributes, _ = a.NestedObject.Attributes.Merge(listNestedAttribute.NestedObject.Attributes)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, listNestedAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }

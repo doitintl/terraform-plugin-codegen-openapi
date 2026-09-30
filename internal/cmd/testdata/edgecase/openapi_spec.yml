@@ -199,8 +199,75 @@ paths:
                       deprecated: true
                   allOf:
                   - $ref: "#/components/schemas/composition_refinable_object"
+  /parents/{parent_id}/children:
+    # Declared on the path item rather than the operation, so that resolving the create
+    # operation's path parameters has to merge the path item in.
+    parameters:
+    - name: parent_id
+      in: path
+      description: The parent this child hangs off, supplied by the practitioner
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Create a child under a parent addressed only by the URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  description: The child's name
+                  type: string
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/child_object"
+  /parents/{parent_id}/children/{child_id}:
+    get:
+      summary: Both path parameters are required, but only parent_id is a practitioner input
+      parameters:
+      - name: parent_id
+        in: path
+        description: The parent this child hangs off, supplied by the practitioner
+        required: true
+        schema:
+          type: string
+      - name: child_id
+        in: path
+        description: The child's identifier, assigned by the API
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/child_object"
 components:
   schemas:
+    child_object:
+      description: Echoes both path parameters back, so the response reaches the attributes first
+      type: object
+      properties:
+        parent_id:
+          description: The response is merged first, so this description outlives the parameter's
+          type: string
+        child_id:
+          description: The response is merged first, so this description outlives the parameter's
+          type: string
+        name:
+          description: The child's name
+          type: string
     composition_object:
       description: This description loses to the composing schema's
       type: object

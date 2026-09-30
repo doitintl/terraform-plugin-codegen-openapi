@@ -4,7 +4,9 @@
 package mapper_test
 
 import (
+	"bytes"
 	"log/slog"
+	"strings"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
@@ -835,6 +837,84 @@ func TestDataSourceMapper_basic_merges(t *testing.T) {
 
 			if diff := cmp.Diff(got[0].Schema.Attributes, testCase.want); diff != "" {
 				t.Errorf("unexpected difference: %s", diff)
+			}
+		})
+	}
+}
+
+// Two read parameters that map to the same attribute name have no deterministic merge: keeping
+// either one silently discards the other. The data source is rejected so the specification can be fixed.
+func TestDataSourceMapper_parameter_name_collisions(t *testing.T) {
+	t.Parallel()
+
+	stringObject := base.CreateSchemaProxy(&base.Schema{
+		Type: []string{"object"},
+		Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+			"name": base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+		}),
+	})
+	zonePath := &high.Parameter{
+		Name:     "zone",
+		In:       "path",
+		Required: new(true),
+		Schema:   base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+	}
+
+	testCases := map[string]struct {
+		readParams    []*high.Parameter
+		schemaOptions explorer.SchemaOptions
+		wantLog       string
+	}{
+		"same name in path and query": {
+			readParams: []*high.Parameter{
+				zonePath,
+				{
+					Name:   "zone",
+					In:     "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				},
+			},
+			wantLog: "read operation parameters 'zone' (in: path) and 'zone' (in: query) both map to attribute 'zone'",
+		},
+		"alias onto another parameter's name": {
+			readParams: []*high.Parameter{
+				zonePath,
+				{
+					Name:   "region",
+					In:     "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				},
+			},
+			schemaOptions: explorer.SchemaOptions{
+				AttributeOptions: explorer.AttributeOptions{
+					Aliases: map[string]string{"region": "zone"},
+				},
+			},
+			wantLog: "read operation parameters 'zone' (in: path) and 'region' (in: query) both map to attribute 'zone'",
+		},
+	}
+	for name, testCase := range testCases {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			var logs bytes.Buffer
+			mapper := mapper.NewDataSourceMapper(map[string]explorer.DataSource{
+				"test_datasource": {
+					ReadOp:        createTestReadOp(stringObject, testCase.readParams),
+					SchemaOptions: testCase.schemaOptions,
+				},
+			}, config.Config{})
+			got, err := mapper.MapToIR(slog.New(slog.NewTextHandler(&logs, nil)))
+			if err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
+
+			if len(got) != 0 {
+				t.Fatalf("expected the data source to be skipped, got: %+v", got)
+			}
+
+			if !strings.Contains(logs.String(), testCase.wantLog) {
+				t.Errorf("expected log to contain %q, got: %s", testCase.wantLog, logs.String())
 			}
 		})
 	}

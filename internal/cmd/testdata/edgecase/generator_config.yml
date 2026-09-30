@@ -33,6 +33,14 @@ resources:
       path: /composition_siblings
       method: GET
 
+  nested_path:
+    create:
+      path: /parents/{parent_id}/children
+      method: POST
+    read:
+      path: /parents/{parent_id}/children/{child_id}
+      method: GET
+
 data_sources:
   nested_collections:
     read:

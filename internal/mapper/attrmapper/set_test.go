@@ -114,6 +114,38 @@ func TestResourceSetAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: resource.SetAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: resource.SetAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: resource.SetAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceSetAttribute{
 				Name: "set_attribute",
@@ -611,6 +643,38 @@ func TestDataSourceSetAttribute_Merge(t *testing.T) {
 				Name: "set_attribute",
 				SetAttribute: datasource.SetAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: datasource.SetAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: datasource.SetAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old set description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceSetAttribute{
+				Name: "set_attribute",
+				SetAttribute: datasource.SetAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new set description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},

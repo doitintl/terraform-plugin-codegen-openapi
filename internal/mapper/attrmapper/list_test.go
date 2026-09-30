@@ -114,6 +114,38 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: resource.ListAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: resource.ListAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: resource.ListAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceListAttribute{
 				Name: "list_attribute",
@@ -611,6 +643,38 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				Name: "list_attribute",
 				ListAttribute: datasource.ListAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: datasource.ListAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: datasource.ListAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old list description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceListAttribute{
+				Name: "list_attribute",
+				ListAttribute: datasource.ListAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new list description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},

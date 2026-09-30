@@ -67,6 +67,29 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: resource.Int64Attribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old int64 description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: resource.Int64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new int64 description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: resource.Int64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old int64 description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceInt64Attribute{
 				Name: "int64_attribute",
@@ -210,6 +233,29 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				Name: "int64_attribute",
 				Int64Attribute: datasource.Int64Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new int64 description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: datasource.Int64Attribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old int64 description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: datasource.Int64Attribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old int64 description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
+				Name: "int64_attribute",
+				Int64Attribute: datasource.Int64Attribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new int64 description"),
 				},
 			},

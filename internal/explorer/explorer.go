@@ -17,13 +17,16 @@ type Explorer interface {
 
 // Resource contains CRUD operations and schema options for configuration.
 type Resource struct {
-	CreateOp         *high.Operation
-	ReadOp           *high.Operation
-	UpdateOp         *high.Operation
-	DeleteOp         *high.Operation
+	CreateOp *high.Operation
+	ReadOp   *high.Operation
+	UpdateOp *high.Operation
+	DeleteOp *high.Operation
+	// CommonParameters are the path item parameters of the read path.
 	CommonParameters []*high.Parameter
-	SchemaOptions    SchemaOptions
-	Description      string // Resource-level description from OpenAPI tags
+	// CreateCommonParameters are the path item parameters of the create path.
+	CreateCommonParameters []*high.Parameter
+	SchemaOptions          SchemaOptions
+	Description            string // Resource-level description from OpenAPI tags
 }
 
 // DataSource contains a Read operation and schema options for configuration.

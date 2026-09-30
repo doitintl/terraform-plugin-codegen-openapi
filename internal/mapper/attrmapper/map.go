@@ -32,6 +32,7 @@ func (a *ResourceMapAttribute) Merge(mergeAttribute ResourceAttribute) (Resource
 		a.Description = mapAttribute.Description
 	}
 	a.ElementType = mergeElementType(a.ElementType, mapAttribute.ElementType)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, mapAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }
@@ -70,6 +71,7 @@ func (a *DataSourceMapAttribute) Merge(mergeAttribute DataSourceAttribute) (Data
 		a.Description = mapAttribute.Description
 	}
 	a.ElementType = mergeElementType(a.ElementType, mapAttribute.ElementType)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, mapAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }

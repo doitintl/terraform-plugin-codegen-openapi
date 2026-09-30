@@ -67,6 +67,29 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: resource.BoolAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old bool description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: resource.BoolAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new bool description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: resource.BoolAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old bool description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceBoolAttribute{
 				Name: "bool_attribute",
@@ -210,6 +233,29 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				Name: "bool_attribute",
 				BoolAttribute: datasource.BoolAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new bool description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: datasource.BoolAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old bool description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: datasource.BoolAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old bool description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
+				Name: "bool_attribute",
+				BoolAttribute: datasource.BoolAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new bool description"),
 				},
 			},

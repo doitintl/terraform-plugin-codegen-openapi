@@ -131,6 +131,62 @@ func TestResourceListNestedAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.ResourceNestedAttributeObject{
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Computed,
+								Description:              new("old nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: resource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old list nested description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.ResourceNestedAttributeObject{
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("new nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: resource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new list nested description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.ResourceNestedAttributeObject{
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: resource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("old nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: resource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old list nested description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceListNestedAttribute{
 				Name: "list_nested_attribute",
@@ -667,6 +723,62 @@ func TestDataSourceListNestedAttribute_Merge(t *testing.T) {
 				},
 				ListNestedAttribute: datasource.ListNestedAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new list nested description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.DataSourceNestedAttributeObject{
+					Attributes: attrmapper.DataSourceAttributes{
+						&attrmapper.DataSourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: datasource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("old nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: datasource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old list nested description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.DataSourceNestedAttributeObject{
+					Attributes: attrmapper.DataSourceAttributes{
+						&attrmapper.DataSourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: datasource.StringAttribute{
+								ComputedOptionalRequired: schema.Computed,
+								Description:              new("old nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: datasource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old list nested description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceListNestedAttribute{
+				Name: "list_nested_attribute",
+				NestedObject: attrmapper.DataSourceNestedAttributeObject{
+					Attributes: attrmapper.DataSourceAttributes{
+						&attrmapper.DataSourceStringAttribute{
+							Name: "nested_string",
+							StringAttribute: datasource.StringAttribute{
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("new nested string description"),
+							},
+						},
+					},
+				},
+				ListNestedAttribute: datasource.ListNestedAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new list nested description"),
 				},
 			},

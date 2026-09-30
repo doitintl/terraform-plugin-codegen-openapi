@@ -67,6 +67,29 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: resource.StringAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old string description"),
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: resource.StringAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new string description"),
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: resource.StringAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old string description"),
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceStringAttribute{
 				Name: "string_attribute",
@@ -210,6 +233,29 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				Name: "string_attribute",
 				StringAttribute: datasource.StringAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new string description"),
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: datasource.StringAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old string description"),
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: datasource.StringAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old string description"),
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceStringAttribute{
+				Name: "string_attribute",
+				StringAttribute: datasource.StringAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new string description"),
 				},
 			},

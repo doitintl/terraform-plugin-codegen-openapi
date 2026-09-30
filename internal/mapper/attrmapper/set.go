@@ -32,6 +32,7 @@ func (a *ResourceSetAttribute) Merge(mergeAttribute ResourceAttribute) (Resource
 		a.Description = setAttribute.Description
 	}
 	a.ElementType = mergeElementType(a.ElementType, setAttribute.ElementType)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, setAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }
@@ -70,6 +71,7 @@ func (a *DataSourceSetAttribute) Merge(mergeAttribute DataSourceAttribute) (Data
 		a.Description = setAttribute.Description
 	}
 	a.ElementType = mergeElementType(a.ElementType, setAttribute.ElementType)
+	a.ComputedOptionalRequired = mergeComputability(a.ComputedOptionalRequired, setAttribute.ComputedOptionalRequired)
 
 	return a, nil
 }

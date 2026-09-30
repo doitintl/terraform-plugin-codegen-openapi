@@ -114,6 +114,38 @@ func TestResourceMapAttribute_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.ResourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: resource.MapAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.ResourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: resource.MapAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.ResourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: resource.MapAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
 		"nil description - merge": {
 			targetAttribute: attrmapper.ResourceMapAttribute{
 				Name: "map_attribute",
@@ -611,6 +643,38 @@ func TestDataSourceMapAttribute_Merge(t *testing.T) {
 				Name: "map_attribute",
 				MapAttribute: datasource.MapAttribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("new map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			expectedAttribute: &attrmapper.DataSourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: datasource.MapAttribute{
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+		},
+		"required merge attribute - promote computability": {
+			targetAttribute: attrmapper.DataSourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: datasource.MapAttribute{
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("old map description"),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+				},
+			},
+			mergeAttribute: &attrmapper.DataSourceMapAttribute{
+				Name: "map_attribute",
+				MapAttribute: datasource.MapAttribute{
+					ComputedOptionalRequired: schema.Required,
 					Description:              new("new map description"),
 					ElementType: schema.ElementType{
 						String: &schema.StringType{},

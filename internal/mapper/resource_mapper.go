@@ -5,6 +5,7 @@ package mapper
 
 import (
 	"errors"
+	"fmt"
 	"log/slog"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
@@ -15,6 +16,7 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+	high "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
 
 var _ ResourceMapper = resourceMapper{}
@@ -140,7 +142,21 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 	// ****************
 	// READ Parameters (optional)
 	// ****************
+	//
+	// A read path parameter that also addresses the create operation is supplied by the
+	// practitioner, so it maps to Required. One that only appears on the read path identifies
+	// something the API assigned, so it stays ComputedOptional. `required` alone cannot tell the
+	// two apart: on /parents/{parent_id}/children/{child_id} both are `required: true`.
+	createPathParams := map[string]struct{}{}
+	for _, param := range explorerResource.CreateOpParameters() {
+		if param.In == util.OAS_param_path {
+			createPathParams[param.Name] = struct{}{}
+		}
+	}
+
 	readParameterAttributes := attrmapper.ResourceAttributes{}
+	// Keyed by attribute name, i.e. after aliasing, since that is where two parameters collide.
+	mappedParams := map[string]*high.Parameter{}
 	for _, param := range explorerResource.ReadOpParameters() {
 		if param.In != util.OAS_param_path && param.In != util.OAS_param_query {
 			continue
@@ -151,12 +167,21 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 			Ignores:             explorerResource.SchemaOptions.Ignores,
 			OverrideDescription: param.Description,
 		}
+		// Nested properties of an object-typed parameter are not themselves addressed by the URL,
+		// so the override stays ComputedOptional even when the parameter itself is Required.
 		globalSchemaOpts := oas.GlobalSchemaOpts{OverrideComputability: schema.ComputedOptional}
 
 		s, schemaErr := oas.BuildSchema(param.Schema, schemaOpts, globalSchemaOpts)
 		if schemaErr != nil {
 			log.WarnLogOnError(pLogger, schemaErr, "skipping mapping of read operation parameter")
 			continue
+		}
+
+		computability := schema.ComputedOptional
+		if param.In == util.OAS_param_path && param.Required != nil && *param.Required {
+			if _, ok := createPathParams[param.Name]; ok {
+				computability = schema.Required
+			}
 		}
 
 		// Check for any aliases and replace the paramater name if found
@@ -170,7 +195,15 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 			continue
 		}
 
-		parameterAttribute, schemaErr := s.BuildResourceAttribute(paramName, schema.ComputedOptional)
+		// Parameters are identified by name and location, but attributes only by name. Neither
+		// parameter can win without silently discarding the other, so the specification (or the
+		// aliases) must be fixed instead.
+		if mapped, ok := mappedParams[paramName]; ok {
+			return nil, fmt.Errorf("read operation parameters '%s' (in: %s) and '%s' (in: %s) both map to attribute '%s'", mapped.Name, mapped.In, param.Name, param.In, paramName)
+		}
+		mappedParams[paramName] = param
+
+		parameterAttribute, schemaErr := s.BuildResourceAttribute(paramName, computability)
 		if schemaErr != nil {
 			log.WarnLogOnError(pLogger, schemaErr, "skipping mapping of read operation parameter")
 			continue

@@ -86,6 +86,79 @@ func TestResourceAttributes_Merge(t *testing.T) {
 				},
 			},
 		},
+		"required in a later merge slice - promote computability": {
+			targetAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "string_attribute",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("string description"),
+					},
+				},
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "single_nested_attribute",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceBoolAttribute{
+							Name: "nested_bool",
+							BoolAttribute: resource.BoolAttribute{
+								ComputedOptionalRequired: schema.Computed,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.Computed,
+					},
+				},
+			},
+			mergeAttributeSlices: []attrmapper.ResourceAttributes{
+				{
+					&attrmapper.ResourceStringAttribute{
+						Name: "string_attribute",
+						StringAttribute: resource.StringAttribute{
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("this will be ignored"),
+						},
+					},
+					&attrmapper.ResourceSingleNestedAttribute{
+						Name: "single_nested_attribute",
+						Attributes: attrmapper.ResourceAttributes{
+							&attrmapper.ResourceBoolAttribute{
+								Name: "nested_bool",
+								BoolAttribute: resource.BoolAttribute{
+									ComputedOptionalRequired: schema.Required,
+								},
+							},
+						},
+						SingleNestedAttribute: resource.SingleNestedAttribute{
+							ComputedOptionalRequired: schema.Required,
+						},
+					},
+				},
+			},
+			expectedAttributes: attrmapper.ResourceAttributes{
+				&attrmapper.ResourceStringAttribute{
+					Name: "string_attribute",
+					StringAttribute: resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("string description"),
+					},
+				},
+				&attrmapper.ResourceSingleNestedAttribute{
+					Name: "single_nested_attribute",
+					Attributes: attrmapper.ResourceAttributes{
+						&attrmapper.ResourceBoolAttribute{
+							Name: "nested_bool",
+							BoolAttribute: resource.BoolAttribute{
+								ComputedOptionalRequired: schema.Required,
+							},
+						},
+					},
+					SingleNestedAttribute: resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+			},
+		},
 		"recursive - matches and appends": {
 			targetAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceSingleNestedAttribute{
