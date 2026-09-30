@@ -7249,9 +7249,6 @@
 						"name": "allow_forking",
 						"bool": {
 							"computed_optional_required": "computed_optional",
-							"default": {
-								"static": false
-							},
 							"description": "Either `true` to allow private forks, or `false` to prevent private forks."
 						}
 					},
@@ -7259,9 +7256,6 @@
 						"name": "allow_update_branch",
 						"bool": {
 							"computed_optional_required": "computed_optional",
-							"default": {
-								"static": false
-							},
 							"description": "Either `true` to always allow a pull request head branch that is behind its base branch to be updated even if it is not required to be up to date before merging, or false otherwise."
 						}
 					},
@@ -7269,9 +7263,6 @@
 						"name": "archived",
 						"bool": {
 							"computed_optional_required": "computed_optional",
-							"default": {
-								"static": false
-							},
 							"description": "Whether to archive this repository. `false` will unarchive a previously archived repository."
 						}
 					},
@@ -7343,9 +7334,6 @@
 						"name": "use_squash_pr_title_as_default",
 						"bool": {
 							"computed_optional_required": "computed_optional",
-							"default": {
-								"static": false
-							},
 							"deprecation_message": "This attribute is deprecated.",
 							"description": "Either `true` to allow squash-merge commits to use pull request title, or `false` to use commit message. **This property has been deprecated. Please use `squash_merge_commit_title` instead."
 						}
@@ -7373,9 +7361,6 @@
 						"name": "web_commit_signoff_required",
 						"bool": {
 							"computed_optional_required": "computed_optional",
-							"default": {
-								"static": false
-							},
 							"description": "Either `true` to require contributors to sign off on web-based commits, or `false` to not require contributors to sign off on web-based commits."
 						}
 					},

@@ -219,7 +219,7 @@ For resources, all fields in the `create` operation `requestBody` OAS schema mar
 
 If not required, then the field will be mapped as `computed_optional`.
 
-A field present in the `update` operation `requestBody` but not in the `create` operation `requestBody` will be mapped as `computed_optional`, even when marked `required` there: the practitioner may change it, but is not obliged to manage it. Its validators, like a `stringvalidator.OneOf` from an `enum`, come from the `update` operation `requestBody` rather than from a response body, since a response may describe values that can be read but not sent.
+A field present in the `update` operation `requestBody` but not in the `create` operation `requestBody` will be mapped as `computed_optional`, even when marked `required` there: the practitioner may change it, but is not obliged to manage it. Its validators, like a `stringvalidator.OneOf` from an `enum`, come from the `update` operation `requestBody` rather than from a response body, since a response may describe values that can be read but not sent. Its `default`, at any depth, is not mapped: Terraform would send it whenever the practitioner leaves the field unset, overwriting the value the API currently holds.
 
 If the field is only present in a schema other than the `create` or `update` operation `requestBody`, then the field will be mapped as `computed`.
 

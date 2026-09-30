@@ -94,9 +94,11 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 		Ignores: explorerResource.SchemaOptions.Ignores,
 	}
 	// A property the update operation accepts is settable, but the practitioner is never obliged to
-	// manage it, even when the update request body marks it required.
+	// manage it, even when the update request body marks it required. For the same reason its default
+	// is not mapped: leaving the field unset must leave the API's value alone.
 	globalSchemaOpts := oas.GlobalSchemaOpts{
 		OverrideComputability: schema.ComputedOptional,
+		IgnoreDefaults:        true,
 	}
 	updateRequestSchema, err := oas.BuildSchemaFromRequest(explorerResource.UpdateOp, schemaOpts, globalSchemaOpts)
 	if err != nil {

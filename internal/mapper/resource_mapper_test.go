@@ -1361,6 +1361,69 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 			},
 		},
+		"update-only defaults are not mapped": {
+			// A create body default still applies: it is the value the resource is created with.
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"private": base.CreateSchemaProxy(&base.Schema{
+						Type:    []string{"boolean"},
+						Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "true"},
+					}),
+				}),
+			}),
+			// An update body default would make Terraform send it whenever the field is omitted,
+			// overwriting the API's value, at the top level and nested alike.
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"archived": base.CreateSchemaProxy(&base.Schema{
+						Type:    []string{"boolean"},
+						Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "false"},
+					}),
+					"settings": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"object"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"mode": base.CreateSchemaProxy(&base.Schema{
+								Type:    []string{"string"},
+								Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "fast"},
+							}),
+						}),
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "private",
+					Bool: &resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Default: &schema.BoolDefault{
+							Static: new(true),
+						},
+					},
+				},
+				{
+					Name: "archived",
+					Bool: &resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				{
+					Name: "settings",
+					SingleNested: &resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Attributes: resource.Attributes{
+							{
+								Name: "mode",
+								String: &resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		"required create path param still promotes over update body": {
 			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
 				Type:       []string{"object"},
