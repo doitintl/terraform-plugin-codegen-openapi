@@ -12,7 +12,11 @@ func mergeParameters(commonParameters []*high.Parameter, operation *high.Operati
 		for _, operationParameter := range operation.Parameters {
 			found := false
 			for i, mergedParameter := range mergedParameters {
-				if operationParameter.Name == mergedParameter.Name {
+				// A parameter is identified by name and location, so an operation parameter only
+				// overrides a path item parameter when both match. Matching on the name alone
+				// would let, say, an operation's `zone` query parameter displace the path item's
+				// `zone` path parameter, which the specification treats as a different parameter.
+				if operationParameter.Name == mergedParameter.Name && operationParameter.In == mergedParameter.In {
 					found = true
 					mergedParameters[i] = operationParameter
 					break

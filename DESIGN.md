@@ -220,7 +220,7 @@ A `read` operation `path` parameter marked as `required` that also appears as a 
 
 `required` on a parameter is mandatory for `path` parameters, so it cannot distinguish the two cases on its own. On `/parents/{parent_id}/children/{child_id}`, created with `POST /parents/{parent_id}/children`, `parent_id` is `required` and `child_id` is `computed_optional`.
 
-A `required` mapped from a parameter also takes precedence over a `computed` mapped from a response body for the same field name, even though the parameters are otherwise the lowest precedence schema. Nothing but a parameter can produce `required` at that point in the merge, so discarding it would leave an attribute the API needs as an input mapped as `computed`.
+A `required` mapped from a parameter also takes precedence over any other classification of the same field name, even though the parameters are otherwise the lowest precedence schema. That covers a `computed` mapped from a response body as well as a `computed_optional` mapped from a create request body property that is not `required`: a value addressed by the create URL has to be supplied either way, so discarding the parameter's `required` would leave an attribute the API needs as an input mapped as something the practitioner may omit.
 
 #### Data Sources - Required, Computed or Optional
 For data sources, all fields in the `read` operation `parameters` OAS schema marked as [required](https://json-schema.org/understanding-json-schema/reference/object.html#required-properties) will be mapped as `required`.

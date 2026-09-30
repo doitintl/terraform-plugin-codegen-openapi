@@ -1088,12 +1088,12 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 			},
 		},
-		"create request body keeps its own computability": {
+		"required create path param promotes an optional create body property": {
 			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
 				Type: []string{"object"},
 				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
-					// Optional in the body, and a required path param of the same name must not
-					// promote it -- the body is the higher precedence schema.
+					// Optional in the body, but the value is also addressed by the create URL, so
+					// the practitioner has to supply it and the parameter's Required wins.
 					"name": base.CreateSchemaProxy(&base.Schema{
 						Type: []string{"string"},
 					}),

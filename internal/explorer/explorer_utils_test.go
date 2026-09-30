@@ -23,6 +23,48 @@ func TestReadOpParameters_Resource(t *testing.T) {
 		commonParams []*high.Parameter
 		want         []*high.Parameter
 	}{
+		"same name in different locations - both kept": {
+			readOp: &high.Operation{
+				Parameters: []*high.Parameter{
+					{
+						Name:     "zone",
+						Required: new(false),
+						In:       "query",
+						Schema: base.CreateSchemaProxy(&base.Schema{
+							Type: []string{"string"},
+						}),
+					},
+				},
+			},
+			commonParams: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "zone",
+					Required: new(false),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+		},
 		"merge common and operation": {
 			readOp: &high.Operation{
 				Parameters: []*high.Parameter{
@@ -351,6 +393,48 @@ func TestCreateOpParameters_Resource(t *testing.T) {
 		commonParams []*high.Parameter
 		want         []*high.Parameter
 	}{
+		"same name in different locations - both kept": {
+			createOp: &high.Operation{
+				Parameters: []*high.Parameter{
+					{
+						Name:     "zone",
+						Required: new(false),
+						In:       "query",
+						Schema: base.CreateSchemaProxy(&base.Schema{
+							Type: []string{"string"},
+						}),
+					},
+				},
+			},
+			commonParams: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "zone",
+					Required: new(false),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+		},
 		"merge common and operation": {
 			createOp: &high.Operation{
 				Parameters: []*high.Parameter{
@@ -474,6 +558,48 @@ func TestReadOpParameters_DataSource(t *testing.T) {
 		commonParams []*high.Parameter
 		want         []*high.Parameter
 	}{
+		"same name in different locations - both kept": {
+			readOp: &high.Operation{
+				Parameters: []*high.Parameter{
+					{
+						Name:     "zone",
+						Required: new(false),
+						In:       "query",
+						Schema: base.CreateSchemaProxy(&base.Schema{
+							Type: []string{"string"},
+						}),
+					},
+				},
+			},
+			commonParams: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: []*high.Parameter{
+				{
+					Name:     "zone",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+				{
+					Name:     "zone",
+					Required: new(false),
+					In:       "query",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+		},
 		"merge common and operation": {
 			readOp: &high.Operation{
 				Parameters: []*high.Parameter{
