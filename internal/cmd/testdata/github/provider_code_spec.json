@@ -7248,18 +7248,135 @@
 					{
 						"name": "allow_forking",
 						"bool": {
-							"computed_optional_required": "computed",
-							"description": "Whether to allow forking this repo"
+							"computed_optional_required": "computed_optional",
+							"default": {
+								"static": false
+							},
+							"description": "Either `true` to allow private forks, or `false` to prevent private forks."
 						}
 					},
 					{
 						"name": "allow_update_branch",
 						"bool": {
-							"computed_optional_required": "computed",
+							"computed_optional_required": "computed_optional",
 							"default": {
 								"static": false
 							},
-							"description": "Whether or not a pull request head branch that is behind its base branch can always be updated even if it is not required to be up to date before merging."
+							"description": "Either `true` to always allow a pull request head branch that is behind its base branch to be updated even if it is not required to be up to date before merging, or false otherwise."
+						}
+					},
+					{
+						"name": "archived",
+						"bool": {
+							"computed_optional_required": "computed_optional",
+							"default": {
+								"static": false
+							},
+							"description": "Whether to archive this repository. `false` will unarchive a previously archived repository."
+						}
+					},
+					{
+						"name": "default_branch",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "Updates the default branch for this repository."
+						}
+					},
+					{
+						"name": "security_and_analysis",
+						"single_nested": {
+							"computed_optional_required": "computed_optional",
+							"attributes": [
+								{
+									"name": "advanced_security",
+									"single_nested": {
+										"computed_optional_required": "computed_optional",
+										"attributes": [
+											{
+												"name": "status",
+												"string": {
+													"computed_optional_required": "computed_optional",
+													"description": "Can be `enabled` or `disabled`."
+												}
+											}
+										],
+										"description": "Use the `status` property to enable or disable GitHub Advanced Security for this repository. For more information, see \"[About GitHub Advanced Security](/github/getting-started-with-github/learning-about-github/about-github-advanced-security).\""
+									}
+								},
+								{
+									"name": "secret_scanning",
+									"single_nested": {
+										"computed_optional_required": "computed_optional",
+										"attributes": [
+											{
+												"name": "status",
+												"string": {
+													"computed_optional_required": "computed_optional",
+													"description": "Can be `enabled` or `disabled`."
+												}
+											}
+										],
+										"description": "Use the `status` property to enable or disable secret scanning for this repository. For more information, see \"[About secret scanning](/code-security/secret-security/about-secret-scanning).\""
+									}
+								},
+								{
+									"name": "secret_scanning_push_protection",
+									"single_nested": {
+										"computed_optional_required": "computed_optional",
+										"attributes": [
+											{
+												"name": "status",
+												"string": {
+													"computed_optional_required": "computed_optional",
+													"description": "Can be `enabled` or `disabled`."
+												}
+											}
+										],
+										"description": "Use the `status` property to enable or disable secret scanning push protection for this repository. For more information, see \"[Protecting pushes with secret scanning](/code-security/secret-scanning/protecting-pushes-with-secret-scanning).\""
+									}
+								}
+							],
+							"description": "Specify which security and analysis features to enable or disable for the repository.\n\nTo use this parameter, you must have admin permissions for the repository or be an owner or security manager for the organization that owns the repository. For more information, see \"[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization).\"\n\nFor example, to enable GitHub Advanced Security, use this data in the body of the `PATCH` request:\n`{ \"security_and_analysis\": {\"advanced_security\": { \"status\": \"enabled\" } } }`.\n\nYou can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request."
+						}
+					},
+					{
+						"name": "use_squash_pr_title_as_default",
+						"bool": {
+							"computed_optional_required": "computed_optional",
+							"default": {
+								"static": false
+							},
+							"deprecation_message": "This attribute is deprecated.",
+							"description": "Either `true` to allow squash-merge commits to use pull request title, or `false` to use commit message. **This property has been deprecated. Please use `squash_merge_commit_title` instead."
+						}
+					},
+					{
+						"name": "visibility",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "The visibility of the repository.",
+							"validators": [
+								{
+									"custom": {
+										"imports": [
+											{
+												"path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+											}
+										],
+										"schema_definition": "stringvalidator.OneOf(\n\"public\",\n\"private\",\n)"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "web_commit_signoff_required",
+						"bool": {
+							"computed_optional_required": "computed_optional",
+							"default": {
+								"static": false
+							},
+							"description": "Either `true` to require contributors to sign off on web-based commits, or `false` to not require contributors to sign off on web-based commits."
 						}
 					},
 					{
@@ -7273,16 +7390,6 @@
 						"name": "archive_url",
 						"string": {
 							"computed_optional_required": "computed"
-						}
-					},
-					{
-						"name": "archived",
-						"bool": {
-							"computed_optional_required": "computed",
-							"default": {
-								"static": false
-							},
-							"description": "Whether the repository is archived."
 						}
 					},
 					{
@@ -7349,13 +7456,6 @@
 						"name": "created_at",
 						"string": {
 							"computed_optional_required": "computed"
-						}
-					},
-					{
-						"name": "default_branch",
-						"string": {
-							"computed_optional_required": "computed",
-							"description": "The default branch of the repository."
 						}
 					},
 					{
@@ -9678,27 +9778,6 @@
 						}
 					},
 					{
-						"name": "use_squash_pr_title_as_default",
-						"bool": {
-							"computed_optional_required": "computed",
-							"default": {
-								"static": false
-							},
-							"deprecation_message": "This attribute is deprecated.",
-							"description": "Whether a squash merge commit can use the pull request title as default. **This property has been deprecated. Please use `squash_merge_commit_title` instead."
-						}
-					},
-					{
-						"name": "visibility",
-						"string": {
-							"computed_optional_required": "computed",
-							"default": {
-								"static": "public"
-							},
-							"description": "The repository visibility: public, private, or internal."
-						}
-					},
-					{
 						"name": "watchers",
 						"int64": {
 							"computed_optional_required": "computed"
@@ -9708,16 +9787,6 @@
 						"name": "watchers_count",
 						"int64": {
 							"computed_optional_required": "computed"
-						}
-					},
-					{
-						"name": "web_commit_signoff_required",
-						"bool": {
-							"computed_optional_required": "computed",
-							"default": {
-								"static": false
-							},
-							"description": "Whether to require contributors to sign off on web-based commits"
 						}
 					},
 					{
@@ -11439,56 +11508,6 @@
 								}
 							],
 							"description": "A repository on GitHub."
-						}
-					},
-					{
-						"name": "security_and_analysis",
-						"single_nested": {
-							"computed_optional_required": "computed",
-							"attributes": [
-								{
-									"name": "advanced_security",
-									"single_nested": {
-										"computed_optional_required": "computed",
-										"attributes": [
-											{
-												"name": "status",
-												"string": {
-													"computed_optional_required": "computed"
-												}
-											}
-										]
-									}
-								},
-								{
-									"name": "secret_scanning",
-									"single_nested": {
-										"computed_optional_required": "computed",
-										"attributes": [
-											{
-												"name": "status",
-												"string": {
-													"computed_optional_required": "computed"
-												}
-											}
-										]
-									}
-								},
-								{
-									"name": "secret_scanning_push_protection",
-									"single_nested": {
-										"computed_optional_required": "computed",
-										"attributes": [
-											{
-												"name": "status",
-												"string": {
-													"computed_optional_required": "computed"
-												}
-											}
-										]
-									}
-								}
-							]
 						}
 					},
 					{
