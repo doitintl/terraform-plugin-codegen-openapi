@@ -15,6 +15,7 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+	high "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
 
 var _ DataSourceMapper = dataSourceMapper{}
@@ -107,6 +108,8 @@ func generateDataSourceSchema(logger *slog.Logger, name string, dataSource explo
 	// READ Parameters (optional)
 	// ****************
 	readParameterAttributes := attrmapper.DataSourceAttributes{}
+	// Keyed by attribute name, i.e. after aliasing, since that is where two parameters collide.
+	mappedParams := map[string]*high.Parameter{}
 	for _, param := range dataSource.ReadOpParameters() {
 		if param.In != util.OAS_param_path && param.In != util.OAS_param_query {
 			continue
@@ -139,6 +142,14 @@ func generateDataSourceSchema(logger *slog.Logger, name string, dataSource explo
 		if s.IsPropertyIgnored(paramName) {
 			continue
 		}
+
+		// Parameters are identified by name and location, but attributes only by name. Neither
+		// parameter can win without silently discarding the other, so the specification (or the
+		// aliases) must be fixed instead.
+		if mapped, ok := mappedParams[paramName]; ok {
+			return nil, fmt.Errorf("read operation parameters '%s' (in: %s) and '%s' (in: %s) both map to attribute '%s'", mapped.Name, mapped.In, param.Name, param.In, paramName)
+		}
+		mappedParams[paramName] = param
 
 		parameterAttribute, schemaErr := s.BuildDataSourceAttribute(paramName, computability)
 		if schemaErr != nil {

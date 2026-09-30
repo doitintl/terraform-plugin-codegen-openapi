@@ -51,6 +51,7 @@ In these OAS operations, the generator will search the `create` and `read` for s
 4. `read` operation: [parameters](https://spec.openapis.org/oas/v3.1.0#parameterObject)
     - The generator will merge all `query` and `path` parameters to the root of the schema.
     - The generator will consider as parameters the ones in the [OAS Path Item](https://spec.openapis.org/oas/v3.1.0#path-item-object) and the ones in the [OAS Operation](https://spec.openapis.org/oas/v3.1.0#operation-object), merged based on the rules in the specification
+    - Two parameters that map to the same attribute name, like a `path` and a `query` parameter both named `zone`, or a parameter aliased onto another's name, cannot both be kept, and neither can win without silently discarding the other. The resource is skipped with a warning, and the specification or the aliases must be fixed.
     - The `create` operation's `path` parameters are read to decide whether a `read` operation `path` parameter is a practitioner input, as described in [Resources - Required, Computed or Optional](#resources---required-computed-or-optional). They are not themselves mapped to attributes.
 
 All schemas found will be deep merged together, with the `requestBody` schema from the `create` operation being the **main schema** that the others will be merged on top. The deep merge has the following characteristics:
@@ -75,6 +76,7 @@ The generator uses the `read` operation to map to the provider code specificatio
 1. `read` operation: [parameters](https://spec.openapis.org/oas/v3.1.0#parameterObject)
     - The generator will merge all `query` and `path` parameters to the root of the schema.
     - The generator will consider as parameters the ones in the [Path Item Object](https://spec.openapis.org/oas/v3.1.0#path-item-object) and the ones in the [Operation Object](https://spec.openapis.org/oas/v3.1.0#operation-object), merged based on the rules in the specification
+    - Two parameters that map to the same attribute name, like a `path` and a `query` parameter both named `zone`, or a parameter aliased onto another's name, cannot both be kept, and neither can win without silently discarding the other. The data source is skipped with a warning, and the specification or the aliases must be fixed.
 2. `read` operation: response body in [responses](https://spec.openapis.org/oas/v3.1.0#responsesObject)
     - The response body is the only schema **required** for data sources. If not found, the generator will skip the data source without mapping.
     - Will attempt to use `200` or `201` response body. If not found, will grab the first available `2xx` response code with a schema (lexicographic order)
