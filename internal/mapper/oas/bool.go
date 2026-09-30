@@ -21,7 +21,7 @@ func (s *OASSchema) BuildBoolResource(name string, computability schema.Computed
 		},
 	}
 
-	if s.Schema.Default != nil {
+	if s.Schema.Default != nil && !s.GlobalSchemaOpts.IgnoreDefaults {
 		var staticDefault bool
 		if err := s.Schema.Default.Decode(&staticDefault); err == nil {
 			if computability == schema.Required {

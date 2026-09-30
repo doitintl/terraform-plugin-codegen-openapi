@@ -22,7 +22,7 @@ func (s *OASSchema) BuildIntegerResource(name string, computability schema.Compu
 		},
 	}
 
-	if s.Schema.Default != nil {
+	if s.Schema.Default != nil && !s.GlobalSchemaOpts.IgnoreDefaults {
 		var staticDefault int64
 		if err := s.Schema.Default.Decode(&staticDefault); err == nil {
 			if computability == schema.Required {

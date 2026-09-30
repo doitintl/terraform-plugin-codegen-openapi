@@ -544,6 +544,25 @@
 						}
 					},
 					{
+						"name": "state",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "The update body is merged before the responses, so this description, and its enum, win",
+							"validators": [
+								{
+									"custom": {
+										"imports": [
+											{
+												"path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+											}
+										],
+										"schema_definition": "stringvalidator.OneOf(\n\"active\",\n\"disabled\",\n)"
+									}
+								}
+							]
+						}
+					},
+					{
 						"name": "child_id",
 						"string": {
 							"computed_optional_required": "computed",

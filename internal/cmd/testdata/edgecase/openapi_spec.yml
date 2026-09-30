@@ -253,6 +253,40 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/child_object"
+    patch:
+      summary: Only moves the child between states, and only some of the readable states can be set
+      parameters:
+      - name: parent_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: child_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - state
+              properties:
+                state:
+                  description: The update body is merged before the responses, so this description, and its enum, win
+                  type: string
+                  enum:
+                  - active
+                  - disabled
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/child_object"
 components:
   schemas:
     child_object:
@@ -268,6 +302,13 @@ components:
         name:
           description: The child's name
           type: string
+        state:
+          description: Includes a state only the API can move the child to
+          type: string
+          enum:
+          - active
+          - disabled
+          - expired
     composition_object:
       description: This description loses to the composing schema's
       type: object

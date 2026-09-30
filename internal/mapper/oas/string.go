@@ -23,7 +23,7 @@ func (s *OASSchema) BuildStringResource(name string, computability schema.Comput
 		},
 	}
 
-	if s.Schema.Default != nil {
+	if s.Schema.Default != nil && !s.GlobalSchemaOpts.IgnoreDefaults {
 		var staticDefault string
 		if err := s.Schema.Default.Decode(&staticDefault); err == nil {
 			if computability == schema.Required {

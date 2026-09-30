@@ -38,17 +38,20 @@ resources:
       method: DELETE
 ```
 
-In these OAS operations, the generator will search the `create` and `read` for schemas to map to the provider code specification. Multiple schemas will have the [OAS types mapped to Provider Attributes](#oas-types-to-provider-attributes) and then be merged together; with the final result being the [Resource](https://developer.hashicorp.com/terraform/plugin/code-generation/specification#resource) `schema`. The schemas that will be merged together (in priority order):
+In these OAS operations, the generator will search the `create`, `update` and `read` for schemas to map to the provider code specification. Multiple schemas will have the [OAS types mapped to Provider Attributes](#oas-types-to-provider-attributes) and then be merged together; with the final result being the [Resource](https://developer.hashicorp.com/terraform/plugin/code-generation/specification#resource) `schema`. The schemas that will be merged together (in priority order):
 1. `create` operation: [requestBody](https://spec.openapis.org/oas/v3.1.0#requestBodyObject)
     - `requestBody` is the only schema **required** for resources. If not found, the generator will skip the resource without mapping.
     - Will attempt to use `application/json` content-type first. If not found, will grab the first available content-type with a schema (alphabetical order)
-2. `create` operation: response body in [responses](https://spec.openapis.org/oas/v3.1.0#responsesObject)
+2. `update` operation: [requestBody](https://spec.openapis.org/oas/v3.1.0#requestBodyObject)
+    - Optional. Content-type selection is the same as for the `create` operation's `requestBody`.
+    - Merged before the response bodies, so a property only the `update` operation accepts keeps the classification and validators of the schema describing what may be sent, as described in [Resources - Required, Computed or Optional](#resources---required-computed-or-optional).
+3. `create` operation: response body in [responses](https://spec.openapis.org/oas/v3.1.0#responsesObject)
     - Will attempt to use `200` or `201` response body. If not found, will grab the first available `2xx` response code with a schema (lexicographic order)
     - Will attempt to use `application/json` content-type first. If not found, will grab the first available content-type with a schema (alphabetical order)
-3. `read` operation: response body in [responses](https://spec.openapis.org/oas/v3.1.0#responsesObject)
+4. `read` operation: response body in [responses](https://spec.openapis.org/oas/v3.1.0#responsesObject)
     - Will attempt to use `200` or `201` response body. If not found, will grab the first available `2xx` response code with a schema (lexicographic order)
     - Will attempt to use `application/json` content-type first. If not found, will grab the first available content-type with a schema (alphabetical order)
-4. `read` operation: [parameters](https://spec.openapis.org/oas/v3.1.0#parameterObject)
+5. `read` operation: [parameters](https://spec.openapis.org/oas/v3.1.0#parameterObject)
     - The generator will merge all `query` and `path` parameters to the root of the schema.
     - The generator will consider as parameters the ones in the [OAS Path Item](https://spec.openapis.org/oas/v3.1.0#path-item-object) and the ones in the [OAS Operation](https://spec.openapis.org/oas/v3.1.0#operation-object), merged based on the rules in the specification
     - Two parameters that map to the same attribute name, like a `path` and a `query` parameter both named `zone`, or a parameter aliased onto another's name, cannot both be kept, and neither can win without silently discarding the other. The resource is skipped with a warning, and the specification or the aliases must be fixed.
@@ -216,13 +219,15 @@ For resources, all fields in the `create` operation `requestBody` OAS schema mar
 
 If not required, then the field will be mapped as `computed_optional`.
 
-If the field is only present in a schema other than the `create` operation `requestBody`, then the field will be mapped as `computed`.
+A field present in the `update` operation `requestBody` but not in the `create` operation `requestBody` will be mapped as `computed_optional`, even when marked `required` there: the practitioner may change it, but is not obliged to manage it. Its validators, like a `stringvalidator.OneOf` from an `enum`, come from the `update` operation `requestBody` rather than from a response body, since a response may describe values that can be read but not sent. Its `default`, at any depth, is not mapped: Terraform would send it whenever the practitioner leaves the field unset, overwriting the value the API currently holds.
+
+If the field is only present in a schema other than the `create` or `update` operation `requestBody`, then the field will be mapped as `computed`.
 
 A `read` operation `path` parameter marked as `required` that also appears as a `path` parameter of the `create` operation will be mapped as `required`. Such a parameter is addressed by the URL the `create` operation is sent to, so the practitioner has to supply it. Any other `read` operation parameter will be mapped as `computed_optional`, including a `required` `path` parameter that only appears on the `read` path -- that one identifies something the API assigned.
 
 `required` on a parameter is mandatory for `path` parameters, so it cannot distinguish the two cases on its own. On `/parents/{parent_id}/children/{child_id}`, created with `POST /parents/{parent_id}/children`, `parent_id` is `required` and `child_id` is `computed_optional`.
 
-A `required` mapped from a parameter also takes precedence over any other classification of the same field name, even though the parameters are otherwise the lowest precedence schema. That covers a `computed` mapped from a response body as well as a `computed_optional` mapped from a create request body property that is not `required`: a value addressed by the create URL has to be supplied either way, so discarding the parameter's `required` would leave an attribute the API needs as an input mapped as something the practitioner may omit.
+A `required` mapped from a parameter also takes precedence over any other classification of the same field name, even though the parameters are otherwise the lowest precedence schema. That covers a `computed` mapped from a response body as well as a `computed_optional` mapped from a create or update request body property: a value addressed by the create URL has to be supplied either way, so discarding the parameter's `required` would leave an attribute the API needs as an input mapped as something the practitioner may omit.
 
 #### Data Sources - Required, Computed or Optional
 For data sources, all fields in the `read` operation `parameters` OAS schema marked as [required](https://json-schema.org/understanding-json-schema/reference/object.html#required-properties) will be mapped as `required`.

@@ -15,12 +15,14 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper"
+	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	high "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	yaml "go.yaml.in/yaml/v4"
 )
 
 func TestResourceMapper_basic_merges(t *testing.T) {
@@ -33,6 +35,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 		readParams           []*high.Parameter
 		createParams         []*high.Parameter
 		createCommonParams   []*high.Parameter
+		updateRequestSchema  *base.SchemaProxy
 		schemaOptions        explorer.SchemaOptions
 		want                 resource.Attributes
 	}{
@@ -1178,6 +1181,291 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				},
 			},
 		},
+		"update-only property in the read response - computed_optional with update validators": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+				Required: []string{"name"},
+			}),
+			// Required in the update body, but the practitioner is not obliged to manage it, and only
+			// the update body's enum describes what may be sent.
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:     []string{"object"},
+				Required: []string{"state"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"state": base.CreateSchemaProxy(&base.Schema{
+						Type:        []string{"string"},
+						Description: "The state to move to.",
+						Enum: []*yaml.Node{
+							{Kind: yaml.ScalarNode, Value: "active"},
+							{Kind: yaml.ScalarNode, Value: "disabled"},
+						},
+					}),
+				}),
+			}),
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"state": base.CreateSchemaProxy(&base.Schema{
+						Type:        []string{"string"},
+						Description: "The current state.",
+						Enum: []*yaml.Node{
+							{Kind: yaml.ScalarNode, Value: "active"},
+							{Kind: yaml.ScalarNode, Value: "disabled"},
+							{Kind: yaml.ScalarNode, Value: "expired"},
+						},
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+				{
+					Name: "state",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Description:              new("The state to move to."),
+						Validators: []schema.StringValidator{
+							{
+								Custom: frameworkvalidators.StringValidatorOneOf([]string{"active", "disabled"}),
+							},
+						},
+					},
+				},
+			},
+		},
+		"update-only property absent from responses - added as computed_optional": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"language": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				{
+					Name: "language",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+			},
+		},
+		"create body property wins over update body": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:     []string{"object"},
+				Required: []string{"name"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type:      []string{"string"},
+						MinLength: new(int64(1)),
+					}),
+				}),
+			}),
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"name": base.CreateSchemaProxy(&base.Schema{
+						Type:        []string{"string"},
+						Description: "The name.",
+						MaxLength:   new(int64(5)),
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "name",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						// The create body has no description, so the update body's fills it.
+						Description: new("The name."),
+						Validators: []schema.StringValidator{
+							{
+								Custom: frameworkvalidators.StringValidatorLengthAtLeast(1),
+							},
+						},
+					},
+				},
+			},
+		},
+		"nested update-only object - nested props computed_optional": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:     []string{"object"},
+				Required: []string{"settings"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"settings": base.CreateSchemaProxy(&base.Schema{
+						Type:     []string{"object"},
+						Required: []string{"mode"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"mode": base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						}),
+					}),
+				}),
+			}),
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"settings": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"object"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"mode": base.CreateSchemaProxy(&base.Schema{
+								Type: []string{"string"},
+							}),
+						}),
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "settings",
+					SingleNested: &resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Attributes: resource.Attributes{
+							{
+								Name: "mode",
+								String: &resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"update-only defaults are not mapped": {
+			// A create body default still applies: it is the value the resource is created with.
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"private": base.CreateSchemaProxy(&base.Schema{
+						Type:    []string{"boolean"},
+						Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "true"},
+					}),
+				}),
+			}),
+			// An update body default would make Terraform send it whenever the field is omitted,
+			// overwriting the API's value, at the top level and nested alike.
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"archived": base.CreateSchemaProxy(&base.Schema{
+						Type:    []string{"boolean"},
+						Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "false"},
+					}),
+					"settings": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"object"},
+						Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+							"mode": base.CreateSchemaProxy(&base.Schema{
+								Type:    []string{"string"},
+								Default: &yaml.Node{Kind: yaml.ScalarNode, Value: "fast"},
+							}),
+						}),
+					}),
+				}),
+			}),
+			want: resource.Attributes{
+				{
+					Name: "private",
+					Bool: &resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Default: &schema.BoolDefault{
+							Static: new(true),
+						},
+					},
+				},
+				{
+					Name: "archived",
+					Bool: &resource.BoolAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+					},
+				},
+				{
+					Name: "settings",
+					SingleNested: &resource.SingleNestedAttribute{
+						ComputedOptionalRequired: schema.ComputedOptional,
+						Attributes: resource.Attributes{
+							{
+								Name: "mode",
+								String: &resource.StringAttribute{
+									ComputedOptionalRequired: schema.ComputedOptional,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"required create path param still promotes over update body": {
+			createRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:       []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{}),
+			}),
+			updateRequestSchema: base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"object"},
+				Properties: orderedmap.ToOrderedMap(map[string]*base.SchemaProxy{
+					"parent_id": base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				}),
+			}),
+			createParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			readParams: []*high.Parameter{
+				{
+					Name:     "parent_id",
+					Required: new(true),
+					In:       "path",
+					Schema: base.CreateSchemaProxy(&base.Schema{
+						Type: []string{"string"},
+					}),
+				},
+			},
+			want: resource.Attributes{
+				{
+					Name: "parent_id",
+					String: &resource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+					},
+				},
+			},
+		},
 		"ignore bool prop across all ops": {
 			schemaOptions: explorer.SchemaOptions{
 				Ignores: []string{
@@ -1380,6 +1668,7 @@ func TestResourceMapper_basic_merges(t *testing.T) {
 				"test_resource": {
 					CreateOp:               createTestCreateOp(testCase.createRequestSchema, testCase.createResponseSchema, testCase.createParams),
 					ReadOp:                 createTestReadOp(testCase.readResponseSchema, testCase.readParams),
+					UpdateOp:               createTestUpdateOp(testCase.updateRequestSchema),
 					CreateCommonParameters: testCase.createCommonParams,
 					SchemaOptions:          testCase.schemaOptions,
 				},
@@ -1497,6 +1786,22 @@ func createTestCreateOp(request *base.SchemaProxy, response *base.SchemaProxy, p
 							Schema: response,
 						},
 					}),
+				},
+			}),
+		},
+	}
+}
+
+func createTestUpdateOp(request *base.SchemaProxy) *high.Operation {
+	if request == nil {
+		return nil
+	}
+
+	return &high.Operation{
+		RequestBody: &high.RequestBody{
+			Content: orderedmap.ToOrderedMap(map[string]*high.MediaType{
+				"application/json": {
+					Schema: request,
 				},
 			}),
 		},

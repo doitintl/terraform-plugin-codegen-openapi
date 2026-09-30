@@ -226,6 +226,13 @@
 						}
 					},
 					{
+						"name": "reverse",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "Reverse domain name."
+						}
+					},
+					{
 						"name": "ip",
 						"single_nested": {
 							"computed_optional_required": "computed",

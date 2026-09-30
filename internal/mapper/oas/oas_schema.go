@@ -32,6 +32,12 @@ type GlobalSchemaOpts struct {
 	// create request for a resource, does not become required from a lower precedence operation, such as an
 	// read response for a resource.
 	OverrideComputability schema.ComputedOptionalRequired
+
+	// IgnoreDefaults will skip mapping the `default` of every attribute and nested attribute. A `default` in an
+	// update request body, such as a resource's PATCH, describes the value used when the field is sent without one;
+	// mapping it would make Terraform send it whenever the practitioner omits the field, overwriting whatever the
+	// API currently holds.
+	IgnoreDefaults bool
 }
 
 // SchemaOpts is NOT passed recursively through built OASSchema structs, and will only be available to the top level schema. This is used

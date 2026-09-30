@@ -85,6 +85,37 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 	}
 
 	// *********************
+	// Update Request Body (optional)
+	// *********************
+	logger.Debug("searching for update operation request body")
+
+	updateRequestAttributes := attrmapper.ResourceAttributes{}
+	schemaOpts = oas.SchemaOpts{
+		Ignores: explorerResource.SchemaOptions.Ignores,
+	}
+	// A property the update operation accepts is settable, but the practitioner is never obliged to
+	// manage it, even when the update request body marks it required. For the same reason its default
+	// is not mapped: leaving the field unset must leave the API's value alone.
+	globalSchemaOpts := oas.GlobalSchemaOpts{
+		OverrideComputability: schema.ComputedOptional,
+		IgnoreDefaults:        true,
+	}
+	updateRequestSchema, err := oas.BuildSchemaFromRequest(explorerResource.UpdateOp, schemaOpts, globalSchemaOpts)
+	if err != nil {
+		if errors.Is(err, oas.ErrSchemaNotFound) {
+			// Demote log to INFO if there was no schema found
+			logger.Info("skipping mapping of update operation request body", "err", err)
+		} else {
+			logger.Warn("skipping mapping of update operation request body", "err", err)
+		}
+	} else {
+		updateRequestAttributes, schemaErr = updateRequestSchema.BuildResourceAttributes()
+		if schemaErr != nil {
+			log.WarnLogOnError(logger, schemaErr, "skipping mapping of update operation request body")
+		}
+	}
+
+	// *********************
 	// Create Response Body (optional)
 	// *********************
 	logger.Debug("searching for create operation response body")
@@ -93,7 +124,7 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 	schemaOpts = oas.SchemaOpts{
 		Ignores: explorerResource.SchemaOptions.Ignores,
 	}
-	globalSchemaOpts := oas.GlobalSchemaOpts{
+	globalSchemaOpts = oas.GlobalSchemaOpts{
 		OverrideComputability: schema.Computed,
 	}
 	createResponseSchema, err := oas.BuildSchemaFromResponse(explorerResource.CreateOp, schemaOpts, globalSchemaOpts)
@@ -213,7 +244,11 @@ func generateResourceSchema(logger *slog.Logger, explorerResource explorer.Resou
 	}
 
 	// TODO: currently, no errors can be returned from merging, but in the future we should consider raising errors/warnings for unexpected scenarios, like type mismatches between attribute schemas
-	resourceAttributes, _ := createRequestAttributes.Merge(createResponseAttributes, readResponseAttributes, readParameterAttributes)
+	//
+	// The update request body goes before the response bodies: the first schema to contribute a name
+	// owns the attribute, so an update-only property keeps the update request's computability and
+	// validators rather than the response's, which describe what may be read, not what may be sent.
+	resourceAttributes, _ := createRequestAttributes.Merge(updateRequestAttributes, createResponseAttributes, readResponseAttributes, readParameterAttributes)
 
 	// TODO: handle error for overrides
 	resourceAttributes, _ = resourceAttributes.ApplyOverrides(explorerResource.SchemaOptions.AttributeOptions.Overrides)
