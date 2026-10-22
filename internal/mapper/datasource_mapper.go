@@ -95,6 +95,21 @@ func generateDataSourceSchema(logger *slog.Logger, name string, dataSource explo
 		}
 
 		readResponseAttributes = append(readResponseAttributes, collectionAttribute)
+	} else if readResponseSchema.Type == util.OAS_type_string && readResponseSchema.Format == util.OAS_format_binary {
+		logger.Debug(fmt.Sprintf("response body is binary, building '%s' string attribute", util.TF_attr_content_base64))
+
+		if !readResponseSchema.IsPropertyIgnored(util.TF_attr_content_base64) {
+			if readResponseSchema.Schema.Description == "" && readResponseSchema.SchemaOpts.OverrideDescription == "" {
+				readResponseSchema.SchemaOpts.OverrideDescription = util.TF_default_binary_description
+			}
+
+			binaryAttribute, schemaErr := readResponseSchema.BuildDataSourceAttribute(util.TF_attr_content_base64, schema.Computed)
+			if schemaErr != nil {
+				return nil, schemaErr
+			}
+
+			readResponseAttributes = append(readResponseAttributes, binaryAttribute)
+		}
 	} else {
 		attributes, schemaErr := readResponseSchema.BuildDataSourceAttributes()
 		if schemaErr != nil {
