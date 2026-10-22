@@ -22,6 +22,7 @@ const (
 	OAS_type_object  = "object"
 	OAS_type_null    = "null"
 
+	OAS_format_binary   = "binary"
 	OAS_format_double   = "double"
 	OAS_format_float    = "float"
 	OAS_format_password = "password"
@@ -31,6 +32,10 @@ const (
 
 	// Custom format for SetNested and Set attributes
 	TF_format_set = "set"
+
+	// Default attribute name and description for top-level binary response schemas
+	TF_attr_content_base64        = "content_base64"
+	TF_default_binary_description = "Base64-encoded binary content."
 
 	OAS_mediatype_json = "application/json"
 

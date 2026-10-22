@@ -1089,3 +1089,147 @@ func TestDataSourceMapper_collections(t *testing.T) {
 		})
 	}
 }
+
+func TestDataSourceMapper_binary_response(t *testing.T) {
+	t.Parallel()
+
+	idParam := &high.Parameter{
+		Name:        "id",
+		In:          "path",
+		Required:    new(true),
+		Description: "Invoice number.",
+		Schema: base.CreateSchemaProxy(&base.Schema{
+			Type: []string{"string"},
+		}),
+	}
+
+	testCases := map[string]struct {
+		readResponseSchema *base.SchemaProxy
+		readParams         []*high.Parameter
+		schemaOptions      explorer.SchemaOptions
+		want               datasource.Attributes
+	}{
+		"binary response without description uses default description": {
+			readParams: []*high.Parameter{idParam},
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:   []string{"string"},
+				Format: "binary",
+			}),
+			want: datasource.Attributes{
+				{
+					Name: "id",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("Invoice number."),
+					},
+				},
+				{
+					Name: "content_base64",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("Base64-encoded binary content."),
+					},
+				},
+			},
+		},
+		"binary response with explicit schema description preserves description": {
+			readParams: []*high.Parameter{idParam},
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:        []string{"string"},
+				Format:      "binary",
+				Description: "Custom PDF binary content.",
+			}),
+			want: datasource.Attributes{
+				{
+					Name: "id",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("Invoice number."),
+					},
+				},
+				{
+					Name: "content_base64",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("Custom PDF binary content."),
+					},
+				},
+			},
+		},
+		"binary response with description override": {
+			readParams: []*high.Parameter{idParam},
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:   []string{"string"},
+				Format: "binary",
+			}),
+			schemaOptions: explorer.SchemaOptions{
+				AttributeOptions: explorer.AttributeOptions{
+					Overrides: map[string]explorer.Override{
+						"content_base64": {
+							Description: "Overridden PDF description.",
+						},
+					},
+				},
+			},
+			want: datasource.Attributes{
+				{
+					Name: "id",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("Invoice number."),
+					},
+				},
+				{
+					Name: "content_base64",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("Overridden PDF description."),
+					},
+				},
+			},
+		},
+		"binary response with content_base64 ignored": {
+			readParams: []*high.Parameter{idParam},
+			readResponseSchema: base.CreateSchemaProxy(&base.Schema{
+				Type:   []string{"string"},
+				Format: "binary",
+			}),
+			schemaOptions: explorer.SchemaOptions{
+				Ignores: []string{"content_base64"},
+			},
+			want: datasource.Attributes{
+				{
+					Name: "id",
+					String: &datasource.StringAttribute{
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("Invoice number."),
+					},
+				},
+			},
+		},
+	}
+	for name, testCase := range testCases {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			mapper := mapper.NewDataSourceMapper(map[string]explorer.DataSource{
+				"invoice_pdf": {
+					ReadOp:        createTestReadOp(testCase.readResponseSchema, testCase.readParams),
+					SchemaOptions: testCase.schemaOptions,
+				},
+			}, config.Config{})
+			got, err := mapper.MapToIR(slog.Default())
+			if err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
+
+			if len(got) != 1 {
+				t.Fatalf("expected only one DataSource, got: %d", len(got))
+			}
+
+			if diff := cmp.Diff(got[0].Schema.Attributes, testCase.want); diff != "" {
+				t.Errorf("unexpected difference: %s", diff)
+			}
+		})
+	}
+}
