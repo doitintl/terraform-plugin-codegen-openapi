@@ -162,6 +162,10 @@ data_sources:
 }
 ```
 
+#### Binary Response Data Sources
+
+If the response body schema for a data source is of type `string` with format `binary` (for example `application/pdf` or `application/octet-stream`), it will be mapped to a `computed` `StringAttribute` named `content_base64` at the root of the mapped data source. If the schema does not specify a `description`, the attribute description defaults to `"Base64-encoded binary content."`.
+
 
 
 ### OAS Types to Provider Attributes
