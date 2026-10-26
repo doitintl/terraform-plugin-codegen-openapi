@@ -601,6 +601,64 @@ func TestGetStringValidators(t *testing.T) {
 				},
 			},
 		},
+		"enum-with-null": {
+			schema: oas.OASSchema{
+				Schema: &base.Schema{
+					Type: []string{"string"},
+					Enum: []*yaml.Node{
+						{Kind: yaml.ScalarNode, Value: "one"},
+						{Kind: yaml.ScalarNode, Value: "two"},
+						{Kind: yaml.ScalarNode, Tag: "!!null", Value: "null"},
+					},
+				},
+			},
+			expected: []schema.StringValidator{
+				{
+					Custom: &schema.CustomValidator{
+						Imports: []code.Import{
+							{
+								Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+							},
+						},
+						SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
+					},
+				},
+			},
+		},
+		"enum-only-null": {
+			schema: oas.OASSchema{
+				Schema: &base.Schema{
+					Type: []string{"string"},
+					Enum: []*yaml.Node{
+						{Kind: yaml.ScalarNode, Tag: "!!null", Value: "null"},
+					},
+				},
+			},
+			expected: nil,
+		},
+		"enum-with-quoted-null-string": {
+			schema: oas.OASSchema{
+				Schema: &base.Schema{
+					Type: []string{"string"},
+					Enum: []*yaml.Node{
+						{Kind: yaml.ScalarNode, Value: "one"},
+						{Kind: yaml.ScalarNode, Style: yaml.DoubleQuotedStyle, Value: "null"},
+					},
+				},
+			},
+			expected: []schema.StringValidator{
+				{
+					Custom: &schema.CustomValidator{
+						Imports: []code.Import{
+							{
+								Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+							},
+						},
+						SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"null\",\n)",
+					},
+				},
+			},
+		},
 		"maxLength": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{

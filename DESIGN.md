@@ -260,6 +260,8 @@ If the field is only present in a schema other than the `read` operation `parame
 | [pattern](https://json-schema.org/draft/2020-12/json-schema-validation.html#name-pattern)             | [`validators`](https://developer.hashicorp.com/terraform/plugin/code-generation/specification#validators)                            |
 | [uniqueItems](https://json-schema.org/draft/2020-12/json-schema-validation.html#name-uniqueItems)     | [`validators`](https://developer.hashicorp.com/terraform/plugin/code-generation/specification#validators)                            |
 
+A `null` entry in an `enum`, which OpenAPI 3.0 requires for a `nullable` enum to accept `null`, is not mapped to an allowed value in the `OneOf` validator: Terraform already represents `null` as an unset value. An `enum` that only lists `null` produces no validator.
+
 ### Attribute Names
 After all attributes have been [mapped](#oas-types-to-provider-attributes) and any overrides/aliases have been applied, the attribute names mapped from the OAS will be converted (if needed) to valid [Terraform Identifiers](https://developer.hashicorp.com/terraform/language/syntax/configuration#identifiers). This [logic](https://github.com/hashicorp/terraform-plugin-codegen-openapi/blob/main/internal/mapper/util/framework_identifier.go#L25) performs the following, in order:
 1. Removes all characters that are NOT alphanumeric or an underscore
