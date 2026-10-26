@@ -33,6 +33,14 @@ resources:
       path: /composition_siblings
       method: GET
 
+  nullable_enum:
+    create:
+      path: /nullable_enum
+      method: POST
+    read:
+      path: /nullable_enum
+      method: GET
+
   nested_path:
     create:
       path: /parents/{parent_id}/children

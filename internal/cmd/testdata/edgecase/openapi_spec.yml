@@ -199,6 +199,30 @@ paths:
                       deprecated: true
                   allOf:
                   - $ref: "#/components/schemas/composition_refinable_object"
+  /nullable_enum:
+    get:
+      summary: Test for nullable enums that list null as an allowed value
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/nullable_enum_object"
+    post:
+      summary: Test for nullable enums that list null as an allowed value
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/nullable_enum_object"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/nullable_enum_object"
   /parents/{parent_id}/children:
     # Declared on the path item rather than the operation, so that resolving the create
     # operation's path parameters has to merge the path item in.
@@ -309,6 +333,36 @@ components:
           - active
           - disabled
           - expired
+    nullable_enum_object:
+      type: object
+      properties:
+        string_prop:
+          description: The null entry must not become an empty string in the OneOf validator
+          type: [string, "null"]
+          enum:
+          - a
+          - b
+          - null
+        integer_prop:
+          description: The null entry must not become 0 in the OneOf validator
+          type: [integer, "null"]
+          enum:
+          - 1
+          - 2
+          - null
+        number_prop:
+          description: The null entry must not become 0 in the OneOf validator
+          type: [number, "null"]
+          format: double
+          enum:
+          - 1.5
+          - 2.5
+          - null
+        only_null_prop:
+          description: An enum that only lists null produces no validator
+          type: [string, "null"]
+          enum:
+          - null
     composition_object:
       description: This description loses to the composing schema's
       type: object

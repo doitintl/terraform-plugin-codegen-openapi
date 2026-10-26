@@ -595,6 +595,41 @@ func TestGetIntegerValidators(t *testing.T) {
 				},
 			},
 		},
+		"enum-with-null": {
+			schema: oas.OASSchema{
+				Schema: &base.Schema{
+					Type: []string{"integer"},
+					Enum: []*yaml.Node{
+						{Kind: yaml.ScalarNode, Value: "1"},
+						{Kind: yaml.ScalarNode, Value: "2"},
+						{Kind: yaml.ScalarNode, Tag: "!!null", Value: "null"},
+					},
+				},
+			},
+			expected: []schema.Int64Validator{
+				{
+					Custom: &schema.CustomValidator{
+						Imports: []code.Import{
+							{
+								Path: "github.com/hashicorp/terraform-plugin-framework-validators/int64validator",
+							},
+						},
+						SchemaDefinition: "int64validator.OneOf(\n1,\n2,\n)",
+					},
+				},
+			},
+		},
+		"enum-only-null": {
+			schema: oas.OASSchema{
+				Schema: &base.Schema{
+					Type: []string{"integer"},
+					Enum: []*yaml.Node{
+						{Kind: yaml.ScalarNode, Tag: "!!null", Value: "null"},
+					},
+				},
+			},
+			expected: nil,
+		},
 		"maximum": {
 			schema: oas.OASSchema{
 				Schema: &base.Schema{

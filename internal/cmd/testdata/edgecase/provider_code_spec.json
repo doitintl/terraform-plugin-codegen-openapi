@@ -580,6 +580,77 @@
 			}
 		},
 		{
+			"name": "nullable_enum",
+			"schema": {
+				"attributes": [
+					{
+						"name": "integer_prop",
+						"int64": {
+							"computed_optional_required": "computed_optional",
+							"description": "The null entry must not become 0 in the OneOf validator",
+							"validators": [
+								{
+									"custom": {
+										"imports": [
+											{
+												"path": "github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
+											}
+										],
+										"schema_definition": "int64validator.OneOf(\n1,\n2,\n)"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "number_prop",
+						"float64": {
+							"computed_optional_required": "computed_optional",
+							"description": "The null entry must not become 0 in the OneOf validator",
+							"validators": [
+								{
+									"custom": {
+										"imports": [
+											{
+												"path": "github.com/hashicorp/terraform-plugin-framework-validators/float64validator"
+											}
+										],
+										"schema_definition": "float64validator.OneOf(\n1.5,\n2.5,\n)"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "only_null_prop",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "An enum that only lists null produces no validator"
+						}
+					},
+					{
+						"name": "string_prop",
+						"string": {
+							"computed_optional_required": "computed_optional",
+							"description": "The null entry must not become an empty string in the OneOf validator",
+							"validators": [
+								{
+									"custom": {
+										"imports": [
+											{
+												"path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+											}
+										],
+										"schema_definition": "stringvalidator.OneOf(\n\"a\",\n\"b\",\n)"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
 			"name": "set_test",
 			"schema": {
 				"attributes": [

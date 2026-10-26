@@ -89,6 +89,12 @@ func (s *OASSchema) GetStringValidators() []schema.StringValidator {
 		var enum []string
 
 		for _, valueNode := range s.Schema.Enum {
+			// A nullable enum lists null (OpenAPI 3.0 requires it), but Terraform represents null as an unset value,
+			// not an allowed one. Decoding null would otherwise yield the zero value.
+			if valueNode.ShortTag() == "!!null" {
+				continue
+			}
+
 			var value string
 			if err := valueNode.Decode(&value); err != nil {
 				// could consider error/panic here to notify developers
