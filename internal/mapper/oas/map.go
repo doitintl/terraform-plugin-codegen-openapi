@@ -9,9 +9,6 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 )
 
@@ -40,11 +37,9 @@ func (s *OASSchema) BuildMapResource(name string, computability schema.ComputedO
 			NestedObject: attrmapper.ResourceNestedAttributeObject{
 				Attributes: mapAttributes,
 			},
-			MapNestedAttribute: resource.MapNestedAttribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -60,13 +55,11 @@ func (s *OASSchema) BuildMapResource(name string, computability schema.ComputedO
 	}
 
 	result := &attrmapper.ResourceMapAttribute{
-		Name: name,
-		MapAttribute: resource.MapAttribute{
-			ElementType:              elemType,
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ElementType:              elemType,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if computability != schema.Computed {
@@ -102,11 +95,9 @@ func (s *OASSchema) BuildMapDataSource(name string, computability schema.Compute
 			NestedObject: attrmapper.DataSourceNestedAttributeObject{
 				Attributes: mapAttributes,
 			},
-			MapNestedAttribute: datasource.MapNestedAttribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -122,13 +113,11 @@ func (s *OASSchema) BuildMapDataSource(name string, computability schema.Compute
 	}
 
 	result := &attrmapper.DataSourceMapAttribute{
-		Name: name,
-		MapAttribute: datasource.MapAttribute{
-			ElementType:              elemType,
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ElementType:              elemType,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if computability != schema.Computed {
@@ -164,12 +153,10 @@ func (s *OASSchema) BuildMapProvider(name string, optionalOrRequired schema.Opti
 			NestedObject: attrmapper.ProviderNestedAttributeObject{
 				Attributes: mapAttributes,
 			},
-			MapNestedAttribute: provider.MapNestedAttribute{
-				OptionalRequired:   optionalOrRequired,
-				DeprecationMessage: s.GetDeprecationMessage(),
-				Description:        s.GetDescription(),
-				Validators:         s.GetMapValidators(),
-			},
+			OptionalRequired:   optionalOrRequired,
+			DeprecationMessage: s.GetDeprecationMessage(),
+			Description:        s.GetDescription(),
+			Validators:         s.GetMapValidators(),
 		}
 
 		return result, nil
@@ -181,14 +168,12 @@ func (s *OASSchema) BuildMapProvider(name string, optionalOrRequired schema.Opti
 	}
 
 	result := &attrmapper.ProviderMapAttribute{
-		Name: name,
-		MapAttribute: provider.MapAttribute{
-			ElementType:        elemType,
-			OptionalRequired:   optionalOrRequired,
-			DeprecationMessage: s.GetDeprecationMessage(),
-			Description:        s.GetDescription(),
-			Validators:         s.GetMapValidators(),
-		},
+		Name:               name,
+		ElementType:        elemType,
+		OptionalRequired:   optionalOrRequired,
+		DeprecationMessage: s.GetDeprecationMessage(),
+		Description:        s.GetDescription(),
+		Validators:         s.GetMapValidators(),
 	}
 
 	return result, nil

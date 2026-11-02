@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	yaml "go.yaml.in/yaml/v4"
+	"github.com/pb33f/go-yaml"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/config"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"

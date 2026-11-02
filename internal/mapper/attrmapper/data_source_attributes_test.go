@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
@@ -25,137 +24,105 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 		"matches and appends": {
 			targetAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
+					Sensitive:                new(true),
 				},
 			},
 			mergeAttributeSlices: []attrmapper.DataSourceAttributes{
 				{
 					&attrmapper.DataSourceStringAttribute{
-						Name: "string_attribute",
-						StringAttribute: datasource.StringAttribute{
-							ComputedOptionalRequired: schema.Computed,
-							Description:              new("this will be ignored"),
-							Sensitive:                new(false),
-						},
+						Name:                     "string_attribute",
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("this will be ignored"),
+						Sensitive:                new(false),
 					},
 					&attrmapper.DataSourceBoolAttribute{
-						Name: "bool_attribute",
-						BoolAttribute: datasource.BoolAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("bool description"),
-						},
+						Name:                     "bool_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("bool description"),
 					},
 				},
 				{
 					&attrmapper.DataSourceFloat64Attribute{
-						Name: "float64_attribute",
-						Float64Attribute: datasource.Float64Attribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("float64 description"),
-						},
+						Name:                     "float64_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("float64 description"),
 					},
 				},
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
+					Sensitive:                new(true),
 				},
 				&attrmapper.DataSourceBoolAttribute{
-					Name: "bool_attribute",
-					BoolAttribute: datasource.BoolAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("bool description"),
-					},
+					Name:                     "bool_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("bool description"),
 				},
 				&attrmapper.DataSourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: datasource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("float64 description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("float64 description"),
 				},
 			},
 		},
 		"required in a later merge slice - promote computability": {
 			targetAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Computed,
-						Description:              new("string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("string description"),
 				},
 				&attrmapper.DataSourceSingleNestedAttribute{
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: datasource.BoolAttribute{
-								ComputedOptionalRequired: schema.Computed,
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.Computed,
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Computed,
-					},
+					ComputedOptionalRequired: schema.Computed,
 				},
 			},
 			mergeAttributeSlices: []attrmapper.DataSourceAttributes{
 				{
 					&attrmapper.DataSourceStringAttribute{
-						Name: "string_attribute",
-						StringAttribute: datasource.StringAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("this will be ignored"),
-						},
+						Name:                     "string_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("this will be ignored"),
 					},
 					&attrmapper.DataSourceSingleNestedAttribute{
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceBoolAttribute{
-								Name: "nested_bool",
-								BoolAttribute: datasource.BoolAttribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_bool",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
-						SingleNestedAttribute: datasource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-						},
+						ComputedOptionalRequired: schema.Required,
 					},
 				},
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
 				},
 				&attrmapper.DataSourceSingleNestedAttribute{
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: datasource.BoolAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-					},
+					ComputedOptionalRequired: schema.Required,
 				},
 			},
 		},
@@ -165,18 +132,14 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "string_attribute",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("string description"),
-								Sensitive:                new(true),
-							},
+							Name:                     "string_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("string description"),
+							Sensitive:                new(true),
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("single nested description"),
-					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("single nested description"),
 				},
 			},
 			mergeAttributeSlices: []attrmapper.DataSourceAttributes{
@@ -185,25 +148,19 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceStringAttribute{
-								Name: "string_attribute",
-								StringAttribute: datasource.StringAttribute{
-									ComputedOptionalRequired: schema.Computed,
-									Description:              new("this will be ignored"),
-									Sensitive:                new(false),
-								},
+								Name:                     "string_attribute",
+								ComputedOptionalRequired: schema.Computed,
+								Description:              new("this will be ignored"),
+								Sensitive:                new(false),
 							},
 							&attrmapper.DataSourceBoolAttribute{
-								Name: "bool_attribute",
-								BoolAttribute: datasource.BoolAttribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("bool description"),
-								},
+								Name:                     "bool_attribute",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("bool description"),
 							},
 						},
-						SingleNestedAttribute: datasource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("single nested description"),
-						},
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("single nested description"),
 					},
 				},
 				{
@@ -211,17 +168,13 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceFloat64Attribute{
-								Name: "float64_attribute",
-								Float64Attribute: datasource.Float64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("float64 description"),
-								},
+								Name:                     "float64_attribute",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("float64 description"),
 							},
 						},
-						SingleNestedAttribute: datasource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("single nested description"),
-						},
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -230,32 +183,24 @@ func TestDataSourceAttributes_Merge(t *testing.T) {
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "string_attribute",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("string description"),
-								Sensitive:                new(true),
-							},
+							Name:                     "string_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("string description"),
+							Sensitive:                new(true),
 						},
 						&attrmapper.DataSourceBoolAttribute{
-							Name: "bool_attribute",
-							BoolAttribute: datasource.BoolAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("bool description"),
-							},
+							Name:                     "bool_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("bool description"),
 						},
 						&attrmapper.DataSourceFloat64Attribute{
-							Name: "float64_attribute",
-							Float64Attribute: datasource.Float64Attribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("float64 description"),
-							},
+							Name:                     "float64_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("float64 description"),
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("single nested description"),
-					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("single nested description"),
 				},
 			},
 		},
@@ -297,20 +242,16 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 			},
 			attributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 		},
@@ -325,34 +266,26 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 			},
 			attributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 				&attrmapper.DataSourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: datasource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("new string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new string description"),
 				},
 				&attrmapper.DataSourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: datasource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("new float64 description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -377,24 +310,18 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "string_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "string_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							ListNestedAttribute: datasource.ListNestedAttribute{
-								ComputedOptionalRequired: schema.Optional,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Optional,
+							Description:              new("old description"),
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Optional,
-						Description:              new("old description"),
-					},
+					ComputedOptionalRequired: schema.Optional,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
@@ -406,24 +333,18 @@ func TestDataSourceAttributes_ApplyOverrides(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "string_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("new description"),
-										},
+										Name:                     "string_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("new description"),
 									},
 								},
 							},
-							ListNestedAttribute: datasource.ListNestedAttribute{
-								ComputedOptionalRequired: schema.Optional,
-								Description:              new("new description"),
-							},
+							ComputedOptionalRequired: schema.Optional,
+							Description:              new("new description"),
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Optional,
-						Description:              new("new description"),
-					},
+					ComputedOptionalRequired: schema.Optional,
+					Description:              new("new description"),
 				},
 			},
 		},

@@ -6,20 +6,15 @@ package oas
 import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 )
 
 func (s *OASSchema) BuildIntegerResource(name string, computability schema.ComputedOptionalRequired) (attrmapper.ResourceAttribute, *SchemaError) {
 	result := &attrmapper.ResourceInt64Attribute{
-		Name: name,
-		Int64Attribute: resource.Int64Attribute{
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if s.Schema.Default != nil && !s.GlobalSchemaOpts.IgnoreDefaults {
@@ -44,12 +39,10 @@ func (s *OASSchema) BuildIntegerResource(name string, computability schema.Compu
 
 func (s *OASSchema) BuildIntegerDataSource(name string, computability schema.ComputedOptionalRequired) (attrmapper.DataSourceAttribute, *SchemaError) {
 	result := &attrmapper.DataSourceInt64Attribute{
-		Name: name,
-		Int64Attribute: datasource.Int64Attribute{
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if computability != schema.Computed {
@@ -61,13 +54,11 @@ func (s *OASSchema) BuildIntegerDataSource(name string, computability schema.Com
 
 func (s *OASSchema) BuildIntegerProvider(name string, optionalOrRequired schema.OptionalRequired) (attrmapper.ProviderAttribute, *SchemaError) {
 	result := &attrmapper.ProviderInt64Attribute{
-		Name: name,
-		Int64Attribute: provider.Int64Attribute{
-			OptionalRequired:   optionalOrRequired,
-			DeprecationMessage: s.GetDeprecationMessage(),
-			Description:        s.GetDescription(),
-			Validators:         s.GetIntegerValidators(),
-		},
+		Name:               name,
+		OptionalRequired:   optionalOrRequired,
+		DeprecationMessage: s.GetDeprecationMessage(),
+		Description:        s.GetDescription(),
+		Validators:         s.GetIntegerValidators(),
 	}
 
 	return result, nil

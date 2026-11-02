@@ -8,9 +8,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
-	yaml "go.yaml.in/yaml/v4"
+	"github.com/pb33f/go-yaml"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
@@ -493,18 +492,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_one",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a nullable string type."),
-					},
+					Name:                     "nullable_string_one",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a nullable string type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_two",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a nullable string type, required."),
-					},
+					Name:                     "nullable_string_two",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a nullable string type, required."),
 				},
 			},
 		},
@@ -529,25 +524,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_bool",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable bool type, required."),
-					},
+					Name:                     "stringable_bool",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable bool type, required."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_integer",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a stringable integer type."),
-					},
+					Name:                     "stringable_integer",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a stringable integer type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_number",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable number type, required."),
-					},
+					Name:                     "stringable_number",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable number type, required."),
 				},
 			},
 		},
@@ -582,18 +571,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_one",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a string type."),
-					},
+					Name:                     "nullable_string_one",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a string type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_two",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a string type, required."),
-					},
+					Name:                     "nullable_string_two",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a string type, required."),
 				},
 			},
 		},
@@ -639,25 +624,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_bool",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable bool type, required."),
-					},
+					Name:                     "stringable_bool",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable bool type, required."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_integer",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a stringable integer type."),
-					},
+					Name:                     "stringable_integer",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a stringable integer type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_number",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable number type, required."),
-					},
+					Name:                     "stringable_number",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable number type, required."),
 				},
 			},
 		},
@@ -692,18 +671,14 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_one",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a string type."),
-					},
+					Name:                     "nullable_string_one",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a string type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string_two",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a string type, required."),
-					},
+					Name:                     "nullable_string_two",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a string type, required."),
 				},
 			},
 		},
@@ -749,25 +724,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_bool",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable bool type, required."),
-					},
+					Name:                     "stringable_bool",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable bool type, required."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_integer",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a stringable integer type."),
-					},
+					Name:                     "stringable_integer",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a stringable integer type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_number",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a stringable number type, required."),
-					},
+					Name:                     "stringable_number",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a stringable number type, required."),
 				},
 			},
 		},
@@ -798,23 +767,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of nullable strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of nullable strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of nullable strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of nullable strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -860,23 +825,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of nullable strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of nullable strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of nullable strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of nullable strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -922,23 +883,19 @@ func TestBuildSchema_MultiTypes(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of nullable strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of nullable strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of nullable strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of nullable strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -1024,24 +981,18 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "nested_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceBoolAttribute{
-							Name: "bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("hey there! I'm a bool type."),
-							},
+							Name:                     "bool",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("hey there! I'm a bool type."),
 						},
 						&attrmapper.ResourceStringAttribute{
-							Name: "string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("hey there! I'm a string type, required."),
-							},
+							Name:                     "string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("hey there! I'm a string type, required."),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm an object type."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm an object type."),
 				},
 			},
 		},
@@ -1072,18 +1023,14 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_allof_override",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("Override the bool's description"),
-					},
+					Name:                     "bool_allof_override",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("Override the bool's description"),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_allof_override",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("Override the string's description"),
-					},
+					Name:                     "string_allof_override",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("Override the string's description"),
 				},
 			},
 		},
@@ -1118,27 +1065,21 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "deprecated_false_sibling",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					Name:                     "deprecated_false_sibling",
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 				&attrmapper.ResourceSingleNestedAttribute{
 					Name: "deprecated_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("hey there! I'm a string type."),
-							},
+							Name:                     "string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("hey there! I'm a string type."),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("Deprecated: use 'other_object' instead."),
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("Deprecated: use 'other_object' instead."),
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -1164,22 +1105,20 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
 					Name: "string_with_default",
-					StringAttribute: resource.StringAttribute{
-						// Intentionally not required due to default
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.StringDefault{
-							Static: new("one"),
-						},
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					// Intentionally not required due to default
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.StringDefault{
+						Static: new("one"),
+					},
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 								},
+								SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 							},
 						},
 					},
@@ -1227,71 +1166,65 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceInt64Attribute{
-					Name: "constrained_integer",
-					Int64Attribute: resource.Int64Attribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Validators: []schema.Int64Validator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/int64validator",
-										},
+					Name:                     "constrained_integer",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Validators: []schema.Int64Validator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/int64validator",
 									},
-									SchemaDefinition: "int64validator.Between(1, 100)",
 								},
+								SchemaDefinition: "int64validator.Between(1, 100)",
 							},
 						},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "constrained_list",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
-						Validators: []schema.ListValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
-										},
+					Name:                     "constrained_list",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
+					},
+					Validators: []schema.ListValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
 									},
-									SchemaDefinition: "listvalidator.SizeBetween(1, 3)",
 								},
+								SchemaDefinition: "listvalidator.SizeBetween(1, 3)",
 							},
 						},
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "constrained_string",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					Name:                     "constrained_string",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.LengthBetween(2, 10)",
 								},
+								SchemaDefinition: "stringvalidator.LengthBetween(2, 10)",
 							},
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "regexp",
-										},
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+						},
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "regexp",
 									},
-									SchemaDefinition: "stringvalidator.RegexMatches(regexp.MustCompile(\"^[a-z]+$\"), \"\")",
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
+									},
 								},
+								SchemaDefinition: "stringvalidator.RegexMatches(regexp.MustCompile(\"^[a-z]+$\"), \"\")",
 							},
 						},
 					},
@@ -1329,27 +1262,19 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "nested_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "optional",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-							},
+							Name:                     "optional",
+							ComputedOptionalRequired: schema.ComputedOptional,
 						},
 						&attrmapper.ResourceStringAttribute{
-							Name: "required_by_composer",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "required_by_composer",
+							ComputedOptionalRequired: schema.Required,
 						},
 						&attrmapper.ResourceStringAttribute{
-							Name: "required_by_subschema",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "required_by_subschema",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1390,28 +1315,20 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "nested_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "collision",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("hey there! I'm the composer's collision."),
-							},
+							Name:                     "collision",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("hey there! I'm the composer's collision."),
 						},
 						&attrmapper.ResourceBoolAttribute{
-							Name: "from_composer",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-							},
+							Name:                     "from_composer",
+							ComputedOptionalRequired: schema.ComputedOptional,
 						},
 						&attrmapper.ResourceStringAttribute{
-							Name: "from_subschema",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-							},
+							Name:                     "from_subschema",
+							ComputedOptionalRequired: schema.ComputedOptional,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1448,30 +1365,26 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "refined_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "name",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								// Type, description and the length bound all survive from the target.
-								Description:        new("hey there! I'm the target's property."),
-								DeprecationMessage: new("This attribute is deprecated."),
-								Validators: []schema.StringValidator{
-									{
-										Custom: &schema.CustomValidator{
-											Imports: []code.Import{
-												{
-													Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-												},
+							Name:                     "name",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							// Type, description and the length bound all survive from the target.
+							Description:        new("hey there! I'm the target's property."),
+							DeprecationMessage: new("This attribute is deprecated."),
+							Validators: []schema.StringValidator{
+								{
+									Custom: &schema.CustomValidator{
+										Imports: []code.Import{
+											{
+												Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 											},
-											SchemaDefinition: "stringvalidator.LengthAtLeast(3)",
 										},
+										SchemaDefinition: "stringvalidator.LengthAtLeast(3)",
 									},
 								},
 							},
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1513,22 +1426,16 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceBoolAttribute{
-								Name: "from_composer",
-								BoolAttribute: resource.BoolAttribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-								},
+								Name:                     "from_composer",
+								ComputedOptionalRequired: schema.ComputedOptional,
 							},
 							&attrmapper.ResourceStringAttribute{
-								Name: "from_target",
-								StringAttribute: resource.StringAttribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-								},
+								Name:                     "from_target",
+								ComputedOptionalRequired: schema.ComputedOptional,
 							},
 						},
 					},
-					ListNestedAttribute: resource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1558,17 +1465,13 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "composer_type_fills_gap",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I have no type."),
-					},
+					Name:                     "composer_type_fills_gap",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I have no type."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "subschema_type_wins",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					Name:                     "subschema_type_wins",
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1588,19 +1491,15 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "with_siblings",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I override the shared description."),
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "with_siblings",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I override the shared description."),
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "without_siblings",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm the shared $ref target."),
-					},
+					Name:                     "without_siblings",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm the shared $ref target."),
 				},
 			},
 		},
@@ -1627,35 +1526,25 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "with_siblings",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "from_composer",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "from_composer",
+							ComputedOptionalRequired: schema.Required,
 						},
 						&attrmapper.ResourceStringAttribute{
-							Name: "from_target",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "from_target",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 				&attrmapper.ResourceSingleNestedAttribute{
 					Name: "without_siblings",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "from_target",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "from_target",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
 				},
 			},
 		},
@@ -1693,17 +1582,13 @@ func TestBuildSchema_AllOfSchemaComposition(t *testing.T) {
 					Name: "nested_object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "from_middle",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "from_middle",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm the outermost description."),
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm the outermost description."),
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -1763,12 +1648,10 @@ func TestBuildSchema_MultiTypeSiblingKeywords(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "nullable_string",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm the composing schema's description."),
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nullable_string",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm the composing schema's description."),
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -1792,12 +1675,10 @@ func TestBuildSchema_MultiTypeSiblingKeywords(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "nullable_bool",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm the composing schema's description."),
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nullable_bool",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm the composing schema's description."),
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -1821,20 +1702,18 @@ func TestBuildSchema_MultiTypeSiblingKeywords(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "stringable_number",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm the composing schema's description."),
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					Name:                     "stringable_number",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm the composing schema's description."),
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.LengthAtLeast(1)",
 								},
+								SchemaDefinition: "stringvalidator.LengthAtLeast(1)",
 							},
 						},
 					},
@@ -1864,11 +1743,9 @@ func TestBuildSchema_MultiTypeSiblingKeywords(t *testing.T) {
 			}),
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "int_or_string",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm an int or a string."),
-					},
+					Name:                     "int_or_string",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm an int or a string."),
 				},
 			},
 		},
@@ -2044,24 +1921,18 @@ func TestBuildSchema_EdgeCases(t *testing.T) {
 					Name: "object",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceBoolAttribute{
-							Name: "bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("hey there! I'm a bool type, required."),
-							},
+							Name:                     "bool",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("hey there! I'm a bool type, required."),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm an object type, required."),
-					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm an object type, required."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "string",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a string type, required."),
-					},
+					Name:                     "string",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a string type, required."),
 				},
 			},
 		},

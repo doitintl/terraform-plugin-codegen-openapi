@@ -16,8 +16,7 @@ func WarnLogOnError(logger *slog.Logger, err error, message string) {
 		return
 	}
 
-	var schemaErr *oas.SchemaError
-	if errors.As(err, &schemaErr) {
+	if schemaErr, ok := errors.AsType[*oas.SchemaError](err); ok {
 		if schemaErr.Path() != "" {
 			logger = logger.With("oas_path", schemaErr.Path())
 		}

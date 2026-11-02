@@ -6,11 +6,8 @@ package oas_test
 import (
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
-	yaml "go.yaml.in/yaml/v4"
+	"github.com/pb33f/go-yaml"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
@@ -44,18 +41,14 @@ func TestBuildBoolResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a bool type."),
-					},
+					Name:                     "bool_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a bool type."),
 				},
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_prop_required",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a bool type, required."),
-					},
+					Name:                     "bool_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a bool type, required."),
 				},
 			},
 		},
@@ -80,31 +73,25 @@ func TestBuildBoolResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_prop_default_false",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.BoolDefault{
-							Static: new(false),
-						},
+					Name:                     "bool_prop_default_false",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.BoolDefault{
+						Static: new(false),
 					},
 				},
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_prop_default_true",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.BoolDefault{
-							Static: new(true),
-						},
+					Name:                     "bool_prop_default_true",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.BoolDefault{
+						Static: new(true),
 					},
 				},
 				&attrmapper.ResourceBoolAttribute{
 					Name: "bool_prop_required_default_true",
-					BoolAttribute: resource.BoolAttribute{
-						// Intentionally not required due to default
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.BoolDefault{
-							Static: new(true),
-						},
+					// Intentionally not required due to default
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.BoolDefault{
+						Static: new(true),
 					},
 				},
 			},
@@ -121,11 +108,9 @@ func TestBuildBoolResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "bool_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -156,23 +141,19 @@ func TestBuildBoolResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "bool_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of bools."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:                     "bool_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of bools."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "bool_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of bools, required."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:                     "bool_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of bools, required."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 			},
@@ -221,18 +202,14 @@ func TestBuildBoolDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: datasource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a bool type."),
-					},
+					Name:                     "bool_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a bool type."),
 				},
 				&attrmapper.DataSourceBoolAttribute{
-					Name: "bool_prop_required",
-					BoolAttribute: datasource.BoolAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a bool type, required."),
-					},
+					Name:                     "bool_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a bool type, required."),
 				},
 			},
 		},
@@ -248,11 +225,9 @@ func TestBuildBoolDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: datasource.BoolAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "bool_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -283,23 +258,19 @@ func TestBuildBoolDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListAttribute{
-					Name: "bool_list_prop",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of bools."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:                     "bool_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of bools."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 				&attrmapper.DataSourceListAttribute{
-					Name: "bool_list_prop_required",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of bools, required."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:                     "bool_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of bools, required."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 			},
@@ -348,18 +319,14 @@ func TestBuildBoolProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: provider.BoolAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a bool type."),
-					},
+					Name:             "bool_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a bool type."),
 				},
 				&attrmapper.ProviderBoolAttribute{
-					Name: "bool_prop_required",
-					BoolAttribute: provider.BoolAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a bool type, required."),
-					},
+					Name:             "bool_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a bool type, required."),
 				},
 			},
 		},
@@ -375,11 +342,9 @@ func TestBuildBoolProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderBoolAttribute{
-					Name: "bool_prop",
-					BoolAttribute: provider.BoolAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					Name:               "bool_prop",
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -410,23 +375,19 @@ func TestBuildBoolProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListAttribute{
-					Name: "bool_list_prop",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a list of bools."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:             "bool_list_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a list of bools."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 				&attrmapper.ProviderListAttribute{
-					Name: "bool_list_prop_required",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a list of bools, required."),
-						ElementType: schema.ElementType{
-							Bool: &schema.BoolType{},
-						},
+					Name:             "bool_list_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a list of bools, required."),
+					ElementType: schema.ElementType{
+						Bool: &schema.BoolType{},
 					},
 				},
 			},

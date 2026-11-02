@@ -31,17 +31,13 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("bool description"),
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -53,18 +49,14 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old string description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -76,18 +68,14 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old string description"),
 			},
 		},
 		"nil description - merge": {
@@ -98,18 +86,14 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 		},
 		"empty description - merge": {
@@ -121,18 +105,14 @@ func TestResourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 		},
 	}
@@ -170,11 +150,9 @@ func TestResourceStringAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "test_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -208,17 +186,13 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("bool description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -230,18 +204,14 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old string description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -253,18 +223,14 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old string description"),
 			},
 		},
 		"nil description - merge": {
@@ -275,18 +241,14 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 		},
 		"empty description - merge": {
@@ -298,18 +260,14 @@ func TestDataSourceStringAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new string description"),
 			},
 		},
 	}
@@ -347,11 +305,9 @@ func TestDataSourceStringAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "test_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}

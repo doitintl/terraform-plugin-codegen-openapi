@@ -19,10 +19,10 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	high "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
-	yaml "go.yaml.in/yaml/v4"
 )
 
 func TestResourceMapper_basic_merges(t *testing.T) {
