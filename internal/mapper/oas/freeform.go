@@ -6,9 +6,6 @@ package oas
 import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 )
 
@@ -43,13 +40,11 @@ func (s *OASSchema) BuildFreeformResource(name string, computability schema.Comp
 	desc := freeformDescription(s.GetDescription())
 
 	result := &attrmapper.ResourceStringAttribute{
-		Name: name,
-		StringAttribute: resource.StringAttribute{
-			ComputedOptionalRequired: computability,
-			CustomType:               jsonNormalizedCustomType(),
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              desc,
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		CustomType:               jsonNormalizedCustomType(),
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              desc,
 	}
 
 	return result, nil
@@ -59,13 +54,11 @@ func (s *OASSchema) BuildFreeformDataSource(name string, computability schema.Co
 	desc := freeformDescription(s.GetDescription())
 
 	result := &attrmapper.DataSourceStringAttribute{
-		Name: name,
-		StringAttribute: datasource.StringAttribute{
-			ComputedOptionalRequired: computability,
-			CustomType:               jsonNormalizedCustomType(),
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              desc,
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		CustomType:               jsonNormalizedCustomType(),
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              desc,
 	}
 
 	return result, nil
@@ -75,13 +68,11 @@ func (s *OASSchema) BuildFreeformProvider(name string, optionalOrRequired schema
 	desc := freeformDescription(s.GetDescription())
 
 	result := &attrmapper.ProviderStringAttribute{
-		Name: name,
-		StringAttribute: provider.StringAttribute{
-			OptionalRequired:   optionalOrRequired,
-			CustomType:         jsonNormalizedCustomType(),
-			DeprecationMessage: s.GetDeprecationMessage(),
-			Description:        desc,
-		},
+		Name:               name,
+		OptionalRequired:   optionalOrRequired,
+		CustomType:         jsonNormalizedCustomType(),
+		DeprecationMessage: s.GetDeprecationMessage(),
+		Description:        desc,
 	}
 
 	return result, nil

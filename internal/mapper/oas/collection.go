@@ -9,9 +9,6 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 )
 
@@ -41,11 +38,9 @@ func (s *OASSchema) BuildCollectionResource(name string, computability schema.Co
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: objectAttributes,
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: computability,
-					DeprecationMessage:       s.GetDeprecationMessage(),
-					Description:              s.GetDescription(),
-				},
+				ComputedOptionalRequired: computability,
+				DeprecationMessage:       s.GetDeprecationMessage(),
+				Description:              s.GetDescription(),
 			}
 
 			if computability != schema.Computed {
@@ -60,11 +55,9 @@ func (s *OASSchema) BuildCollectionResource(name string, computability schema.Co
 			NestedObject: attrmapper.ResourceNestedAttributeObject{
 				Attributes: objectAttributes,
 			},
-			ListNestedAttribute: resource.ListNestedAttribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -81,13 +74,11 @@ func (s *OASSchema) BuildCollectionResource(name string, computability schema.Co
 
 	if s.Format == util.TF_format_set {
 		result := &attrmapper.ResourceSetAttribute{
-			Name: name,
-			SetAttribute: resource.SetAttribute{
-				ElementType:              elemType,
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			Name:                     name,
+			ElementType:              elemType,
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -98,13 +89,11 @@ func (s *OASSchema) BuildCollectionResource(name string, computability schema.Co
 	}
 
 	result := &attrmapper.ResourceListAttribute{
-		Name: name,
-		ListAttribute: resource.ListAttribute{
-			ElementType:              elemType,
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ElementType:              elemType,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if computability != schema.Computed {
@@ -141,11 +130,9 @@ func (s *OASSchema) BuildCollectionDataSource(name string, computability schema.
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: objectAttributes,
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: computability,
-					DeprecationMessage:       s.GetDeprecationMessage(),
-					Description:              s.GetDescription(),
-				},
+				ComputedOptionalRequired: computability,
+				DeprecationMessage:       s.GetDeprecationMessage(),
+				Description:              s.GetDescription(),
 			}
 
 			if computability != schema.Computed {
@@ -160,11 +147,9 @@ func (s *OASSchema) BuildCollectionDataSource(name string, computability schema.
 			NestedObject: attrmapper.DataSourceNestedAttributeObject{
 				Attributes: objectAttributes,
 			},
-			ListNestedAttribute: datasource.ListNestedAttribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -182,13 +167,11 @@ func (s *OASSchema) BuildCollectionDataSource(name string, computability schema.
 	if s.Format == util.TF_format_set {
 
 		result := &attrmapper.DataSourceSetAttribute{
-			Name: name,
-			SetAttribute: datasource.SetAttribute{
-				ElementType:              elemType,
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			Name:                     name,
+			ElementType:              elemType,
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -199,13 +182,11 @@ func (s *OASSchema) BuildCollectionDataSource(name string, computability schema.
 	}
 
 	result := &attrmapper.DataSourceListAttribute{
-		Name: name,
-		ListAttribute: datasource.ListAttribute{
-			ElementType:              elemType,
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ElementType:              elemType,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	if computability != schema.Computed {
@@ -242,12 +223,10 @@ func (s *OASSchema) BuildCollectionProvider(name string, optionalOrRequired sche
 				NestedObject: attrmapper.ProviderNestedAttributeObject{
 					Attributes: objectAttributes,
 				},
-				SetNestedAttribute: provider.SetNestedAttribute{
-					OptionalRequired:   optionalOrRequired,
-					DeprecationMessage: s.GetDeprecationMessage(),
-					Description:        s.GetDescription(),
-					Validators:         s.GetSetValidators(),
-				},
+				OptionalRequired:   optionalOrRequired,
+				DeprecationMessage: s.GetDeprecationMessage(),
+				Description:        s.GetDescription(),
+				Validators:         s.GetSetValidators(),
 			}
 
 			return result, nil
@@ -258,12 +237,10 @@ func (s *OASSchema) BuildCollectionProvider(name string, optionalOrRequired sche
 			NestedObject: attrmapper.ProviderNestedAttributeObject{
 				Attributes: objectAttributes,
 			},
-			ListNestedAttribute: provider.ListNestedAttribute{
-				OptionalRequired:   optionalOrRequired,
-				DeprecationMessage: s.GetDeprecationMessage(),
-				Description:        s.GetDescription(),
-				Validators:         s.GetListValidators(),
-			},
+			OptionalRequired:   optionalOrRequired,
+			DeprecationMessage: s.GetDeprecationMessage(),
+			Description:        s.GetDescription(),
+			Validators:         s.GetListValidators(),
 		}
 
 		return result, nil
@@ -276,28 +253,24 @@ func (s *OASSchema) BuildCollectionProvider(name string, optionalOrRequired sche
 
 	if s.Format == util.TF_format_set {
 		result := &attrmapper.ProviderSetAttribute{
-			Name: name,
-			SetAttribute: provider.SetAttribute{
-				ElementType:        elemType,
-				OptionalRequired:   optionalOrRequired,
-				DeprecationMessage: s.GetDeprecationMessage(),
-				Description:        s.GetDescription(),
-				Validators:         s.GetSetValidators(),
-			},
+			Name:               name,
+			ElementType:        elemType,
+			OptionalRequired:   optionalOrRequired,
+			DeprecationMessage: s.GetDeprecationMessage(),
+			Description:        s.GetDescription(),
+			Validators:         s.GetSetValidators(),
 		}
 
 		return result, nil
 	}
 
 	result := &attrmapper.ProviderListAttribute{
-		Name: name,
-		ListAttribute: provider.ListAttribute{
-			ElementType:        elemType,
-			OptionalRequired:   optionalOrRequired,
-			DeprecationMessage: s.GetDeprecationMessage(),
-			Description:        s.GetDescription(),
-			Validators:         s.GetListValidators(),
-		},
+		Name:               name,
+		ElementType:        elemType,
+		OptionalRequired:   optionalOrRequired,
+		DeprecationMessage: s.GetDeprecationMessage(),
+		Description:        s.GetDescription(),
+		Validators:         s.GetListValidators(),
 	}
 
 	return result, nil

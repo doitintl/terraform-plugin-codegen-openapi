@@ -7,21 +7,16 @@ import (
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/util"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 )
 
 func (s *OASSchema) BuildNumberResource(name string, computability schema.ComputedOptionalRequired) (attrmapper.ResourceAttribute, *SchemaError) {
 	if s.Format == util.OAS_format_double || s.Format == util.OAS_format_float {
 		result := &attrmapper.ResourceFloat64Attribute{
-			Name: name,
-			Float64Attribute: resource.Float64Attribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			Name:                     name,
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if s.Schema.Default != nil && !s.GlobalSchemaOpts.IgnoreDefaults {
@@ -45,24 +40,20 @@ func (s *OASSchema) BuildNumberResource(name string, computability schema.Comput
 	}
 
 	return &attrmapper.ResourceNumberAttribute{
-		Name: name,
-		NumberAttribute: resource.NumberAttribute{
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}, nil
 }
 
 func (s *OASSchema) BuildNumberDataSource(name string, computability schema.ComputedOptionalRequired) (attrmapper.DataSourceAttribute, *SchemaError) {
 	if s.Format == util.OAS_format_double || s.Format == util.OAS_format_float {
 		result := &attrmapper.DataSourceFloat64Attribute{
-			Name: name,
-			Float64Attribute: datasource.Float64Attribute{
-				ComputedOptionalRequired: computability,
-				DeprecationMessage:       s.GetDeprecationMessage(),
-				Description:              s.GetDescription(),
-			},
+			Name:                     name,
+			ComputedOptionalRequired: computability,
+			DeprecationMessage:       s.GetDeprecationMessage(),
+			Description:              s.GetDescription(),
 		}
 
 		if computability != schema.Computed {
@@ -72,12 +63,10 @@ func (s *OASSchema) BuildNumberDataSource(name string, computability schema.Comp
 		return result, nil
 	}
 	result := &attrmapper.DataSourceNumberAttribute{
-		Name: name,
-		NumberAttribute: datasource.NumberAttribute{
-			ComputedOptionalRequired: computability,
-			DeprecationMessage:       s.GetDeprecationMessage(),
-			Description:              s.GetDescription(),
-		},
+		Name:                     name,
+		ComputedOptionalRequired: computability,
+		DeprecationMessage:       s.GetDeprecationMessage(),
+		Description:              s.GetDescription(),
 	}
 
 	return result, nil
@@ -86,24 +75,20 @@ func (s *OASSchema) BuildNumberDataSource(name string, computability schema.Comp
 func (s *OASSchema) BuildNumberProvider(name string, optionalOrRequired schema.OptionalRequired) (attrmapper.ProviderAttribute, *SchemaError) {
 	if s.Format == util.OAS_format_double || s.Format == util.OAS_format_float {
 		result := &attrmapper.ProviderFloat64Attribute{
-			Name: name,
-			Float64Attribute: provider.Float64Attribute{
-				OptionalRequired:   optionalOrRequired,
-				DeprecationMessage: s.GetDeprecationMessage(),
-				Description:        s.GetDescription(),
-				Validators:         s.GetFloatValidators(),
-			},
+			Name:               name,
+			OptionalRequired:   optionalOrRequired,
+			DeprecationMessage: s.GetDeprecationMessage(),
+			Description:        s.GetDescription(),
+			Validators:         s.GetFloatValidators(),
 		}
 
 		return result, nil
 	}
 	result := &attrmapper.ProviderNumberAttribute{
-		Name: name,
-		NumberAttribute: provider.NumberAttribute{
-			OptionalRequired:   optionalOrRequired,
-			DeprecationMessage: s.GetDeprecationMessage(),
-			Description:        s.GetDescription(),
-		},
+		Name:               name,
+		OptionalRequired:   optionalOrRequired,
+		DeprecationMessage: s.GetDeprecationMessage(),
+		Description:        s.GetDescription(),
 	}
 
 	return result, nil

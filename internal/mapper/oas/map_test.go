@@ -8,9 +8,6 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
@@ -77,39 +74,29 @@ func TestBuildMapResource(t *testing.T) {
 								Name: "nested_obj_prop",
 								Attributes: attrmapper.ResourceAttributes{
 									&attrmapper.ResourceFloat64Attribute{
-										Name: "nested_float64",
-										Float64Attribute: resource.Float64Attribute{
-											ComputedOptionalRequired: schema.ComputedOptional,
-											Description:              new("hey there! I'm a nested float64 type."),
-										},
+										Name:                     "nested_float64",
+										ComputedOptionalRequired: schema.ComputedOptional,
+										Description:              new("hey there! I'm a nested float64 type."),
 									},
 									&attrmapper.ResourceInt64Attribute{
-										Name: "nested_int64_required",
-										Int64Attribute: resource.Int64Attribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("hey there! I'm a nested int64 type, required."),
-										},
+										Name:                     "nested_int64_required",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("hey there! I'm a nested int64 type, required."),
 									},
 								},
-								SingleNestedAttribute: resource.SingleNestedAttribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a single nested object type."),
-								},
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a single nested object type."),
 							},
 							&attrmapper.ResourceStringAttribute{
-								Name: "nested_password_required",
-								StringAttribute: resource.StringAttribute{
-									ComputedOptionalRequired: schema.Required,
-									Sensitive:                new(true),
-									Description:              new("hey there! I'm a nested string type, required."),
-								},
+								Name:                     "nested_password_required",
+								ComputedOptionalRequired: schema.Required,
+								Sensitive:                new(true),
+								Description:              new("hey there! I'm a nested string type, required."),
 							},
 						},
 					},
-					MapNestedAttribute: resource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a map nested type."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a map nested type."),
 				},
 			},
 		},
@@ -137,18 +124,14 @@ func TestBuildMapResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceMapNestedAttribute{
-					Name: "nested_map_prop",
-					MapNestedAttribute: resource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_map_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -184,25 +167,21 @@ func TestBuildMapResource(t *testing.T) {
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					MapNestedAttribute: resource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.MapValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.MapValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
 									},
-									SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -238,23 +217,19 @@ func TestBuildMapResource(t *testing.T) {
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceMapAttribute{
 					Name: "map_with_floats",
-					MapAttribute: resource.MapAttribute{
-						ElementType: schema.ElementType{
-							Float64: &schema.Float64Type{},
-						},
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a map type with floats."),
+					ElementType: schema.ElementType{
+						Float64: &schema.Float64Type{},
 					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a map type with floats."),
 				},
 				&attrmapper.ResourceMapAttribute{
 					Name: "map_with_strings_required",
-					MapAttribute: resource.MapAttribute{
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a map type with strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a map type with strings, required."),
 				},
 			},
 		},
@@ -335,39 +310,29 @@ func TestBuildMapDataSource(t *testing.T) {
 								Name: "nested_obj_prop",
 								Attributes: attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceFloat64Attribute{
-										Name: "nested_float64",
-										Float64Attribute: datasource.Float64Attribute{
-											ComputedOptionalRequired: schema.ComputedOptional,
-											Description:              new("hey there! I'm a nested float64 type."),
-										},
+										Name:                     "nested_float64",
+										ComputedOptionalRequired: schema.ComputedOptional,
+										Description:              new("hey there! I'm a nested float64 type."),
 									},
 									&attrmapper.DataSourceInt64Attribute{
-										Name: "nested_int64_required",
-										Int64Attribute: datasource.Int64Attribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("hey there! I'm a nested int64 type, required."),
-										},
+										Name:                     "nested_int64_required",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("hey there! I'm a nested int64 type, required."),
 									},
 								},
-								SingleNestedAttribute: datasource.SingleNestedAttribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a single nested object type."),
-								},
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a single nested object type."),
 							},
 							&attrmapper.DataSourceStringAttribute{
-								Name: "nested_password_required",
-								StringAttribute: datasource.StringAttribute{
-									ComputedOptionalRequired: schema.Required,
-									Sensitive:                new(true),
-									Description:              new("hey there! I'm a nested string type, required."),
-								},
+								Name:                     "nested_password_required",
+								ComputedOptionalRequired: schema.Required,
+								Sensitive:                new(true),
+								Description:              new("hey there! I'm a nested string type, required."),
 							},
 						},
 					},
-					MapNestedAttribute: datasource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a map nested type."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a map nested type."),
 				},
 			},
 		},
@@ -395,18 +360,14 @@ func TestBuildMapDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceMapNestedAttribute{
-					Name: "nested_map_prop",
-					MapNestedAttribute: datasource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_map_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -442,25 +403,21 @@ func TestBuildMapDataSource(t *testing.T) {
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					MapNestedAttribute: datasource.MapNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.MapValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.MapValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
 									},
-									SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -496,23 +453,19 @@ func TestBuildMapDataSource(t *testing.T) {
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceMapAttribute{
 					Name: "map_with_floats",
-					MapAttribute: datasource.MapAttribute{
-						ElementType: schema.ElementType{
-							Float64: &schema.Float64Type{},
-						},
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a map type with floats."),
+					ElementType: schema.ElementType{
+						Float64: &schema.Float64Type{},
 					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a map type with floats."),
 				},
 				&attrmapper.DataSourceMapAttribute{
 					Name: "map_with_strings_required",
-					MapAttribute: datasource.MapAttribute{
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a map type with strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a map type with strings, required."),
 				},
 			},
 		},
@@ -593,39 +546,29 @@ func TestBuildMapProvider(t *testing.T) {
 								Name: "nested_obj_prop",
 								Attributes: attrmapper.ProviderAttributes{
 									&attrmapper.ProviderFloat64Attribute{
-										Name: "nested_float64",
-										Float64Attribute: provider.Float64Attribute{
-											OptionalRequired: schema.Optional,
-											Description:      new("hey there! I'm a nested float64 type."),
-										},
+										Name:             "nested_float64",
+										OptionalRequired: schema.Optional,
+										Description:      new("hey there! I'm a nested float64 type."),
 									},
 									&attrmapper.ProviderInt64Attribute{
-										Name: "nested_int64_required",
-										Int64Attribute: provider.Int64Attribute{
-											OptionalRequired: schema.Required,
-											Description:      new("hey there! I'm a nested int64 type, required."),
-										},
+										Name:             "nested_int64_required",
+										OptionalRequired: schema.Required,
+										Description:      new("hey there! I'm a nested int64 type, required."),
 									},
 								},
-								SingleNestedAttribute: provider.SingleNestedAttribute{
-									OptionalRequired: schema.Optional,
-									Description:      new("hey there! I'm a single nested object type."),
-								},
+								OptionalRequired: schema.Optional,
+								Description:      new("hey there! I'm a single nested object type."),
 							},
 							&attrmapper.ProviderStringAttribute{
-								Name: "nested_password_required",
-								StringAttribute: provider.StringAttribute{
-									OptionalRequired: schema.Required,
-									Sensitive:        new(true),
-									Description:      new("hey there! I'm a nested string type, required."),
-								},
+								Name:             "nested_password_required",
+								OptionalRequired: schema.Required,
+								Sensitive:        new(true),
+								Description:      new("hey there! I'm a nested string type, required."),
 							},
 						},
 					},
-					MapNestedAttribute: provider.MapNestedAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a map nested type."),
-					},
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a map nested type."),
 				},
 			},
 		},
@@ -653,18 +596,14 @@ func TestBuildMapProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderMapNestedAttribute{
-					Name: "nested_map_prop",
-					MapNestedAttribute: provider.MapNestedAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					Name:               "nested_map_prop",
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -700,25 +639,21 @@ func TestBuildMapProvider(t *testing.T) {
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
-					MapNestedAttribute: provider.MapNestedAttribute{
-						OptionalRequired: schema.Required,
-						Validators: []schema.MapValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
-										},
+					OptionalRequired: schema.Required,
+					Validators: []schema.MapValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator",
 									},
-									SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "mapvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -754,23 +689,19 @@ func TestBuildMapProvider(t *testing.T) {
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderMapAttribute{
 					Name: "map_with_floats",
-					MapAttribute: provider.MapAttribute{
-						ElementType: schema.ElementType{
-							Float64: &schema.Float64Type{},
-						},
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a map type with floats."),
+					ElementType: schema.ElementType{
+						Float64: &schema.Float64Type{},
 					},
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a map type with floats."),
 				},
 				&attrmapper.ProviderMapAttribute{
 					Name: "map_with_strings_required",
-					MapAttribute: provider.MapAttribute{
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a map type with strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a map type with strings, required."),
 				},
 			},
 		},

@@ -31,17 +31,13 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -53,18 +49,14 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old int64 description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -76,18 +68,14 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old int64 description"),
 			},
 		},
 		"nil description - merge": {
@@ -98,18 +86,14 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 		},
 		"empty description - merge": {
@@ -121,18 +105,14 @@ func TestResourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 		},
 	}
@@ -170,11 +150,9 @@ func TestResourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.ResourceInt64Attribute{
-				Name: "test_attribute",
-				Int64Attribute: resource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -208,17 +186,13 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -230,18 +204,14 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old int64 description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -253,18 +223,14 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old int64 description"),
 			},
 		},
 		"nil description - merge": {
@@ -275,18 +241,14 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 		},
 		"empty description - merge": {
@@ -298,18 +260,14 @@ func TestDataSourceInt64Attribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new int64 description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "int64_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new int64 description"),
-				},
+				Name:                     "int64_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new int64 description"),
 			},
 		},
 	}
@@ -347,11 +305,9 @@ func TestDataSourceInt64Attribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.DataSourceInt64Attribute{
-				Name: "test_attribute",
-				Int64Attribute: datasource.Int64Attribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}

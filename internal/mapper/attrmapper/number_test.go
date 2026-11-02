@@ -31,17 +31,13 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -53,18 +49,14 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old number description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -76,18 +68,14 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old number description"),
 			},
 		},
 		"nil description - merge": {
@@ -98,18 +86,14 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 		},
 		"empty description - merge": {
@@ -121,18 +105,14 @@ func TestResourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 		},
 	}
@@ -170,11 +150,9 @@ func TestResourceNumberAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.ResourceNumberAttribute{
-				Name: "test_attribute",
-				NumberAttribute: resource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -208,17 +186,13 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -230,18 +204,14 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old number description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -253,18 +223,14 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old number description"),
 			},
 		},
 		"nil description - merge": {
@@ -275,18 +241,14 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 		},
 		"empty description - merge": {
@@ -298,18 +260,14 @@ func TestDataSourceNumberAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new number description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "number_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new number description"),
-				},
+				Name:                     "number_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new number description"),
 			},
 		},
 	}
@@ -347,11 +305,9 @@ func TestDataSourceNumberAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.DataSourceNumberAttribute{
-				Name: "test_attribute",
-				NumberAttribute: datasource.NumberAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}

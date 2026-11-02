@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/explorer"
@@ -25,137 +24,105 @@ func TestResourceAttributes_Merge(t *testing.T) {
 		"matches and appends": {
 			targetAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
+					Sensitive:                new(true),
 				},
 			},
 			mergeAttributeSlices: []attrmapper.ResourceAttributes{
 				{
 					&attrmapper.ResourceStringAttribute{
-						Name: "string_attribute",
-						StringAttribute: resource.StringAttribute{
-							ComputedOptionalRequired: schema.Computed,
-							Description:              new("this will be ignored"),
-							Sensitive:                new(false),
-						},
+						Name:                     "string_attribute",
+						ComputedOptionalRequired: schema.Computed,
+						Description:              new("this will be ignored"),
+						Sensitive:                new(false),
 					},
 					&attrmapper.ResourceBoolAttribute{
-						Name: "bool_attribute",
-						BoolAttribute: resource.BoolAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("bool description"),
-						},
+						Name:                     "bool_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("bool description"),
 					},
 				},
 				{
 					&attrmapper.ResourceFloat64Attribute{
-						Name: "float64_attribute",
-						Float64Attribute: resource.Float64Attribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("float64 description"),
-						},
+						Name:                     "float64_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("float64 description"),
 					},
 				},
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
+					Sensitive:                new(true),
 				},
 				&attrmapper.ResourceBoolAttribute{
-					Name: "bool_attribute",
-					BoolAttribute: resource.BoolAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("bool description"),
-					},
+					Name:                     "bool_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("bool description"),
 				},
 				&attrmapper.ResourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: resource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("float64 description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("float64 description"),
 				},
 			},
 		},
 		"required in a later merge slice - promote computability": {
 			targetAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Computed,
-						Description:              new("string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Computed,
+					Description:              new("string description"),
 				},
 				&attrmapper.ResourceSingleNestedAttribute{
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.Computed,
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.Computed,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Computed,
-					},
+					ComputedOptionalRequired: schema.Computed,
 				},
 			},
 			mergeAttributeSlices: []attrmapper.ResourceAttributes{
 				{
 					&attrmapper.ResourceStringAttribute{
-						Name: "string_attribute",
-						StringAttribute: resource.StringAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("this will be ignored"),
-						},
+						Name:                     "string_attribute",
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("this will be ignored"),
 					},
 					&attrmapper.ResourceSingleNestedAttribute{
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceBoolAttribute{
-								Name: "nested_bool",
-								BoolAttribute: resource.BoolAttribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_bool",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
-						SingleNestedAttribute: resource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-						},
+						ComputedOptionalRequired: schema.Required,
 					},
 				},
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("string description"),
 				},
 				&attrmapper.ResourceSingleNestedAttribute{
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-					},
+					ComputedOptionalRequired: schema.Required,
 				},
 			},
 		},
@@ -165,18 +132,14 @@ func TestResourceAttributes_Merge(t *testing.T) {
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "string_attribute",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("string description"),
-								Sensitive:                new(true),
-							},
+							Name:                     "string_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("string description"),
+							Sensitive:                new(true),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("single nested description"),
-					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("single nested description"),
 				},
 			},
 			mergeAttributeSlices: []attrmapper.ResourceAttributes{
@@ -185,25 +148,19 @@ func TestResourceAttributes_Merge(t *testing.T) {
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceStringAttribute{
-								Name: "string_attribute",
-								StringAttribute: resource.StringAttribute{
-									ComputedOptionalRequired: schema.Computed,
-									Description:              new("this will be ignored"),
-									Sensitive:                new(false),
-								},
+								Name:                     "string_attribute",
+								ComputedOptionalRequired: schema.Computed,
+								Description:              new("this will be ignored"),
+								Sensitive:                new(false),
 							},
 							&attrmapper.ResourceBoolAttribute{
-								Name: "bool_attribute",
-								BoolAttribute: resource.BoolAttribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("bool description"),
-								},
+								Name:                     "bool_attribute",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("bool description"),
 							},
 						},
-						SingleNestedAttribute: resource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("single nested description"),
-						},
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("single nested description"),
 					},
 				},
 				{
@@ -211,17 +168,13 @@ func TestResourceAttributes_Merge(t *testing.T) {
 						Name: "single_nested_attribute",
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceFloat64Attribute{
-								Name: "float64_attribute",
-								Float64Attribute: resource.Float64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("float64 description"),
-								},
+								Name:                     "float64_attribute",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("float64 description"),
 							},
 						},
-						SingleNestedAttribute: resource.SingleNestedAttribute{
-							ComputedOptionalRequired: schema.Required,
-							Description:              new("single nested description"),
-						},
+						ComputedOptionalRequired: schema.Required,
+						Description:              new("single nested description"),
 					},
 				},
 			},
@@ -230,32 +183,24 @@ func TestResourceAttributes_Merge(t *testing.T) {
 					Name: "single_nested_attribute",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "string_attribute",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("string description"),
-								Sensitive:                new(true),
-							},
+							Name:                     "string_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("string description"),
+							Sensitive:                new(true),
 						},
 						&attrmapper.ResourceBoolAttribute{
-							Name: "bool_attribute",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("bool description"),
-							},
+							Name:                     "bool_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("bool description"),
 						},
 						&attrmapper.ResourceFloat64Attribute{
-							Name: "float64_attribute",
-							Float64Attribute: resource.Float64Attribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("float64 description"),
-							},
+							Name:                     "float64_attribute",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("float64 description"),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("single nested description"),
-					},
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("single nested description"),
 				},
 			},
 		},
@@ -297,20 +242,16 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 			},
 			attributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 		},
@@ -325,34 +266,26 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 			},
 			attributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 				&attrmapper.ResourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: resource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("old description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_attribute",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("new string description"),
-					},
+					Name:                     "string_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new string description"),
 				},
 				&attrmapper.ResourceFloat64Attribute{
-					Name: "float64_attribute",
-					Float64Attribute: resource.Float64Attribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("new float64 description"),
-					},
+					Name:                     "float64_attribute",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("new float64 description"),
 				},
 			},
 		},
@@ -377,24 +310,18 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "string_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "string_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							ListNestedAttribute: resource.ListNestedAttribute{
-								ComputedOptionalRequired: schema.Optional,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Optional,
+							Description:              new("old description"),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Optional,
-						Description:              new("old description"),
-					},
+					ComputedOptionalRequired: schema.Optional,
+					Description:              new("old description"),
 				},
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
@@ -406,24 +333,18 @@ func TestResourceAttributes_ApplyOverrides(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "string_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("new description"),
-										},
+										Name:                     "string_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("new description"),
 									},
 								},
 							},
-							ListNestedAttribute: resource.ListNestedAttribute{
-								ComputedOptionalRequired: schema.Optional,
-								Description:              new("new description"),
-							},
+							ComputedOptionalRequired: schema.Optional,
+							Description:              new("new description"),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.Optional,
-						Description:              new("new description"),
-					},
+					ComputedOptionalRequired: schema.Optional,
+					Description:              new("new description"),
 				},
 			},
 		},

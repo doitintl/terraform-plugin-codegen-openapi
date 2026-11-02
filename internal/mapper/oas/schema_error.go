@@ -6,8 +6,8 @@ package oas
 import (
 	"strings"
 
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
-	yaml "go.yaml.in/yaml/v4"
 )
 
 // SchemaError contains additional details about an error that occurred when processing an OpenAPI schema,

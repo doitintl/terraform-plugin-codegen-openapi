@@ -34,22 +34,18 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceSetAttribute{
-				Name: "set_attribute",
-				SetAttribute: resource.SetAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("set description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "set_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("set description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -64,21 +60,17 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Bool: &schema.BoolType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Bool: &schema.BoolType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -94,23 +86,19 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -126,23 +114,19 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -157,23 +141,19 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -189,23 +169,19 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -238,24 +214,22 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Object: &schema.ObjectType{
-							AttributeTypes: []schema.ObjectAttributeType{
-								{
-									Name:   "nested_string_attribute",
-									String: &schema.StringType{},
-								},
-								{
-									Name: "nested_obj_attribute",
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "double_nest_float64",
-												Float64: &schema.Float64Type{},
-											},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Object: &schema.ObjectType{
+						AttributeTypes: []schema.ObjectAttributeType{
+							{
+								Name:   "nested_string_attribute",
+								String: &schema.StringType{},
+							},
+							{
+								Name: "nested_obj_attribute",
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "double_nest_float64",
+											Float64: &schema.Float64Type{},
 										},
 									},
 								},
@@ -265,35 +239,33 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Object: &schema.ObjectType{
-							AttributeTypes: []schema.ObjectAttributeType{
-								{
-									Name: "nested_bool_attribute",
-									Bool: &schema.BoolType{},
-								},
-								{
-									Name: "nested_obj_attribute",
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:   "double_nest_string",
-												String: &schema.StringType{},
-											},
-											{
-												Name:    "double_nest_float64",
-												Float64: &schema.Float64Type{},
-											},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Object: &schema.ObjectType{
+						AttributeTypes: []schema.ObjectAttributeType{
+							{
+								Name: "nested_bool_attribute",
+								Bool: &schema.BoolType{},
+							},
+							{
+								Name: "nested_obj_attribute",
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:   "double_nest_string",
+											String: &schema.StringType{},
+										},
+										{
+											Name:    "double_nest_float64",
+											Float64: &schema.Float64Type{},
 										},
 									},
 								},
-								{
-									Name:   "nested_string_attribute",
-									String: &schema.StringType{},
-								},
+							},
+							{
+								Name:   "nested_string_attribute",
+								String: &schema.StringType{},
 							},
 						},
 					},
@@ -322,18 +294,16 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						List: &schema.ListType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					List: &schema.ListType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -342,22 +312,20 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						List: &schema.ListType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					List: &schema.ListType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -388,18 +356,16 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Map: &schema.MapType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Map: &schema.MapType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -408,22 +374,20 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Map: &schema.MapType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Map: &schema.MapType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -454,18 +418,16 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Set: &schema.SetType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Set: &schema.SetType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -474,22 +436,20 @@ func TestResourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Set: &schema.SetType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Set: &schema.SetType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -536,13 +496,11 @@ func TestResourceListAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.ResourceListAttribute{
-				Name: "test_attribute",
-				ListAttribute: resource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -580,22 +538,18 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceSetAttribute{
-				Name: "set_attribute",
-				SetAttribute: datasource.SetAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("set description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "set_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("set description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -610,21 +564,17 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Bool: &schema.BoolType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Bool: &schema.BoolType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -640,23 +590,19 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -672,23 +618,19 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -703,23 +645,19 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -735,23 +673,19 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new list description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new list description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},
@@ -784,24 +718,22 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Object: &schema.ObjectType{
-							AttributeTypes: []schema.ObjectAttributeType{
-								{
-									Name:   "nested_string_attribute",
-									String: &schema.StringType{},
-								},
-								{
-									Name: "nested_obj_attribute",
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "double_nest_float64",
-												Float64: &schema.Float64Type{},
-											},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Object: &schema.ObjectType{
+						AttributeTypes: []schema.ObjectAttributeType{
+							{
+								Name:   "nested_string_attribute",
+								String: &schema.StringType{},
+							},
+							{
+								Name: "nested_obj_attribute",
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "double_nest_float64",
+											Float64: &schema.Float64Type{},
 										},
 									},
 								},
@@ -811,35 +743,33 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Object: &schema.ObjectType{
-							AttributeTypes: []schema.ObjectAttributeType{
-								{
-									Name: "nested_bool_attribute",
-									Bool: &schema.BoolType{},
-								},
-								{
-									Name: "nested_obj_attribute",
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:   "double_nest_string",
-												String: &schema.StringType{},
-											},
-											{
-												Name:    "double_nest_float64",
-												Float64: &schema.Float64Type{},
-											},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Object: &schema.ObjectType{
+						AttributeTypes: []schema.ObjectAttributeType{
+							{
+								Name: "nested_bool_attribute",
+								Bool: &schema.BoolType{},
+							},
+							{
+								Name: "nested_obj_attribute",
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:   "double_nest_string",
+											String: &schema.StringType{},
+										},
+										{
+											Name:    "double_nest_float64",
+											Float64: &schema.Float64Type{},
 										},
 									},
 								},
-								{
-									Name:   "nested_string_attribute",
-									String: &schema.StringType{},
-								},
+							},
+							{
+								Name:   "nested_string_attribute",
+								String: &schema.StringType{},
 							},
 						},
 					},
@@ -868,18 +798,16 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						List: &schema.ListType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					List: &schema.ListType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -888,22 +816,20 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						List: &schema.ListType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					List: &schema.ListType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -934,18 +860,16 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Map: &schema.MapType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Map: &schema.MapType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -954,22 +878,20 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Map: &schema.MapType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Map: &schema.MapType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -1000,18 +922,16 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Set: &schema.SetType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Set: &schema.SetType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -1020,22 +940,20 @@ func TestDataSourceListAttribute_Merge(t *testing.T) {
 				},
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "list_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					ElementType: schema.ElementType{
-						Set: &schema.SetType{
-							ElementType: schema.ElementType{
-								Object: &schema.ObjectType{
-									AttributeTypes: []schema.ObjectAttributeType{
-										{
-											Name:  "nested_int64_attribute",
-											Int64: &schema.Int64Type{},
-										},
-										{
-											Name:   "nested_number_attribute",
-											Number: &schema.NumberType{},
-										},
+				Name:                     "list_attribute",
+				ComputedOptionalRequired: schema.Required,
+				ElementType: schema.ElementType{
+					Set: &schema.SetType{
+						ElementType: schema.ElementType{
+							Object: &schema.ObjectType{
+								AttributeTypes: []schema.ObjectAttributeType{
+									{
+										Name:  "nested_int64_attribute",
+										Int64: &schema.Int64Type{},
+									},
+									{
+										Name:   "nested_number_attribute",
+										Number: &schema.NumberType{},
 									},
 								},
 							},
@@ -1082,13 +1000,11 @@ func TestDataSourceListAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.DataSourceListAttribute{
-				Name: "test_attribute",
-				ListAttribute: datasource.ListAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-					ElementType: schema.ElementType{
-						String: &schema.StringType{},
-					},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
+				ElementType: schema.ElementType{
+					String: &schema.StringType{},
 				},
 			},
 		},

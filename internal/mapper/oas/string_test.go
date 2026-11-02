@@ -7,11 +7,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
-	yaml "go.yaml.in/yaml/v4"
+	"github.com/pb33f/go-yaml"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/oas"
@@ -46,19 +43,15 @@ func TestBuildStringResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a string type, not sensitive, required."),
-					},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a string type, not sensitive, required."),
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_sensitive_prop",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a string type, sensitive"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_sensitive_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a string type, sensitive"),
+					Sensitive:                new(true),
 				},
 			},
 		},
@@ -83,31 +76,25 @@ func TestBuildStringResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_prop_default_empty",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.StringDefault{
-							Static: new(""),
-						},
+					Name:                     "string_prop_default_empty",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.StringDefault{
+						Static: new(""),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_prop_default_non_empty",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.StringDefault{
-							Static: new("test value"),
-						},
+					Name:                     "string_prop_default_non_empty",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.StringDefault{
+						Static: new("test value"),
 					},
 				},
 				&attrmapper.ResourceStringAttribute{
 					Name: "string_prop_required_default_non_empty",
-					StringAttribute: resource.StringAttribute{
-						// Intentionally not required due to default
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Default: &schema.StringDefault{
-							Static: new("test value"),
-						},
+					// Intentionally not required due to default
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Default: &schema.StringDefault{
+						Static: new("test value"),
 					},
 				},
 			},
@@ -124,11 +111,9 @@ func TestBuildStringResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -159,23 +144,19 @@ func TestBuildStringResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -196,19 +177,17 @@ func TestBuildStringResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: resource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 								},
+								SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 							},
 						},
 					},
@@ -260,19 +239,15 @@ func TestBuildStringDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a string type, not sensitive, required."),
-					},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a string type, not sensitive, required."),
 				},
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_sensitive_prop",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a string type, sensitive"),
-						Sensitive:                new(true),
-					},
+					Name:                     "string_sensitive_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a string type, sensitive"),
+					Sensitive:                new(true),
 				},
 			},
 		},
@@ -288,11 +263,9 @@ func TestBuildStringDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -323,23 +296,19 @@ func TestBuildStringDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.DataSourceListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:                     "string_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -360,19 +329,17 @@ func TestBuildStringDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceStringAttribute{
-					Name: "string_prop",
-					StringAttribute: datasource.StringAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					Name:                     "string_prop",
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 								},
+								SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 							},
 						},
 					},
@@ -424,19 +391,15 @@ func TestBuildStringProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderStringAttribute{
-					Name: "string_prop",
-					StringAttribute: provider.StringAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a string type, not sensitive, required."),
-					},
+					Name:             "string_prop",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a string type, not sensitive, required."),
 				},
 				&attrmapper.ProviderStringAttribute{
-					Name: "string_sensitive_prop",
-					StringAttribute: provider.StringAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a string type, sensitive"),
-						Sensitive:        new(true),
-					},
+					Name:             "string_sensitive_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a string type, sensitive"),
+					Sensitive:        new(true),
 				},
 			},
 		},
@@ -452,11 +415,9 @@ func TestBuildStringProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderStringAttribute{
-					Name: "string_prop",
-					StringAttribute: provider.StringAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					Name:               "string_prop",
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -487,23 +448,19 @@ func TestBuildStringProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListAttribute{
-					Name: "string_list_prop",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a list of strings."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:             "string_list_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a list of strings."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 				&attrmapper.ProviderListAttribute{
-					Name: "string_list_prop_required",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a list of strings, required."),
-						ElementType: schema.ElementType{
-							String: &schema.StringType{},
-						},
+					Name:             "string_list_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a list of strings, required."),
+					ElementType: schema.ElementType{
+						String: &schema.StringType{},
 					},
 				},
 			},
@@ -524,19 +481,17 @@ func TestBuildStringProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderStringAttribute{
-					Name: "string_prop",
-					StringAttribute: provider.StringAttribute{
-						OptionalRequired: schema.Required,
-						Validators: []schema.StringValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
-										},
+					Name:             "string_prop",
+					OptionalRequired: schema.Required,
+					Validators: []schema.StringValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator",
 									},
-									SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 								},
+								SchemaDefinition: "stringvalidator.OneOf(\n\"one\",\n\"two\",\n)",
 							},
 						},
 					},

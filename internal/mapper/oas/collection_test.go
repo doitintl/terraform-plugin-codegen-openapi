@@ -7,9 +7,6 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-codegen-spec/code"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
@@ -60,26 +57,20 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListNestedAttribute{
-					Name: "nested_list_prop_required",
-					ListNestedAttribute: resource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list nested array type, required."),
-					},
+					Name:                     "nested_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list nested array type, required."),
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: resource.Float64Attribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a nested float64 type."),
-								},
+								Name:                     "nested_float64",
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -110,18 +101,14 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListNestedAttribute{
-					Name: "nested_list_prop",
-					ListNestedAttribute: resource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -157,25 +144,21 @@ func TestBuildCollectionResource(t *testing.T) {
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					ListNestedAttribute: resource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.ListValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.ListValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
 									},
-									SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -214,26 +197,20 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceSetNestedAttribute{
-					Name: "nested_set_prop_required",
-					SetNestedAttribute: resource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a set nested array type, required."),
-					},
+					Name:                     "nested_set_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a set nested array type, required."),
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: resource.Float64Attribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a nested float64 type."),
-								},
+								Name:                     "nested_float64",
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -265,18 +242,14 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceSetNestedAttribute{
-					Name: "nested_set_prop",
-					SetNestedAttribute: resource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_set_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -313,25 +286,21 @@ func TestBuildCollectionResource(t *testing.T) {
 					NestedObject: attrmapper.ResourceNestedAttributeObject{
 						Attributes: attrmapper.ResourceAttributes{
 							&attrmapper.ResourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: resource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					SetNestedAttribute: resource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.SetValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.SetValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
 									},
-									SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -393,23 +362,21 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "nested_list_prop",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of lists."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "nested_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of lists."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -418,23 +385,21 @@ func TestBuildCollectionResource(t *testing.T) {
 					},
 				},
 				&attrmapper.ResourceListAttribute{
-					Name: "nested_list_prop_required",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of lists, required."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:                     "nested_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of lists, required."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -503,23 +468,21 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceSetAttribute{
-					Name: "nested_set_prop",
-					SetAttribute: resource.SetAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a set of sets."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "nested_set_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a set of sets."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -528,23 +491,21 @@ func TestBuildCollectionResource(t *testing.T) {
 					},
 				},
 				&attrmapper.ResourceSetAttribute{
-					Name: "nested_set_prop_required",
-					SetAttribute: resource.SetAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a set of sets, required."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:                     "nested_set_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a set of sets, required."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -613,23 +574,21 @@ func TestBuildCollectionResource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ResourceAttributes{
 				&attrmapper.ResourceListAttribute{
-					Name: "list_with_map",
-					ListAttribute: resource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "nested_boolean",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "nested_string",
-												String: &schema.StringType{},
-											},
+					Name:                     "list_with_map",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "nested_boolean",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "nested_string",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -638,23 +597,21 @@ func TestBuildCollectionResource(t *testing.T) {
 					},
 				},
 				&attrmapper.ResourceSetAttribute{
-					Name: "set_with_map",
-					SetAttribute: resource.SetAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a set with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "nested_float64",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "nested_int64",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "set_with_map",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a set with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "nested_float64",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "nested_int64",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -722,26 +679,20 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListNestedAttribute{
-					Name: "nested_list_prop_required",
-					ListNestedAttribute: datasource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list nested array type, required."),
-					},
+					Name:                     "nested_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list nested array type, required."),
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: datasource.Float64Attribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a nested float64 type."),
-								},
+								Name:                     "nested_float64",
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -772,18 +723,14 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListNestedAttribute{
-					Name: "nested_list_prop",
-					ListNestedAttribute: datasource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -819,25 +766,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					ListNestedAttribute: datasource.ListNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.ListValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.ListValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
 									},
-									SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -876,26 +819,20 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceSetNestedAttribute{
-					Name: "nested_set_prop_required",
-					SetNestedAttribute: datasource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a set nested array type, required."),
-					},
+					Name:                     "nested_set_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a set nested array type, required."),
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: datasource.Float64Attribute{
-									ComputedOptionalRequired: schema.ComputedOptional,
-									Description:              new("hey there! I'm a nested float64 type."),
-								},
+								Name:                     "nested_float64",
+								ComputedOptionalRequired: schema.ComputedOptional,
+								Description:              new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-									Description:              new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
+								Description:              new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -927,18 +864,14 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceSetNestedAttribute{
-					Name: "nested_set_prop",
-					SetNestedAttribute: datasource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					Name:                     "nested_set_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -975,25 +908,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					NestedObject: attrmapper.DataSourceNestedAttributeObject{
 						Attributes: attrmapper.DataSourceAttributes{
 							&attrmapper.DataSourceInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: datasource.Int64Attribute{
-									ComputedOptionalRequired: schema.Required,
-								},
+								Name:                     "nested_int64_required",
+								ComputedOptionalRequired: schema.Required,
 							},
 						},
 					},
-					SetNestedAttribute: datasource.SetNestedAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Validators: []schema.SetValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
-										},
+					ComputedOptionalRequired: schema.Required,
+					Validators: []schema.SetValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
 									},
-									SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -1055,23 +984,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListAttribute{
-					Name: "nested_list_prop",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list of lists."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "nested_list_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list of lists."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -1080,23 +1007,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					},
 				},
 				&attrmapper.DataSourceListAttribute{
-					Name: "nested_list_prop_required",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a list of lists, required."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:                     "nested_list_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a list of lists, required."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1165,23 +1090,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceSetAttribute{
-					Name: "nested_set_prop",
-					SetAttribute: datasource.SetAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a set of sets."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "nested_set_prop",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a set of sets."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -1190,23 +1113,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					},
 				},
 				&attrmapper.DataSourceSetAttribute{
-					Name: "nested_set_prop_required",
-					SetAttribute: datasource.SetAttribute{
-						ComputedOptionalRequired: schema.Required,
-						Description:              new("hey there! I'm a set of sets, required."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:                     "nested_set_prop_required",
+					ComputedOptionalRequired: schema.Required,
+					Description:              new("hey there! I'm a set of sets, required."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1275,23 +1196,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.DataSourceAttributes{
 				&attrmapper.DataSourceListAttribute{
-					Name: "list_with_map",
-					ListAttribute: datasource.ListAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a list with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "nested_boolean",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "nested_string",
-												String: &schema.StringType{},
-											},
+					Name:                     "list_with_map",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a list with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "nested_boolean",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "nested_string",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1300,23 +1219,21 @@ func TestBuildCollectionDataSource(t *testing.T) {
 					},
 				},
 				&attrmapper.DataSourceSetAttribute{
-					Name: "set_with_map",
-					SetAttribute: datasource.SetAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a set with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "nested_float64",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "nested_int64",
-												Int64: &schema.Int64Type{},
-											},
+					Name:                     "set_with_map",
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a set with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "nested_float64",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "nested_int64",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -1384,26 +1301,20 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListNestedAttribute{
-					Name: "nested_list_prop_required",
-					ListNestedAttribute: provider.ListNestedAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a list nested array type, required."),
-					},
+					Name:             "nested_list_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a list nested array type, required."),
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: provider.Float64Attribute{
-									OptionalRequired: schema.Optional,
-									Description:      new("hey there! I'm a nested float64 type."),
-								},
+								Name:             "nested_float64",
+								OptionalRequired: schema.Optional,
+								Description:      new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-									Description:      new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
+								Description:      new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -1434,18 +1345,14 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListNestedAttribute{
-					Name: "nested_list_prop",
-					ListNestedAttribute: provider.ListNestedAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					Name:               "nested_list_prop",
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -1481,25 +1388,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
-					ListNestedAttribute: provider.ListNestedAttribute{
-						OptionalRequired: schema.Required,
-						Validators: []schema.ListValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
-										},
+					OptionalRequired: schema.Required,
+					Validators: []schema.ListValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/listvalidator",
 									},
-									SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "listvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -1538,26 +1441,20 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderSetNestedAttribute{
-					Name: "nested_set_prop_required",
-					SetNestedAttribute: provider.SetNestedAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a set nested array type, required."),
-					},
+					Name:             "nested_set_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a set nested array type, required."),
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderFloat64Attribute{
-								Name: "nested_float64",
-								Float64Attribute: provider.Float64Attribute{
-									OptionalRequired: schema.Optional,
-									Description:      new("hey there! I'm a nested float64 type."),
-								},
+								Name:             "nested_float64",
+								OptionalRequired: schema.Optional,
+								Description:      new("hey there! I'm a nested float64 type."),
 							},
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-									Description:      new("hey there! I'm a nested int64 type, required."),
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
+								Description:      new("hey there! I'm a nested int64 type, required."),
 							},
 						},
 					},
@@ -1589,18 +1486,14 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderSetNestedAttribute{
-					Name: "nested_set_prop",
-					SetNestedAttribute: provider.SetNestedAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					Name:               "nested_set_prop",
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
@@ -1637,25 +1530,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 					NestedObject: attrmapper.ProviderNestedAttributeObject{
 						Attributes: attrmapper.ProviderAttributes{
 							&attrmapper.ProviderInt64Attribute{
-								Name: "nested_int64_required",
-								Int64Attribute: provider.Int64Attribute{
-									OptionalRequired: schema.Required,
-								},
+								Name:             "nested_int64_required",
+								OptionalRequired: schema.Required,
 							},
 						},
 					},
-					SetNestedAttribute: provider.SetNestedAttribute{
-						OptionalRequired: schema.Required,
-						Validators: []schema.SetValidator{
-							{
-								Custom: &schema.CustomValidator{
-									Imports: []code.Import{
-										{
-											Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
-										},
+					OptionalRequired: schema.Required,
+					Validators: []schema.SetValidator{
+						{
+							Custom: &schema.CustomValidator{
+								Imports: []code.Import{
+									{
+										Path: "github.com/hashicorp/terraform-plugin-framework-validators/setvalidator",
 									},
-									SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 								},
+								SchemaDefinition: "setvalidator.SizeAtLeast(1)",
 							},
 						},
 					},
@@ -1717,23 +1606,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListAttribute{
-					Name: "nested_list_prop",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a list of lists."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:             "nested_list_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a list of lists."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -1742,23 +1629,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 					},
 				},
 				&attrmapper.ProviderListAttribute{
-					Name: "nested_list_prop_required",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a list of lists, required."),
-						ElementType: schema.ElementType{
-							List: &schema.ListType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:             "nested_list_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a list of lists, required."),
+					ElementType: schema.ElementType{
+						List: &schema.ListType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1827,23 +1712,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderSetAttribute{
-					Name: "nested_set_prop",
-					SetAttribute: provider.SetAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a set of sets."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "float64_prop",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "int64_prop",
-												Int64: &schema.Int64Type{},
-											},
+					Name:             "nested_set_prop",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a set of sets."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "float64_prop",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "int64_prop",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},
@@ -1852,23 +1735,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 					},
 				},
 				&attrmapper.ProviderSetAttribute{
-					Name: "nested_set_prop_required",
-					SetAttribute: provider.SetAttribute{
-						OptionalRequired: schema.Required,
-						Description:      new("hey there! I'm a set of sets, required."),
-						ElementType: schema.ElementType{
-							Set: &schema.SetType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "bool_prop",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "string_prop",
-												String: &schema.StringType{},
-											},
+					Name:             "nested_set_prop_required",
+					OptionalRequired: schema.Required,
+					Description:      new("hey there! I'm a set of sets, required."),
+					ElementType: schema.ElementType{
+						Set: &schema.SetType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "bool_prop",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "string_prop",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1937,23 +1818,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 			},
 			expectedAttributes: attrmapper.ProviderAttributes{
 				&attrmapper.ProviderListAttribute{
-					Name: "list_with_map",
-					ListAttribute: provider.ListAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a list with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name: "nested_boolean",
-												Bool: &schema.BoolType{},
-											},
-											{
-												Name:   "nested_string",
-												String: &schema.StringType{},
-											},
+					Name:             "list_with_map",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a list with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name: "nested_boolean",
+											Bool: &schema.BoolType{},
+										},
+										{
+											Name:   "nested_string",
+											String: &schema.StringType{},
 										},
 									},
 								},
@@ -1962,23 +1841,21 @@ func TestBuildCollectionProvider(t *testing.T) {
 					},
 				},
 				&attrmapper.ProviderSetAttribute{
-					Name: "set_with_map",
-					SetAttribute: provider.SetAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a set with a nested map of objects."),
-						ElementType: schema.ElementType{
-							Map: &schema.MapType{
-								ElementType: schema.ElementType{
-									Object: &schema.ObjectType{
-										AttributeTypes: []schema.ObjectAttributeType{
-											{
-												Name:    "nested_float64",
-												Float64: &schema.Float64Type{},
-											},
-											{
-												Name:  "nested_int64",
-												Int64: &schema.Int64Type{},
-											},
+					Name:             "set_with_map",
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a set with a nested map of objects."),
+					ElementType: schema.ElementType{
+						Map: &schema.MapType{
+							ElementType: schema.ElementType{
+								Object: &schema.ObjectType{
+									AttributeTypes: []schema.ObjectAttributeType{
+										{
+											Name:    "nested_float64",
+											Float64: &schema.Float64Type{},
+										},
+										{
+											Name:  "nested_int64",
+											Int64: &schema.Int64Type{},
 										},
 									},
 								},

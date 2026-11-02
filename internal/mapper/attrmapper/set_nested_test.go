@@ -29,10 +29,8 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -45,34 +43,26 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested string description"),
 						},
 					},
 				},
-				ListNestedAttribute: resource.ListNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("list nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("list nested description"),
 			},
 			expectedAttribute: &attrmapper.ResourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -81,11 +71,9 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
@@ -99,36 +87,28 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.ResourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old set nested description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -137,11 +117,9 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Computed,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Computed,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
@@ -155,36 +133,28 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.ResourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old set nested description"),
 			},
 		},
 		"nil description - merge": {
@@ -193,10 +163,8 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -209,36 +177,28 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.ResourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 		},
 		"empty description - merge": {
@@ -247,11 +207,9 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new(""),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new(""),
 						},
 					},
 				},
@@ -265,36 +223,28 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.ResourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 		},
 		"nested object - merge": {
@@ -303,27 +253,21 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested string description"),
 						},
 						&attrmapper.ResourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.ResourceAttributes{
 								&attrmapper.ResourceStringAttribute{
-									Name: "double_nested_string",
-									StringAttribute: resource.StringAttribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("nested string description"),
-									},
+									Name:                     "double_nested_string",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("nested string description"),
 								},
 							},
-							SingleNestedAttribute: resource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested object description"),
 						},
 					},
 				},
@@ -333,27 +277,21 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested bool description"),
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested bool description"),
 						},
 						&attrmapper.ResourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.ResourceAttributes{
 								&attrmapper.ResourceBoolAttribute{
-									Name: "double_nested_bool",
-									BoolAttribute: resource.BoolAttribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("nested bool description"),
-									},
+									Name:                     "double_nested_bool",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("nested bool description"),
 								},
 							},
-							SingleNestedAttribute: resource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested object description"),
 						},
 					},
 				},
@@ -363,41 +301,31 @@ func TestResourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested string description"),
 						},
 						&attrmapper.ResourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.ResourceAttributes{
 								&attrmapper.ResourceStringAttribute{
-									Name: "double_nested_string",
-									StringAttribute: resource.StringAttribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("nested string description"),
-									},
+									Name:                     "double_nested_string",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("nested string description"),
 								},
 								&attrmapper.ResourceBoolAttribute{
-									Name: "double_nested_bool",
-									BoolAttribute: resource.BoolAttribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("nested bool description"),
-									},
+									Name:                     "double_nested_bool",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("nested bool description"),
 								},
 							},
-							SingleNestedAttribute: resource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested object description"),
 						},
 						&attrmapper.ResourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: resource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested bool description"),
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested bool description"),
 						},
 					},
 				},
@@ -432,10 +360,8 @@ func TestResourceSetNestedAttribute_ApplyOverride(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -452,17 +378,13 @@ func TestResourceSetNestedAttribute_ApplyOverride(t *testing.T) {
 				NestedObject: attrmapper.ResourceNestedAttributeObject{
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: resource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -499,18 +421,14 @@ func TestResourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								Attributes: attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: resource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
@@ -532,24 +450,18 @@ func TestResourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								Attributes: attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: resource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"override double nested attribute": {
@@ -562,18 +474,14 @@ func TestResourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								Attributes: attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: resource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
@@ -594,24 +502,18 @@ func TestResourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.ResourceNestedAttributeObject{
 								Attributes: attrmapper.ResourceAttributes{
 									&attrmapper.ResourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: resource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("new description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("new description"),
 									},
 								},
 							},
-							SetNestedAttribute: resource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
-				SetNestedAttribute: resource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 	}
@@ -643,10 +545,8 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -659,34 +559,26 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested string description"),
 						},
 					},
 				},
-				ListNestedAttribute: datasource.ListNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("list nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("list nested description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -695,11 +587,9 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
@@ -713,36 +603,28 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old set nested description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -751,11 +633,9 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Computed,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Computed,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
@@ -769,36 +649,28 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old set nested description"),
 			},
 		},
 		"nil description - merge": {
@@ -807,10 +679,8 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -823,36 +693,28 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 		},
 		"empty description - merge": {
@@ -861,11 +723,9 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new(""),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new(""),
 						},
 					},
 				},
@@ -879,36 +739,28 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new set nested description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceSetNestedAttribute{
 				Name: "set_nested_attribute",
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new nested string description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new set nested description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new set nested description"),
 			},
 		},
 		"nested object - merge": {
@@ -917,27 +769,21 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested string description"),
 						},
 						&attrmapper.DataSourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.DataSourceAttributes{
 								&attrmapper.DataSourceStringAttribute{
-									Name: "double_nested_string",
-									StringAttribute: datasource.StringAttribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("nested string description"),
-									},
+									Name:                     "double_nested_string",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("nested string description"),
 								},
 							},
-							SingleNestedAttribute: datasource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested object description"),
 						},
 					},
 				},
@@ -947,27 +793,21 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: datasource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested bool description"),
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested bool description"),
 						},
 						&attrmapper.DataSourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.DataSourceAttributes{
 								&attrmapper.DataSourceBoolAttribute{
-									Name: "double_nested_bool",
-									BoolAttribute: datasource.BoolAttribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("nested bool description"),
-									},
+									Name:                     "double_nested_bool",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("nested bool description"),
 								},
 							},
-							SingleNestedAttribute: datasource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested object description"),
 						},
 					},
 				},
@@ -977,41 +817,31 @@ func TestDataSourceSetNestedAttribute_Merge(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested string description"),
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested string description"),
 						},
 						&attrmapper.DataSourceSingleNestedAttribute{
 							Name: "nested_object",
 							Attributes: attrmapper.DataSourceAttributes{
 								&attrmapper.DataSourceStringAttribute{
-									Name: "double_nested_string",
-									StringAttribute: datasource.StringAttribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("nested string description"),
-									},
+									Name:                     "double_nested_string",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("nested string description"),
 								},
 								&attrmapper.DataSourceBoolAttribute{
-									Name: "double_nested_bool",
-									BoolAttribute: datasource.BoolAttribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("nested bool description"),
-									},
+									Name:                     "double_nested_bool",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("nested bool description"),
 								},
 							},
-							SingleNestedAttribute: datasource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("nested object description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("nested object description"),
 						},
 						&attrmapper.DataSourceBoolAttribute{
-							Name: "nested_bool",
-							BoolAttribute: datasource.BoolAttribute{
-								ComputedOptionalRequired: schema.ComputedOptional,
-								Description:              new("nested bool description"),
-							},
+							Name:                     "nested_bool",
+							ComputedOptionalRequired: schema.ComputedOptional,
+							Description:              new("nested bool description"),
 						},
 					},
 				},
@@ -1046,10 +876,8 @@ func TestDataSourceSetNestedAttribute_ApplyOverride(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
@@ -1066,17 +894,13 @@ func TestDataSourceSetNestedAttribute_ApplyOverride(t *testing.T) {
 				NestedObject: attrmapper.DataSourceNestedAttributeObject{
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceStringAttribute{
-							Name: "nested_string",
-							StringAttribute: datasource.StringAttribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_string",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -1113,18 +937,14 @@ func TestDataSourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								Attributes: attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: datasource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
@@ -1146,24 +966,18 @@ func TestDataSourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								Attributes: attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: datasource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("new description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("new description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"override double nested attribute": {
@@ -1176,18 +990,14 @@ func TestDataSourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								Attributes: attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("old description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("old description"),
 									},
 								},
 							},
-							SetNestedAttribute: datasource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
@@ -1208,24 +1018,18 @@ func TestDataSourceSetNestedAttribute_ApplyNestedOverride(t *testing.T) {
 							NestedObject: attrmapper.DataSourceNestedAttributeObject{
 								Attributes: attrmapper.DataSourceAttributes{
 									&attrmapper.DataSourceStringAttribute{
-										Name: "double_nested_attribute",
-										StringAttribute: datasource.StringAttribute{
-											ComputedOptionalRequired: schema.Required,
-											Description:              new("new description"),
-										},
+										Name:                     "double_nested_attribute",
+										ComputedOptionalRequired: schema.Required,
+										Description:              new("new description"),
 									},
 								},
 							},
-							SetNestedAttribute: datasource.SetNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("old description"),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("old description"),
 						},
 					},
 				},
-				SetNestedAttribute: datasource.SetNestedAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 	}

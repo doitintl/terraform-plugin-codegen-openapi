@@ -6,9 +6,6 @@ package oas_test
 import (
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
 	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
 	"github.com/doitintl/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
@@ -66,30 +63,22 @@ func TestBuildSingleNestedResource(t *testing.T) {
 							Name: "nested_obj_prop_required",
 							Attributes: attrmapper.ResourceAttributes{
 								&attrmapper.ResourceFloat64Attribute{
-									Name: "nested_float64",
-									Float64Attribute: resource.Float64Attribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("hey there! I'm a nested float64 type."),
-									},
+									Name:                     "nested_float64",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 								&attrmapper.ResourceInt64Attribute{
-									Name: "nested_int64_required",
-									Int64Attribute: resource.Int64Attribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("hey there! I'm a nested int64 type, required."),
-									},
+									Name:                     "nested_int64_required",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
-							SingleNestedAttribute: resource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("hey there! I'm a single nested object type, required."),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("hey there! I'm a single nested object type, required."),
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a single nested object type."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a single nested object type."),
 				},
 			},
 		},
@@ -115,16 +104,12 @@ func TestBuildSingleNestedResource(t *testing.T) {
 					Name: "nested_obj_prop",
 					Attributes: attrmapper.ResourceAttributes{
 						&attrmapper.ResourceInt64Attribute{
-							Name: "nested_int64_required",
-							Int64Attribute: resource.Int64Attribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_int64_required",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: resource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -193,30 +178,22 @@ func TestBuildSingleNestedDataSource(t *testing.T) {
 							Name: "nested_obj_prop_required",
 							Attributes: attrmapper.DataSourceAttributes{
 								&attrmapper.DataSourceFloat64Attribute{
-									Name: "nested_float64",
-									Float64Attribute: datasource.Float64Attribute{
-										ComputedOptionalRequired: schema.ComputedOptional,
-										Description:              new("hey there! I'm a nested float64 type."),
-									},
+									Name:                     "nested_float64",
+									ComputedOptionalRequired: schema.ComputedOptional,
+									Description:              new("hey there! I'm a nested float64 type."),
 								},
 								&attrmapper.DataSourceInt64Attribute{
-									Name: "nested_int64_required",
-									Int64Attribute: datasource.Int64Attribute{
-										ComputedOptionalRequired: schema.Required,
-										Description:              new("hey there! I'm a nested int64 type, required."),
-									},
+									Name:                     "nested_int64_required",
+									ComputedOptionalRequired: schema.Required,
+									Description:              new("hey there! I'm a nested int64 type, required."),
 								},
 							},
-							SingleNestedAttribute: datasource.SingleNestedAttribute{
-								ComputedOptionalRequired: schema.Required,
-								Description:              new("hey there! I'm a single nested object type, required."),
-							},
+							ComputedOptionalRequired: schema.Required,
+							Description:              new("hey there! I'm a single nested object type, required."),
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						Description:              new("hey there! I'm a single nested object type."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					Description:              new("hey there! I'm a single nested object type."),
 				},
 			},
 		},
@@ -242,16 +219,12 @@ func TestBuildSingleNestedDataSource(t *testing.T) {
 					Name: "nested_obj_prop",
 					Attributes: attrmapper.DataSourceAttributes{
 						&attrmapper.DataSourceInt64Attribute{
-							Name: "nested_int64_required",
-							Int64Attribute: datasource.Int64Attribute{
-								ComputedOptionalRequired: schema.Required,
-							},
+							Name:                     "nested_int64_required",
+							ComputedOptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: datasource.SingleNestedAttribute{
-						ComputedOptionalRequired: schema.ComputedOptional,
-						DeprecationMessage:       new("This attribute is deprecated."),
-					},
+					ComputedOptionalRequired: schema.ComputedOptional,
+					DeprecationMessage:       new("This attribute is deprecated."),
 				},
 			},
 		},
@@ -320,30 +293,22 @@ func TestBuildSingleNestedProvider(t *testing.T) {
 							Name: "nested_obj_prop_required",
 							Attributes: attrmapper.ProviderAttributes{
 								&attrmapper.ProviderFloat64Attribute{
-									Name: "nested_float64",
-									Float64Attribute: provider.Float64Attribute{
-										OptionalRequired: schema.Optional,
-										Description:      new("hey there! I'm a nested float64 type."),
-									},
+									Name:             "nested_float64",
+									OptionalRequired: schema.Optional,
+									Description:      new("hey there! I'm a nested float64 type."),
 								},
 								&attrmapper.ProviderInt64Attribute{
-									Name: "nested_int64_required",
-									Int64Attribute: provider.Int64Attribute{
-										OptionalRequired: schema.Required,
-										Description:      new("hey there! I'm a nested int64 type, required."),
-									},
+									Name:             "nested_int64_required",
+									OptionalRequired: schema.Required,
+									Description:      new("hey there! I'm a nested int64 type, required."),
 								},
 							},
-							SingleNestedAttribute: provider.SingleNestedAttribute{
-								OptionalRequired: schema.Required,
-								Description:      new("hey there! I'm a single nested object type, required."),
-							},
+							OptionalRequired: schema.Required,
+							Description:      new("hey there! I'm a single nested object type, required."),
 						},
 					},
-					SingleNestedAttribute: provider.SingleNestedAttribute{
-						OptionalRequired: schema.Optional,
-						Description:      new("hey there! I'm a single nested object type."),
-					},
+					OptionalRequired: schema.Optional,
+					Description:      new("hey there! I'm a single nested object type."),
 				},
 			},
 		},
@@ -369,16 +334,12 @@ func TestBuildSingleNestedProvider(t *testing.T) {
 					Name: "nested_obj_prop",
 					Attributes: attrmapper.ProviderAttributes{
 						&attrmapper.ProviderInt64Attribute{
-							Name: "nested_int64_required",
-							Int64Attribute: provider.Int64Attribute{
-								OptionalRequired: schema.Required,
-							},
+							Name:             "nested_int64_required",
+							OptionalRequired: schema.Required,
 						},
 					},
-					SingleNestedAttribute: provider.SingleNestedAttribute{
-						OptionalRequired:   schema.Optional,
-						DeprecationMessage: new("This attribute is deprecated."),
-					},
+					OptionalRequired:   schema.Optional,
+					DeprecationMessage: new("This attribute is deprecated."),
 				},
 			},
 		},

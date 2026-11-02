@@ -31,17 +31,13 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: resource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -53,18 +49,14 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old bool description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -76,18 +68,14 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old bool description"),
 			},
 		},
 		"nil description - merge": {
@@ -98,18 +86,14 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 		},
 		"empty description - merge": {
@@ -121,18 +105,14 @@ func TestResourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 		},
 	}
@@ -170,11 +150,9 @@ func TestResourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.ResourceBoolAttribute{
-				Name: "test_attribute",
-				BoolAttribute: resource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
@@ -208,17 +186,13 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceStringAttribute{
-				Name: "string_attribute",
-				StringAttribute: datasource.StringAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("string description"),
-				},
+				Name:                     "string_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("string description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
 			},
 		},
 		"populated description - no merge": {
@@ -230,18 +204,14 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old bool description"),
 			},
 		},
 		"required merge attribute - promote computability": {
@@ -253,18 +223,14 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("old bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("old bool description"),
 			},
 		},
 		"nil description - merge": {
@@ -275,18 +241,14 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 		},
 		"empty description - merge": {
@@ -298,18 +260,14 @@ func TestDataSourceBoolAttribute_Merge(t *testing.T) {
 				},
 			},
 			mergeAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.ComputedOptional,
+				Description:              new("new bool description"),
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "bool_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new bool description"),
-				},
+				Name:                     "bool_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new bool description"),
 			},
 		},
 	}
@@ -347,11 +305,9 @@ func TestDataSourceBoolAttribute_ApplyOverride(t *testing.T) {
 				Description: "new description",
 			},
 			expectedAttribute: &attrmapper.DataSourceBoolAttribute{
-				Name: "test_attribute",
-				BoolAttribute: datasource.BoolAttribute{
-					ComputedOptionalRequired: schema.Required,
-					Description:              new("new description"),
-				},
+				Name:                     "test_attribute",
+				ComputedOptionalRequired: schema.Required,
+				Description:              new("new description"),
 			},
 		},
 	}
